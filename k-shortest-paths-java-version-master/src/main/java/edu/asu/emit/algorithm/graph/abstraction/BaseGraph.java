@@ -46,7 +46,9 @@ public interface BaseGraph {
 	List<BaseVertex> getVertexList();
 	
 	int getEdgeWeight(BaseVertex source, BaseVertex sink);
+	int getEdgeCapacity(BaseVertex source, BaseVertex sink);
 	Set<BaseVertex> getAdjacentVertices(BaseVertex vertex);
 	Set<BaseVertex> getPrecedentVertices(BaseVertex vertex);
+	BaseVertex getVertex(int id);
 	
 }

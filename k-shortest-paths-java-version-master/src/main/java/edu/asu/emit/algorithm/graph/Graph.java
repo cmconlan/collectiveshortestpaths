@@ -55,10 +55,12 @@ import edu.asu.emit.algorithm.utils.Pair;
  * The class defines a directed graph.
  * 
  * @author yqi
+ * @author Tomasz Janus
  */
 public class Graph implements BaseGraph {
 	
 	public static final int DISCONNECTED = Integer.MAX_VALUE;
+	public static final int NO_CAPACITY = 0;
 	
 	// index of fan-outs of one vertex
 	protected Map<Integer, Set<BaseVertex>> fanoutVerticesIndex =
@@ -176,6 +178,7 @@ public class Graph implements BaseGraph {
 					int endVertexId = Integer.parseInt(strList[1]);
 					int weight = Integer.parseInt(strList[2]);
 					int capacity = strList.length > 3 ? Integer.parseInt(strList[3]) : 1;
+					if (capacity > 1) System.out.println("??: " + startVertexId + " " + endVertexId + " " + weight + " " + capacity);
 					addEdge(startVertexId, endVertexId, weight, capacity);
 				}
 				//
@@ -220,13 +223,11 @@ public class Graph implements BaseGraph {
 		}
 		faninVertexSet.add(idVertexIndex.get(startVertexId));
 		faninVerticesIndex.put(endVertexId, faninVertexSet);
-		// store the new edge 
-		vertexPairWeightIndex.put(
-				new Pair<Integer, Integer>(startVertexId, endVertexId), 
-				weight);
-		vertexPairCapacityIndex.put(
-				new Pair<Integer, Integer>(startVertexId, endVertexId), 
-				weight);
+		// store the new edge
+		
+		Pair<Integer, Integer> edgeIds = new Pair<Integer, Integer>(startVertexId, endVertexId);
+		vertexPairWeightIndex.put(edgeIds, weight);
+		vertexPairCapacityIndex.put(edgeIds, capacity);
 		++edgeNum;
 	}
 	
@@ -281,11 +282,17 @@ public class Graph implements BaseGraph {
 	}
 	
 	public int getEdgeWeight(BaseVertex source, BaseVertex sink)	{
-		return vertexPairWeightIndex.containsKey(
-					new Pair<Integer, Integer>(source.getId(), sink.getId()))? 
-							vertexPairWeightIndex.get(
-									new Pair<Integer, Integer>(source.getId(), sink.getId())) 
+		Pair<Integer, Integer> edgeIds = new Pair<Integer, Integer>(source.getId(), sink.getId());
+		return vertexPairWeightIndex.containsKey(edgeIds) ? 
+							vertexPairWeightIndex.get(edgeIds) 
 						  : DISCONNECTED;
+	}
+	
+	public int getEdgeCapacity(BaseVertex source, BaseVertex sink)	{
+		Pair<Integer, Integer> edgeIds = new Pair<Integer, Integer>(source.getId(), sink.getId());
+		return vertexPairCapacityIndex.containsKey(edgeIds)? 
+							vertexPairCapacityIndex.get(edgeIds) 
+						  : NO_CAPACITY;
 	}
 
 	/**

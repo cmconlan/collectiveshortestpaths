@@ -52,7 +52,7 @@ public class YenTopKShortestPathsAlgTest {
 	// between vertex id and node id in input text file. 
 	private static Graph graph = new VariableGraph("data/test_6_2");
 	
-//	@Test
+	@Test
 	public void testDijkstraShortestPathAlg()
 	{
 		System.out.println("Testing Dijkstra Shortest Path Algorithm!");

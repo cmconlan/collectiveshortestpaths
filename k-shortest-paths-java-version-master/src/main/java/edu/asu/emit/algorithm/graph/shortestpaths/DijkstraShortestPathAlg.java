@@ -45,6 +45,7 @@ import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
+import edu.asu.emit.algorithm.utils.Pair;
 
 
 /**
@@ -56,6 +57,8 @@ public class DijkstraShortestPathAlg
 {
 	// Input
 	private final BaseGraph graph;
+	private Map<Pair<BaseVertex, BaseVertex>, int[]> load;
+	private int startTime;
 
 	// Intermediate variables
 	private Set<BaseVertex> determinedVertexSet = new HashSet<BaseVertex>();
@@ -159,12 +162,33 @@ public class DijkstraShortestPathAlg
 		// 2. update the distance passing on current vertex
 		for (BaseVertex curAdjacentVertex : neighborVertexList) {
 			// 2.1 skip if visited before
-			if (determinedVertexSet.contains(curAdjacentVertex)) {
+			if (determinedVertexSet.contains(curAdjacentVertex)) {									// || edge(vertex, curAdjacentVertex) is saturated in
+																									// any timeUnit between in the interval 
+																									// [vertex.getWeight(), 
+																									// 		vertex.getWeight() + edge(vertex, curAdjacentVertex).getWeight)
                 continue;
             }
 			
+			
+			Pair<BaseVertex, BaseVertex> edge = isSource2sink ? 
+					new Pair<BaseVertex, BaseVertex>(vertex, curAdjacentVertex)
+					: new Pair<BaseVertex, BaseVertex> (curAdjacentVertex, vertex);
+			int start = vertex.getWeight();
+			int edgeWeight = isSource2sink ? graph.getEdgeWeight(vertex, curAdjacentVertex)		
+					: graph.getEdgeWeight(curAdjacentVertex, vertex);
+			int finish = start + edgeWeight;
+			
+			boolean cnt = false;
+			if (load.containsKey(edge))																// there was some traffic
+				for (int time = start; time < finish; ++time) { 
+					if (load.get(edge).length > time && 
+							load.get(edge)[time] >= graph.getEdgeCapacity(edge.first(), edge.second())) // if edge is saturated we cannot use it again
+					cnt = true;
+				}
+			if (cnt) continue;
+			
 			// 2.2 calculate the new distance
-			int distance = startVertexDistanceIndex.get(vertex);									//fixed -- Graph.DISCONNECTED should never happen
+			int distance = startVertexDistanceIndex.get(vertex);									// fixed -- Graph.DISCONNECTED should never happen
 			
 			distance += isSource2sink ? graph.getEdgeWeight(vertex, curAdjacentVertex)				// this is OK, since we know that the edge is in the graph
 					: graph.getEdgeWeight(curAdjacentVertex, vertex);
@@ -291,6 +315,24 @@ public class DijkstraShortestPathAlg
 				}
 			}
 		}
+	}
+	
+	
+	//only for debugging purposes
+	public Map<Pair<BaseVertex, BaseVertex>, int[]> getLoad() {										
+		return load;
+	}
+
+	public void setLoad(Map<Pair<BaseVertex, BaseVertex>, int[]> load) {
+		this.load = load;
+	}
+
+	public int getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(int startTime) {
+		this.startTime = startTime;
 	}
 	
 }
