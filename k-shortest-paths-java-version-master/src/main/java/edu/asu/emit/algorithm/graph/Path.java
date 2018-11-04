@@ -44,20 +44,20 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 public class Path implements BaseElementWithWeight {
 	
 	private List<BaseVertex> vertexList = new Vector<BaseVertex>();
-	private double weight = -1;
+	private int weight = -1;
 	
 	public Path() { }
 	
-	public Path(List<BaseVertex> vertexList, double weight) {
+	public Path(List<BaseVertex> vertexList, int weight) {
 		this.vertexList = vertexList;
 		this.weight = weight;
 	}
 
-	public double getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 	
-	public void setWeight(double weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 	

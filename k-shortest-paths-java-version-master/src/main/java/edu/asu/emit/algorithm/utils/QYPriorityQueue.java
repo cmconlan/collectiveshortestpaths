@@ -71,7 +71,7 @@ public class QYPriorityQueue<E extends BaseElementWithWeight> {
 	 * @param weight
 	 * @return the position of the new element
 	 */
-	private int binLocatePos(double weight, boolean isIncremental)	{
+	private int binLocatePos(int weight, boolean isIncremental)	{
 		int mid = 0;
 		int low = 0;
 		int high = elementWeightPairList.size() - 1;

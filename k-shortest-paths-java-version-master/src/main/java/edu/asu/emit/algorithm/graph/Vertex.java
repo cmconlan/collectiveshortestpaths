@@ -41,7 +41,7 @@ public class Vertex implements BaseVertex, Comparable<Vertex> {
 	
 	private static int currentVertexNum = 0; // Uniquely identify each vertex
 	private int id = currentVertexNum++;
-	private double weight = 0;
+	private int weight = 0;
 	
 	public int getId() {
 		return id;
@@ -51,16 +51,16 @@ public class Vertex implements BaseVertex, Comparable<Vertex> {
 		return "" + id;
 	}
 
-	public double getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 	
-	public void setWeight(double status) {
+	public void setWeight(int status) {
 		weight = status;
 	}
 	
 	public int compareTo(Vertex rVertex) {
-		double diff = this.weight - rVertex.weight;
+		int diff = this.weight - rVertex.weight;
 		if (diff > 0) {
 			return 1;
 		} else if (diff < 0) {
