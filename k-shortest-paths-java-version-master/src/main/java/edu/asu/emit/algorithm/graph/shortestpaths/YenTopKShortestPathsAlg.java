@@ -214,7 +214,7 @@ public class YenTopKShortestPathsAlg
 				++generatedPathNum;
 				
 				//3.4.4.1 get the prefix from the concerned path
-				double cost = 0; 
+				int cost = 0; 
 				List<BaseVertex> prePathList = new Vector<BaseVertex>();
 				reverseTree.correctCostBackward(curRecoverVertex);
 				
@@ -248,7 +248,7 @@ public class YenTopKShortestPathsAlg
                     curRecoverVertex.getId(), succVertex.getId()));
 			
 			//3.4.6 update cost if necessary
-			double cost1 = graph.getEdgeWeight(curRecoverVertex, succVertex)
+			int cost1 = graph.getEdgeWeight(curRecoverVertex, succVertex)
 				+ reverseTree.getStartVertexDistanceIndex().get(succVertex);
 			
 			if (reverseTree.getStartVertexDistanceIndex().get(curRecoverVertex) >  cost1) {

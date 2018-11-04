@@ -132,7 +132,7 @@ public class VariableGraph extends Graph {
 	 * @param sink
 	 * @return
 	 */
-	public double getEdgeWeight(BaseVertex source, BaseVertex sink)	{
+	public int getEdgeWeight(BaseVertex source, BaseVertex sink)	{
 		int sourceId = source.getId();
 		int sinkId = sink.getId();
 		

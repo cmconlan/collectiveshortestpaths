@@ -38,6 +38,6 @@ package edu.asu.emit.algorithm.graph.abstraction;
  */
 public interface BaseElementWithWeight {
 	
-	public double getWeight();
+	public int getWeight();
 	
 }

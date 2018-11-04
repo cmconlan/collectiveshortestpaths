@@ -58,7 +58,7 @@ import edu.asu.emit.algorithm.utils.Pair;
  */
 public class Graph implements BaseGraph {
 	
-	public static final double DISCONNECTED = Double.MAX_VALUE;
+	public static final int DISCONNECTED = Integer.MAX_VALUE;
 	
 	// index of fan-outs of one vertex
 	protected Map<Integer, Set<BaseVertex>> fanoutVerticesIndex =
@@ -69,8 +69,11 @@ public class Graph implements BaseGraph {
 		new HashMap<Integer, Set<BaseVertex>>();
 	
 	// index for edge weights in the graph
-	protected Map<Pair<Integer, Integer>, Double> vertexPairWeightIndex = 
-		new HashMap<Pair<Integer, Integer>, Double>();
+	protected Map<Pair<Integer, Integer>, Integer> vertexPairWeightIndex = 
+		new HashMap<Pair<Integer, Integer>, Integer>();
+	
+	protected Map<Pair<Integer, Integer>, Integer> vertexPairCapacityIndex = 
+			new HashMap<Pair<Integer, Integer>, Integer>();
 	
 	// index for vertices in the graph
 	protected Map<Integer, BaseVertex> idVertexIndex = 
@@ -171,8 +174,9 @@ public class Graph implements BaseGraph {
 					
 					int startVertexId = Integer.parseInt(strList[0]);
 					int endVertexId = Integer.parseInt(strList[1]);
-					double weight = Double.parseDouble(strList[2]);
-					addEdge(startVertexId, endVertexId, weight);
+					int weight = Integer.parseInt(strList[2]);
+					int capacity = strList.length > 3 ? Integer.parseInt(strList[3]) : 1;
+					addEdge(startVertexId, endVertexId, weight, capacity);
 				}
 				//
 				line = bufRead.readLine();
@@ -193,7 +197,7 @@ public class Graph implements BaseGraph {
 	 * @param endVertexId
 	 * @param weight
 	 */
-	protected void addEdge(int startVertexId, int endVertexId, double weight) {
+	protected void addEdge(int startVertexId, int endVertexId, int weight, int capacity) {
 		// actually, we should make sure all vertices ids must be correct. 
 		if (!idVertexIndex.containsKey(startVertexId) || 
 			!idVertexIndex.containsKey(endVertexId) || 
@@ -220,6 +224,9 @@ public class Graph implements BaseGraph {
 		vertexPairWeightIndex.put(
 				new Pair<Integer, Integer>(startVertexId, endVertexId), 
 				weight);
+		vertexPairCapacityIndex.put(
+				new Pair<Integer, Integer>(startVertexId, endVertexId), 
+				weight);
 		++edgeNum;
 	}
 	
@@ -235,8 +242,9 @@ public class Graph implements BaseGraph {
 		for (Pair<Integer, Integer> curEdgePair : vertexPairWeightIndex.keySet()) {
 			int startingPtId = curEdgePair.first();
 			int endingPtId = curEdgePair.second();
-			double weight = vertexPairWeightIndex.get(curEdgePair);
-			sb.append(startingPtId + "	" + endingPtId + "	" + weight + "\n");
+			int weight = vertexPairWeightIndex.get(curEdgePair);
+			int capacity = vertexPairCapacityIndex.get(curEdgePair);
+			sb.append(startingPtId + "	" + endingPtId + "	" + weight + "	" + capacity + "\n");
 		}
 		//2. open the file and put the data into the file. 
 		Writer output = null;
@@ -272,7 +280,7 @@ public class Graph implements BaseGraph {
 				: new HashSet<BaseVertex>();
 	}
 	
-	public double getEdgeWeight(BaseVertex source, BaseVertex sink)	{
+	public int getEdgeWeight(BaseVertex source, BaseVertex sink)	{
 		return vertexPairWeightIndex.containsKey(
 					new Pair<Integer, Integer>(source.getId(), sink.getId()))? 
 							vertexPairWeightIndex.get(

@@ -39,7 +39,7 @@ package edu.asu.emit.algorithm.graph.abstraction;
 public interface BaseVertex {
 	
 	int getId();
-	double getWeight();
-	void setWeight(double weight);
+	int getWeight();
+	void setWeight(int weight);
 	
 }
