@@ -37,7 +37,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
  * 
  * @author yqi
  */
-public class Vertex implements BaseVertex, Comparable<Vertex> {
+public class Vertex implements BaseVertex {
 	
 	private static int currentVertexNum = 0; // Uniquely identify each vertex
 	private int id = currentVertexNum++;
@@ -59,8 +59,8 @@ public class Vertex implements BaseVertex, Comparable<Vertex> {
 		weight = status;
 	}
 	
-	public int compareTo(Vertex rVertex) {
-		int diff = this.weight - rVertex.weight;
+	public int compareTo(BaseVertex rVertex) {
+		int diff = this.getWeight() - rVertex.getWeight();
 		if (diff > 0) {
 			return 1;
 		} else if (diff < 0) {

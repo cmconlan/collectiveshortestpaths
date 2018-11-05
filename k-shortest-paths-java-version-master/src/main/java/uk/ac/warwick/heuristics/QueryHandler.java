@@ -11,6 +11,7 @@ import java.util.List;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Pair;
+import edu.asu.emit.algorithm.utils.Query;
 
 /**
  * 
@@ -18,16 +19,19 @@ import edu.asu.emit.algorithm.utils.Pair;
  * @email t.janus@warwick.ac.uk
  *
  * this class transform queries from integers to BaseVertices
+ * it assumes that queries are list of pair of integers 
+ * i.e., each line in the query file is a pair of integers 
+ * query.from query.to
  */
 
 public class QueryHandler {																			
-	private List<Pair<BaseVertex, BaseVertex>> queries;
+	private List<Query> queries;
 	private BufferedReader buffRead;
 	
 	QueryHandler(final BaseGraph graph, String dataFileName) {
 		File f = null;
 		FileReader input;
-		queries = new ArrayList<Pair<BaseVertex, BaseVertex>>();
+		queries = new ArrayList<Query>();
 		try {
 			f = new File(dataFileName);																// throws nullPointerException (if dataFileName is null)
 			input = new FileReader(f);																// throws FileNotFoundException
@@ -47,7 +51,7 @@ public class QueryHandler {
 					int source = Integer.parseInt(items[0]);											// throws IndexOutOfBoundException
 					int sink = Integer.parseInt(items[1]);												// throws IndexOutOfBoundException
 				
-				queries.add(new Pair<BaseVertex, BaseVertex>(graph.getVertex(source), graph.getVertex(sink)));
+				queries.add(new Query(graph.getVertex(source), graph.getVertex(sink)));
 				} catch (IndexOutOfBoundsException e) {
 					System.err.println("WRONG "+ f.getName() + " FORMAT!");
 				}
@@ -61,7 +65,7 @@ public class QueryHandler {
 		}
 	}
 	
-	public List<Pair<BaseVertex, BaseVertex>> getQueries() {
+	public List<Query> getQueries() {
 		return queries;
 	}
 

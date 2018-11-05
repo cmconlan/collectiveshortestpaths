@@ -45,6 +45,7 @@ import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
+import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
 
 
@@ -52,12 +53,15 @@ import edu.asu.emit.algorithm.utils.Pair;
  * @author <a href='mailto:Yan.Qi@asu.edu'>Yan Qi</a>
  * @version $Revision: 430 $
  * @latest $Date: 2008-07-27 16:31:56 -0700 (Sun, 27 Jul 2008) $
+ * 
+ * @author Tomasz Janus
+ * @email t.janus@warwick.ac.uk
  */
 public class DijkstraShortestPathAlg
 {
 	// Input
 	private final BaseGraph graph;
-	private Map<Pair<BaseVertex, BaseVertex>, int[]> load;
+	private Map<Edge, int[]> load;
 	private int startTime;
 
 	// Intermediate variables
@@ -179,7 +183,7 @@ public class DijkstraShortestPathAlg
 			int finish = start + edgeWeight;
 			
 			boolean cnt = false;
-			if (load.containsKey(edge))																// there was some traffic
+			if (load != null && load.containsKey(edge))																// there was some traffic
 				for (int time = start; time < finish; ++time) { 
 					if (load.get(edge).length > time && 
 							load.get(edge)[time] >= graph.getEdgeCapacity(edge.first(), edge.second())) // if edge is saturated we cannot use it again
@@ -319,11 +323,11 @@ public class DijkstraShortestPathAlg
 	
 	
 	//only for debugging purposes
-	public Map<Pair<BaseVertex, BaseVertex>, int[]> getLoad() {										
+	public Map<Edge, int[]> getLoad() {										
 		return load;
 	}
 
-	public void setLoad(Map<Pair<BaseVertex, BaseVertex>, int[]> load) {
+	public void setLoad(Map<Edge, int[]> load) {
 		this.load = load;
 	}
 

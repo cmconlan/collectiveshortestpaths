@@ -10,7 +10,9 @@ import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
+import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
+import edu.asu.emit.algorithm.utils.Query;
 
 
 /**
@@ -22,37 +24,40 @@ import edu.asu.emit.algorithm.utils.Pair;
  */
 public class SequentialDijkstra {
 	
-	private Graph graph;
-	private List<Pair<BaseVertex, BaseVertex>> queries;
-	private Map<Pair<BaseVertex, BaseVertex>, int[]> load;											// for each (edge, time) we keep traffic load
+	protected Graph graph;
+	protected List<Query> queries;
+	protected Map<Edge, int[]> load;											// for each (edge, time) we keep traffic load
 	
 	
 	public SequentialDijkstra(String graphPath, String queriesPath) {								// TODO read load from file
 		graph = new Graph(graphPath);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		queries = queryHandler.getQueries();
-		load = new HashMap<Pair<BaseVertex, BaseVertex>, int[]>();
+		load = new HashMap<Edge, int[]>();
 	}
 	
-	private void updateLoad(Path p, int startTime) {
+	protected void updateLoad(Path p, int startTime, boolean isReplaced) {							// path can be either added or replaced
 		int t = startTime;
 		for (int i = 0; i < p.size() - 1; ++i) {
-			Pair<BaseVertex, BaseVertex> edge = new Pair<BaseVertex, BaseVertex>(p.get(i), p.get(i+1));
+			Edge edge = new Edge(p.get(i), p.get(i+1));
 			int edgeWeight = graph.getEdgeWeight(p.get(i), p.get(i + 1));
 			int[] timeMap;
 			
 			if (load.containsKey(edge)) {
 				timeMap = load.get(edge);
 				
-				if (timeMap.length < t + edgeWeight) {
-					timeMap = Arrays.copyOf(timeMap, t + edgeWeight);								// TODO verify if it works properly
+				if (timeMap.length < t + edgeWeight) {												
+					timeMap = Arrays.copyOf(timeMap, t + edgeWeight);								
 				}
 			} else {
 				timeMap = new int[t + edgeWeight];  												// we need to have loads at least till t + edgeWeight
 			}
 			//increase traffic load where necessary
 			for (int j = 0; j < edgeWeight; ++j) {
-				timeMap[t + j]++;
+				if (isReplaced)
+					timeMap[t + j]--;
+				else 
+					timeMap[t + j]++;
 			}
 			//update load map
 			load.put(edge, timeMap);
@@ -62,9 +67,9 @@ public class SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Pair<BaseVertex, BaseVertex>, Path>> process() {
+	public List<Pair<Pair<BaseVertex, BaseVertex>, Path>> process(boolean capacityAware) {
 		DijkstraShortestPathAlg dijkstra = new DijkstraShortestPathAlg(graph);
-		dijkstra.setLoad(load);																		// dijkstra.load is a reference to SequentialDijkstra.load 
+		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
 																									// (both point to the same object)
 		int startTime = 0;
 		
@@ -75,7 +80,7 @@ public class SequentialDijkstra {
 			if (path.size() > 0){
 				System.out.println("Algorithm found a path from "
 						+ query.first() + " to " + query.second());
-				updateLoad(path, startTime);														// it automatically updates dijkstra.load
+				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}
 			else {
 				System.out.println("Algorithm failed to find a path from " 
@@ -122,7 +127,8 @@ public class SequentialDijkstra {
 	public static void main(String[] args) {
 		
 		SequentialDijkstra seqDijkstra = new SequentialDijkstra("data/graphs/graph1.txt", "data/queries/queries1.txt");
-		List<Pair<Pair<BaseVertex, BaseVertex>, Path>> queriesWithSolutions = seqDijkstra.process();
+		boolean capacityAware = true;
+		List<Pair<Pair<BaseVertex, BaseVertex>, Path>> queriesWithSolutions = seqDijkstra.process(capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			paths.add(queriesWithSolutions.get(i).second());
