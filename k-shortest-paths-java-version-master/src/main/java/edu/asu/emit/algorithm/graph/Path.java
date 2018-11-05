@@ -65,6 +65,20 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 		return vertexList;
 	}
 	
+	public BaseVertex getFirst() {
+		if (!vertexList.isEmpty())
+			return vertexList.get(0);
+		else 
+			return null;
+	}
+	
+	public BaseVertex getLast() {
+		if (!vertexList.isEmpty())
+			return vertexList.get(vertexList.size() - 1);
+		else 
+			return null;
+	}
+	
 	@Override
 	public boolean equals(Object right) {
 		

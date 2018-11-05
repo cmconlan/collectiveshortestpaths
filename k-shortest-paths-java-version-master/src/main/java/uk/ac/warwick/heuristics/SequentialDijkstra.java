@@ -26,17 +26,16 @@ import edu.asu.emit.algorithm.utils.Query;
 public class SequentialDijkstra {
 	
 	protected Graph graph;
-	protected List<Query> queries;
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
+	protected DijkstraShortestPathAlg dijkstra;
 	
 	protected Map<EdgeTime, List<Path>> listOfPaths;												// necessary for DijkstraBasedReplacement
 	
-	public SequentialDijkstra(String graphPath, String queriesPath) {								// TODO read load from file
-		graph = new Graph(graphPath);
-		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
-		queries = queryHandler.getQueries();
+	public SequentialDijkstra(Graph graph) {														// TODO read load from file
+		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
 		listOfPaths = new TreeMap<EdgeTime, List<Path>>();
+		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
 	protected void updateListOfPaths(EdgeTime edgeTime, Path path) {
@@ -47,7 +46,7 @@ public class SequentialDijkstra {
 		listOfPaths.put(edgeTime, paths);
 	}
 	
-	protected void updateLoad(Path p, int startTime, boolean isReplaced) {							// path can be either added or replaced
+	protected void updateLoad(Path p, int startTime, boolean isRemoved) {							// path can be either added or removed
 		int t = startTime;
 		for (int i = 0; i < p.size() - 1; ++i) {
 			Edge edge = new Edge(p.get(i), p.get(i + 1));
@@ -65,7 +64,7 @@ public class SequentialDijkstra {
 			}
 			//increase traffic load where necessary
 			for (int j = 0; j < edgeWeight; ++j) {
-				if (isReplaced)
+				if (isRemoved)
 					timeMap[t + j]--;
 				else {
 					timeMap[t + j]++;
@@ -83,16 +82,15 @@ public class SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Query, Path>> process(boolean capacityAware) {
-		DijkstraShortestPathAlg dijkstra = new DijkstraShortestPathAlg(graph);
-		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
-																									// (both point to the same object)
-		int startTime = 0;
+	public List<Pair<Query, Path>> process(List<Query> queries, int startTime, boolean capacityAware) {
+// 		redundant part (moved to processQuery)
+//		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
+//		else dijkstra.setLoad(null);																// (both point to the same object)
 		
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
 		for (Query query : queries) {
-			Path path = dijkstra.getShortestPath(query.first(), query.second());
+			Path path = processQuery(query, startTime, capacityAware);
 			if (path.size() > 0){
 				System.out.println("Algorithm found a path from "
 						+ query.first() + " to " + query.second());
@@ -105,6 +103,15 @@ public class SequentialDijkstra {
 			result.add(new Pair<Query, Path> (query, path));
 		}
 		return result;																				// our result variable contains failed queries
+	}
+	
+	public Path processQuery(Query query, int startTime, boolean capacityAware) {
+		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
+		else dijkstra.setLoad(null);																// (both point to the same object)
+		
+		Path path = dijkstra.getShortestPath(query.first(), query.second());		
+		
+		return path;
 	}
 
 	
@@ -130,7 +137,7 @@ public class SequentialDijkstra {
 		int totalTravelTime = 0;
 		
 		for (Path path : paths) {
-			if (path.getWeight() == graph.DISCONNECTED) {
+			if (path.getWeight() == Graph.DISCONNECTED) {
 				nFailedPaths++;
 			} else {
 				totalTravelTime += path.getWeight();												// consider double/long long
@@ -142,9 +149,17 @@ public class SequentialDijkstra {
 	
 	public static void main(String[] args) {
 		
-		SequentialDijkstra seqDijkstra = new SequentialDijkstra("data/graphs/graph1.txt", "data/queries/queries1.txt");
-		boolean capacityAware = false;
-		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(capacityAware);
+		String graphPath = "data/graphs/graph1.txt";
+		String queriesPath = "data/queries/queries1.txt";
+		
+		Graph graph = new Graph(graphPath);
+		SequentialDijkstra seqDijkstra = new SequentialDijkstra(graph); 							
+		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
+		
+		
+		int startTime = 0;
+		boolean capacityAware = true;
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), startTime, capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			paths.add(queriesWithSolutions.get(i).second());

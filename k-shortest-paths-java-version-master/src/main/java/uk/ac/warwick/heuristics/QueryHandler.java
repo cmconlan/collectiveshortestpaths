@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
-import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
-import edu.asu.emit.algorithm.utils.Pair;
 import edu.asu.emit.algorithm.utils.Query;
 
 /**
