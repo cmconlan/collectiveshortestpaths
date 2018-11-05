@@ -35,7 +35,7 @@ package edu.asu.emit.algorithm.graph.abstraction;
  * The interface defines a vertex in graph
  * 
  * @author yqi
- * @authos Tomasz Janus
+ * @author Tomasz Janus
  */
 public interface BaseVertex extends Comparable<BaseVertex>{
 	

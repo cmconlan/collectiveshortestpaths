@@ -39,7 +39,7 @@ package edu.asu.emit.algorithm.utils;
  * @param <TYPE1>
  * @param <TYPE2>
  */
-public class Pair<TYPE1, TYPE2> implements Comparable<Pair<TYPE1, TYPE2>>{
+public class Pair<TYPE1 extends Comparable<TYPE1>, TYPE2 extends Comparable<TYPE2>> implements Comparable<Pair<TYPE1, TYPE2>>{
     private final TYPE1 o1;
     private final TYPE2 o2;
     
@@ -78,11 +78,13 @@ public class Pair<TYPE1, TYPE2> implements Comparable<Pair<TYPE1, TYPE2>>{
     }
 
     public String toString() {
-        return "Pair{" + o1 + ", " + o2 + "}";
+        return "Pair{" + first() + ", " + second() + "}";
     }
 
 	public int compareTo(Pair<TYPE1, TYPE2> rhs) {
-		
-		return 0;
+		if (first().compareTo(rhs.first()) != 0) 
+			return first().compareTo(rhs.first());
+		else 
+			return second().compareTo(rhs.second());
 	}
 }

@@ -174,21 +174,22 @@ public class DijkstraShortestPathAlg
             }
 			
 			
-			Pair<BaseVertex, BaseVertex> edge = isSource2sink ? 
-					new Pair<BaseVertex, BaseVertex>(vertex, curAdjacentVertex)
-					: new Pair<BaseVertex, BaseVertex> (curAdjacentVertex, vertex);
+			Edge edge = isSource2sink ? 
+					new Edge(vertex, curAdjacentVertex)
+					: new Edge(curAdjacentVertex, vertex);
 			int start = vertex.getWeight();
 			int edgeWeight = isSource2sink ? graph.getEdgeWeight(vertex, curAdjacentVertex)		
 					: graph.getEdgeWeight(curAdjacentVertex, vertex);
 			int finish = start + edgeWeight;
 			
 			boolean cnt = false;
-			if (load != null && load.containsKey(edge))																// there was some traffic
+			if (load != null && load.containsKey(edge)) {												// there was some traffic
 				for (int time = start; time < finish; ++time) { 
 					if (load.get(edge).length > time && 
 							load.get(edge)[time] >= graph.getEdgeCapacity(edge.first(), edge.second())) // if edge is saturated we cannot use it again
 					cnt = true;
 				}
+			}
 			if (cnt) continue;
 			
 			// 2.2 calculate the new distance

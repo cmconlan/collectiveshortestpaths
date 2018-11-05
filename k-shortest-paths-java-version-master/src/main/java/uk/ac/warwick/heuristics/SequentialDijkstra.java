@@ -5,12 +5,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
+import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
 import edu.asu.emit.algorithm.utils.Query;
 
@@ -26,20 +27,30 @@ public class SequentialDijkstra {
 	
 	protected Graph graph;
 	protected List<Query> queries;
-	protected Map<Edge, int[]> load;											// for each (edge, time) we keep traffic load
+	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
 	
+	protected Map<EdgeTime, List<Path>> listOfPaths;												// necessary for DijkstraBasedReplacement
 	
 	public SequentialDijkstra(String graphPath, String queriesPath) {								// TODO read load from file
 		graph = new Graph(graphPath);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		queries = queryHandler.getQueries();
 		load = new HashMap<Edge, int[]>();
+		listOfPaths = new TreeMap<EdgeTime, List<Path>>();
+	}
+	
+	protected void updateListOfPaths(EdgeTime edgeTime, Path path) {
+		List<Path> paths = listOfPaths.get(edgeTime);
+		if (paths == null) 
+			paths = new ArrayList<Path>(); 
+		paths.add(path);
+		listOfPaths.put(edgeTime, paths);
 	}
 	
 	protected void updateLoad(Path p, int startTime, boolean isReplaced) {							// path can be either added or replaced
 		int t = startTime;
 		for (int i = 0; i < p.size() - 1; ++i) {
-			Edge edge = new Edge(p.get(i), p.get(i+1));
+			Edge edge = new Edge(p.get(i), p.get(i + 1));
 			int edgeWeight = graph.getEdgeWeight(p.get(i), p.get(i + 1));
 			int[] timeMap;
 			
@@ -56,8 +67,13 @@ public class SequentialDijkstra {
 			for (int j = 0; j < edgeWeight; ++j) {
 				if (isReplaced)
 					timeMap[t + j]--;
-				else 
+				else {
 					timeMap[t + j]++;
+					EdgeTime edgeTime= new EdgeTime(edge, t + j);
+					System.out.println(edgeTime + " " + p);
+					
+					updateListOfPaths(edgeTime, p);
+				}
 			}
 			//update load map
 			load.put(edge, timeMap);
@@ -67,15 +83,15 @@ public class SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Pair<BaseVertex, BaseVertex>, Path>> process(boolean capacityAware) {
+	public List<Pair<Query, Path>> process(boolean capacityAware) {
 		DijkstraShortestPathAlg dijkstra = new DijkstraShortestPathAlg(graph);
 		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
 																									// (both point to the same object)
 		int startTime = 0;
 		
-		List<Pair<Pair<BaseVertex, BaseVertex>, Path>> result = new ArrayList<Pair<Pair<BaseVertex, BaseVertex>, Path>>();
+		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
-		for (Pair<BaseVertex, BaseVertex> query : queries) {
+		for (Query query : queries) {
 			Path path = dijkstra.getShortestPath(query.first(), query.second());
 			if (path.size() > 0){
 				System.out.println("Algorithm found a path from "
@@ -86,7 +102,7 @@ public class SequentialDijkstra {
 				System.out.println("Algorithm failed to find a path from " 
 						+ query.first() + " to " + query.second());
 			}
-			result.add(new Pair<Pair<BaseVertex, BaseVertex>, Path> (query, path));
+			result.add(new Pair<Query, Path> (query, path));
 		}
 		return result;																				// our result variable contains failed queries
 	}
@@ -94,7 +110,7 @@ public class SequentialDijkstra {
 	
 	public void showLoad() {
 		System.out.println("Load::");
-		for (Pair<BaseVertex, BaseVertex> edge : load.keySet()) {
+		for (Edge edge : load.keySet()) {
 			System.out.print(edge + " : ");
 			for (int t = 0; t < load.get(edge).length; ++t) {
 				System.out.print("(time = " + t + ", load = "  + load.get(edge)[t] + ", " +
@@ -127,8 +143,8 @@ public class SequentialDijkstra {
 	public static void main(String[] args) {
 		
 		SequentialDijkstra seqDijkstra = new SequentialDijkstra("data/graphs/graph1.txt", "data/queries/queries1.txt");
-		boolean capacityAware = true;
-		List<Pair<Pair<BaseVertex, BaseVertex>, Path>> queriesWithSolutions = seqDijkstra.process(capacityAware);
+		boolean capacityAware = false;
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			paths.add(queriesWithSolutions.get(i).second());
@@ -138,6 +154,8 @@ public class SequentialDijkstra {
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
 		seqDijkstra.showLoad();
+		
+		System.out.println(seqDijkstra.listOfPaths);
 
 		
 	}

@@ -41,7 +41,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
  * 
  * @author yqi
  */
-public class Path implements BaseElementWithWeight {
+public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	private List<BaseVertex> vertexList = new Vector<BaseVertex>();
 	private int weight = -1;
@@ -90,5 +90,13 @@ public class Path implements BaseElementWithWeight {
 	
 	public BaseVertex get(int i) {
 		return vertexList.get(i);
+	}
+
+	public int compareTo(Path rhs) {
+		if (getWeight() < rhs.getWeight()) 
+			return -1;
+		else if (getWeight() == rhs.getWeight()) 
+			return 0;
+		return 1;
 	}
 }
