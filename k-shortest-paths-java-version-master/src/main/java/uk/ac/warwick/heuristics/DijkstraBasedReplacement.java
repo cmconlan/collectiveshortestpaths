@@ -1,8 +1,10 @@
 package uk.ac.warwick.heuristics;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -46,23 +48,51 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		}
 		
 		for (EdgeTime edgeTime : problematicEdges) {
-			while (load.get(edgeTime.first())[edgeTime.second()] 
+			while (load.get(edgeTime.first())[edgeTime.second()] 									
 					> graph.getEdgeCapacity(edgeTime.first().first(), edgeTime.first().second())) {
 				// create Heap h
-				Queue<Path> queue = new PriorityQueue<Path>();
-				
-				for (Path oldPath : listOfPaths.get(edgeTime)) {
-					updateLoad(oldPath, startTime, true);											// we don't want to consider path p in our trafficLoad
-					Query query = new Query(oldPath.getFirst(), oldPath.getLast());
-					Path newPath = super.processQuery(query, startTime, true);						
-					
-					if (newPath.size() > 0){
-						queue.add(newPath);
-					}
-					// we need to restore previous state of the world 
-					updateLoad(oldPath, startTime, false);											// [TODO] do not modify listOfPaths
-					
+				Set<Path> heap = new TreeSet<Path>();
+				List<Path> pathsToReplace = new ArrayList<Path>();
+				Map<Path, Path> oldPathIndex = new HashMap<Path, Path>();
+				for (Path path : listOfPaths.get(edgeTime)) {
+					 pathsToReplace.add(path);
 				}
+				
+				for (Path oldPath : pathsToReplace) {
+					updateLoad(oldPath, startTime, true);
+					Query query = new Query(oldPath.getFirst(), oldPath.getLast());
+					
+					Path newPath = super.processQuery(query, startTime, true);
+					if (newPath.size() > 0) {
+						heap.add(newPath);
+						oldPathIndex.put(newPath, oldPath);
+					}
+					
+					updateLoad(oldPath, startTime, false);											//restoring former state of the world
+				}
+				
+				if (heap.isEmpty()) break;															// we haven't found any good candidate
+				
+				Iterator<Path> iterator = heap.iterator();
+				
+				//heap was non-empty hence iterator hasNext()
+				
+				Path newPath = iterator.next();
+				Path oldPath = oldPathIndex.get(newPath);
+				
+				//update state of the world (i.e., replace those paths in our traffic load)
+				updateLoad(oldPath, startTime, true);
+				updateLoad(newPath, startTime, false);
+				
+				
+																									//[TODO] Lookup in results doesn't work
+				Query query = new Query(oldPath.getFirst(), oldPath.getLast());
+//				System.out.println("HERE");
+//				System.out.println(result.contains(new Pair<Query, Path> (query, oldPath)));
+//				System.out.println(result);
+//				System.out.println(new Pair<Query, Path> (query, oldPath));
+				result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)), new Pair<Query, Path> (query, newPath));
+				
 			}
 		}
 		
@@ -72,8 +102,8 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	}
 
 	public static void main(String[] args) {
-		String graphPath = "data/graphs/graph1.txt";
-		String queriesPath = "data/queries/queries1.txt";
+		String graphPath = "data/graphs/graph2.txt";
+		String queriesPath = "data/queries/queries2.txt";
 		
 		Graph graph = new Graph(graphPath);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);

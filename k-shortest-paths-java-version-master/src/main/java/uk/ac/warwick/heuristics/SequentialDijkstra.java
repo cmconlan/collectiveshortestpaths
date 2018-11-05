@@ -46,7 +46,8 @@ public class SequentialDijkstra {
 		listOfPaths.put(edgeTime, paths);
 	}
 	
-	protected void updateLoad(Path p, int startTime, boolean isRemoved) {							// path can be either added or removed
+	protected void updateLoad(Path p, int startTime, boolean isRemoved) {								// path can be either added or removed
+		
 		int t = startTime;
 		for (int i = 0; i < p.size() - 1; ++i) {
 			Edge edge = new Edge(p.get(i), p.get(i + 1));
