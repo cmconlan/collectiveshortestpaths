@@ -31,12 +31,13 @@ public class SequentialDijkstra {
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
 	protected DijkstraShortestPathAlg dijkstra;
 	
-	protected Map<EdgeTime, Set<Path>> listOfPaths;												// necessary for DijkstraBasedReplacement
+	protected Map<EdgeTime, Set<Path>> listOfPaths;													// necessary for DijkstraBasedReplacement
 	
 	public SequentialDijkstra(Graph graph) {														// TODO read load from file
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
-		listOfPaths = new TreeMap<EdgeTime, Set<Path>>();
+		listOfPaths = new HashMap<EdgeTime, Set<Path>>();											// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
+																									// that is used in Dijkstra (i.e., compares weights) not ids
 		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
@@ -75,9 +76,11 @@ public class SequentialDijkstra {
 				else {
 					timeMap[t + j]++;
 					EdgeTime edgeTime= new EdgeTime(edge, t + j);
-					System.out.println(edgeTime + " " + p);
+//					System.out.println(edgeTime + " " + p);
 					
+//					System.out.println("inner_before: " + listOfPaths);
 					updateListOfPaths(edgeTime, p, false);
+//					System.out.println("inner_after: " + listOfPaths);
 				}
 			}
 			//update load map
