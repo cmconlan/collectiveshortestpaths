@@ -5,8 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Query;
@@ -23,13 +24,13 @@ import edu.asu.emit.algorithm.utils.Query;
  */
 
 public class QueryHandler {																			
-	private List<Query> queries;
+	private Map<Integer, Query> queries;
 	private BufferedReader buffRead;
 	
 	QueryHandler(final BaseGraph graph, String dataFileName) {
 		File f = null;
 		FileReader input;
-		queries = new ArrayList<Query>();
+		queries = new HashMap<Integer, Query>();
 		try {
 			f = new File(dataFileName);																// throws nullPointerException (if dataFileName is null)
 			input = new FileReader(f);																// throws FileNotFoundException
@@ -48,8 +49,13 @@ public class QueryHandler {
 				try {
 					int source = Integer.parseInt(items[0]);											// throws IndexOutOfBoundException
 					int sink = Integer.parseInt(items[1]);												// throws IndexOutOfBoundException
+					int startTime = 0;
+					if (items.length > 2) {
+						startTime = Integer.parseInt(items[2]);
+					}
+				Query query = new Query(graph.getVertex(source), graph.getVertex(sink), startTime);
+				queries.put(query.getId(), query);
 				
-				queries.add(new Query(graph.getVertex(source), graph.getVertex(sink)));
 				} catch (IndexOutOfBoundsException e) {
 					System.err.println("WRONG "+ f.getName() + " FORMAT!");
 				}
@@ -63,8 +69,12 @@ public class QueryHandler {
 		}
 	}
 	
-	public List<Query> getQueries() {
+	public Map<Integer, Query> getQueries() {
 		return queries;
+	}
+	
+	public Query getQuery(int id) {
+		return queries.get(id);
 	}
 
 }
