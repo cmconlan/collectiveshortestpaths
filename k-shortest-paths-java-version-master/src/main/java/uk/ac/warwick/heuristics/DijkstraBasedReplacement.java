@@ -66,7 +66,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				}
 				
 				
-				System.out.println("Path to replace: " + pathsToReplace);
+				System.out.println("Paths to replace: " + pathsToReplace);
 				for (Path oldPath : pathsToReplace) {
 					updateLoad(oldPath, startTime, true);
 					Set<Integer> queriesIds = path2queries.get(oldPath);
