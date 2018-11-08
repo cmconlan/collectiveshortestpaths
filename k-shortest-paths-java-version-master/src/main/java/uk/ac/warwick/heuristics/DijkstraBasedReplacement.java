@@ -32,7 +32,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 																									// ignoring capacities
 		
 		Map<Path, Set<Integer>> path2queries = new HashMap<Path, Set<Integer>>();					// we need to be able to figure out which query solves our resulting path					
-		for (Pair<Integer, Path> pair : result) {													// [TODO] what if we have 2 identical paths
+		for (Pair<Integer, Path> pair : result) {													// [TODO] what if we have 2 identical paths [SOLVED by queriesSet]
 			Set<Integer> queriesSet = path2queries.get(pair.second());
 			if (queriesSet == null) {
 				queriesSet = new HashSet<Integer>();

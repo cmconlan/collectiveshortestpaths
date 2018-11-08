@@ -143,7 +143,7 @@ public class SequentialDijkstra {
 			if (path.getWeight() == Graph.DISCONNECTED) {
 				nFailedPaths++;
 			} else {
-				totalTravelTime += path.getWeight();												// consider double/long long
+				totalTravelTime += path.getWeight();												// [TODO] consider double/long long
 			}
 		}
 		return new Pair<Integer,Integer>(nFailedPaths, totalTravelTime);
