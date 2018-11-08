@@ -55,11 +55,8 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		}
 		
 		for (EdgeTime edgeTime : problematicEdges) {
-//			System.out.println("EdgeTime: " + edgeTime);
 			while (load.get(edgeTime.first())[edgeTime.second()] 									
 					> graph.getEdgeCapacity(edgeTime.first().first(), edgeTime.first().second())) {
-//				System.out.println("EdgeTimeLoad: " + load.get(edgeTime.first())[edgeTime.second()]  + 
-//						"/" + graph.getEdgeCapacity(edgeTime.first().first(), edgeTime.first().second()));
 				// create Heap h
 				Set<Path> heap = new TreeSet<Path>();
 				List<Path> pathsToReplace = new ArrayList<Path>();
@@ -69,17 +66,13 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				}
 				
 				
-				System.out.println("ptr: " + pathsToReplace);
+				System.out.println("Path to replace: " + pathsToReplace);
 				for (Path oldPath : pathsToReplace) {
 					updateLoad(oldPath, startTime, true);
 					Set<Integer> queriesIds = path2queries.get(oldPath);
-//					System.out.println("--Here--");
-//					System.out.println("oldPath: " + oldPath);
-//					System.out.println("ids: " + queriesIds);
 					Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
 					int queryId = queriesIdsIterator.next();	
 					Query query = queries.get(queryId);
-//					System.out.println("query: " + query);
 					
 					Path newPath = super.processQuery(query, startTime, true);
 					if (newPath.size() > 0) {
@@ -89,55 +82,38 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					
 					updateLoad(oldPath, startTime, false);											// restoring former state of the world
 				}
-//				System.out.println("??");
-				if (heap.isEmpty()) {
-					System.out.println("sth went wrong"); 											// we haven't found any good candidate
+				
+				//empty heap case
+				
+				if (heap.isEmpty()) {																// we haven't found any good candidate
+					System.out.println("Couldn't find a good replacement for " + 
+							edgeTime.first() + " at time " + edgeTime.second());
+					
+																									//lets just pick a random path and replace it with empty path					
+					Path oldPath = pathsToReplace.get(0);
+					Path newPath = new Path();
+					newPath.setWeight(Graph.DISCONNECTED);
+					
+					int queryId = switchPaths(oldPath, newPath, startTime, path2queries);
+					result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
+							new Pair<Integer, Path>(queryId, newPath));	
+					
+					System.out.println("Decided to replace queryId = " + queryId + 
+							" with an empty path.");
+					
 					break; 
 				}															
 				
-//				System.out.println("heap: " + heap);
-				
 				Iterator<Path> heapIterator = heap.iterator();
 				
-				//heap was non-empty hence iterator hasNext()
+				//heap is non-empty hence iterator hasNext()
 				
 				Path newPath = heapIterator.next();
 				Path oldPath = new2old.get(newPath);
 				
-				//update state of the world (i.e., replace those paths in our traffic load)
-				updateLoad(oldPath, startTime, true);
-//				System.out.println("before: " + listOfPaths);
-				updateLoad(newPath, startTime, false);
-//				System.out.println("after: " + listOfPaths);
-				
-				
-				Set<Integer> queriesIds = path2queries.get(oldPath);
-				Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
-				int queryId = queriesIdsIterator.next();	
-																									
-//				Query query = queries.get(queryId);
-//				System.out.println("HERE");
-//				System.out.println(result.contains(new Pair<Query, Path> (query, oldPath)));
-//				System.out.println(new Pair<Integer, Path>(queryId, oldPath));
-//				System.out.println(new Pair<Integer, Path>(queryId, newPath));
-//				System.out.println(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)));
-//				System.out.println(result);
-				
-				result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), new Pair<Integer, Path>(queryId, newPath));
-				
-//				System.out.println(result);
-				
-				//remove our paths from path2queries set											//should work since we can't replace the same path twice
-				queriesIdsIterator.remove();
-				
-//				System.out.println("--here 2--");
-//				System.out.println(queriesIds);
-				
-				//erase oldPath from listOfPaths
-//				if (queriesIds.isEmpty())
-//					updateListOfPaths(edgeTime, oldPath, true);
-				
-				
+				int queryId = switchPaths(oldPath, newPath, startTime, path2queries);
+				result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
+						new Pair<Integer, Path>(queryId, newPath));
 				
 			}
 		}
@@ -145,6 +121,29 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		
 		// our result 
 		return result;
+	}
+	
+	/**
+	 * Function updates traffic load i.e., erase oldPath and add newPath to the traffic load data structure
+	 * and returns queryId that is fixing 
+	 * @param oldPath
+	 * @param newPath
+	 * @param startTime
+	 * @param path2queries
+	 * @return
+	 */
+	public int switchPaths(Path oldPath, Path newPath, int startTime, Map<Path, Set<Integer>> path2queries) {	// [TODO] think about better name for this function
+		//update state of the world (i.e., replace those paths in our traffic load)
+		updateLoad(oldPath, startTime, true);
+		if (newPath.size() > 0)
+			updateLoad(newPath, startTime, false);
+		
+		Set<Integer> queriesIds = path2queries.get(oldPath);
+		Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
+		int queryId = queriesIdsIterator.next();
+		//remove our paths from path2queries set													//should work since we can't replace the same path twice
+		queriesIdsIterator.remove();
+		return queryId;
 	}
 
 	public static void main(String[] args) {

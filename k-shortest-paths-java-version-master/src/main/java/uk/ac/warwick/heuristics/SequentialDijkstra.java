@@ -76,11 +76,7 @@ public class SequentialDijkstra {
 				else {
 					timeMap[t + j]++;
 					EdgeTime edgeTime= new EdgeTime(edge, t + j);
-//					System.out.println(edgeTime + " " + p);
-					
-//					System.out.println("inner_before: " + listOfPaths);
 					updateListOfPaths(edgeTime, p, false);
-//					System.out.println("inner_after: " + listOfPaths);
 				}
 			}
 			//update load map
@@ -92,9 +88,6 @@ public class SequentialDijkstra {
 	
 	
 	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, int startTime, boolean capacityAware) {
-// 		redundant part (moved to processQuery)
-//		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
-//		else dijkstra.setLoad(null);																// (both point to the same object)
 		
 		List<Pair<Integer, Path>> result = new ArrayList<Pair<Integer, Path>>();
 		
