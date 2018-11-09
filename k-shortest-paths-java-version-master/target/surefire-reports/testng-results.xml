@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="193" started-at="2018-11-02T14:48:18Z" finished-at="2018-11-02T14:48:18Z">
+  <suite name="Surefire suite" duration-ms="257" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="193" started-at="2018-11-02T14:48:18Z" finished-at="2018-11-02T14:48:18Z">
+    <test name="Surefire test" duration-ms="257" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
       <class name="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest">
-        <test-method status="PASS" signature="testYenShortestPathsAlg4MultipleGraphs()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@c39f790]" name="testYenShortestPathsAlg4MultipleGraphs" duration-ms="21" started-at="2018-11-02T14:48:18Z" finished-at="2018-11-02T14:48:18Z">
+        <test-method status="PASS" signature="testDijkstraShortestPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@445b84c0]" name="testDijkstraShortestPathAlg" duration-ms="2" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testDijkstraShortestPathAlg -->
+        <test-method status="PASS" signature="testYenShortestPathsAlg4MultipleGraphs()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@445b84c0]" name="testYenShortestPathsAlg4MultipleGraphs" duration-ms="17" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testYenShortestPathsAlg4MultipleGraphs -->
       </class> <!-- edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest -->
       <class name="edu.asu.emit.qyan.test.ShortestPathAlgTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@7a92922]" name="setUp" is-config="true" duration-ms="127" started-at="2018-11-02T14:48:18Z" finished-at="2018-11-02T14:48:18Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testShorstPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@7a92922]" name="testShorstPathAlg" duration-ms="24" started-at="2018-11-02T14:48:18Z" finished-at="2018-11-02T14:48:18Z">
+        <test-method status="PASS" signature="testShorstPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@61a52fbd]" name="testShorstPathAlg" duration-ms="28" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testShorstPathAlg -->
       </class> <!-- edu.asu.emit.qyan.test.ShortestPathAlgTest -->
+      <class name="uk.ac.warwick.thomas.test.SequentialDijkstraTest">
+        <test-method status="PASS" signature="seqDijkstraTest()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@61443d8f]" name="seqDijkstraTest" duration-ms="8" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- seqDijkstraTest -->
+      </class> <!-- uk.ac.warwick.thomas.test.SequentialDijkstraTest -->
+      <class name="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@1c53fd30]" name="setUp" is-config="true" duration-ms="26" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@61443d8f]" name="setUp" is-config="true" duration-ms="2" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@61a52fbd]" name="setUp" is-config="true" duration-ms="125" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="dijkstraBasedReplacementTest()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@1c53fd30]" name="dijkstraBasedReplacementTest" duration-ms="17" started-at="2018-11-09T12:48:42Z" finished-at="2018-11-09T12:48:42Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- dijkstraBasedReplacementTest -->
+      </class> <!-- uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest -->
     </test> <!-- Surefire test -->
   </suite> <!-- Surefire suite -->
 </testng-results>

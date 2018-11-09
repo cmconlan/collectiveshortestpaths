@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods,   2 passed</span>
+                    <span class="method-stats">5 methods,   5 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,6 +99,21 @@
                       <a href="#" panel-name="suite-Surefire_suite" class="show-methods passed suite-Surefire_suite"> (show)</a> <!-- show-methods passed suite-Surefire_suite -->
                     </span>
                     <div class="method-list-content passed suite-Surefire_suite">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" hash-for-method="dijkstraBasedReplacementTest">dijkstraBasedReplacementTest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="uk.ac.warwick.thomas.test.SequentialDijkstraTest" hash-for-method="seqDijkstraTest">seqDijkstraTest</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest" hash-for-method="testDijkstraShortestPathAlg">testDijkstraShortestPathAlg</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="edu.asu.emit.qyan.test.ShortestPathAlgTest" hash-for-method="testShorstPathAlg">testShorstPathAlg</a> <!-- method navigator-link -->
@@ -124,9 +139,46 @@
           <div class="suite-Surefire_suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
+              <span class="class-name">uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="dijkstraBasedReplacementTest">
+                  </a> <!-- dijkstraBasedReplacementTest -->
+                  <span class="method-name">dijkstraBasedReplacementTest</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Surefire_suite-class-passed -->
+          <div class="suite-Surefire_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">uk.ac.warwick.thomas.test.SequentialDijkstraTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="seqDijkstraTest">
+                  </a> <!-- seqDijkstraTest -->
+                  <span class="method-name">seqDijkstraTest</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Surefire_suite-class-passed -->
+          <div class="suite-Surefire_suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
               <span class="class-name">edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="testDijkstraShortestPathAlg">
+                  </a> <!-- testDijkstraShortestPathAlg -->
+                  <span class="method-name">testDijkstraShortestPathAlg</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
                   <a name="testYenShortestPathsAlg4MultipleGraphs">
@@ -164,6 +216,8 @@
     &lt;classes&gt;
       &lt;class name=&quot;edu.asu.emit.qyan.test.ShortestPathAlgTest&quot;/&gt;
       &lt;class name=&quot;edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest&quot;/&gt;
+      &lt;class name=&quot;uk.ac.warwick.thomas.test.SequentialDijkstraTest&quot;/&gt;
+      &lt;class name=&quot;uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Surefire test --&gt;
 &lt;/suite&gt; &lt;!-- Surefire suite --&gt;
@@ -177,7 +231,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Surefire test (2 classes)</span>
+                <span class="test-name">Surefire test (4 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -203,20 +257,32 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(5);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testShorstPathAlg')
 data.setCell(0, 2, 'edu.asu.emit.qyan.test.ShortestPathAlgTest')
-data.setCell(0, 3, 24);
+data.setCell(0, 3, 28);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'testYenShortestPathsAlg4MultipleGraphs')
-data.setCell(1, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
-data.setCell(1, 3, 21);
+data.setCell(1, 1, 'dijkstraBasedReplacementTest')
+data.setCell(1, 2, 'uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest')
+data.setCell(1, 3, 17);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'testYenShortestPathsAlg4MultipleGraphs')
+data.setCell(2, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
+data.setCell(2, 3, 17);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'seqDijkstraTest')
+data.setCell(3, 2, 'uk.ac.warwick.thomas.test.SequentialDijkstraTest')
+data.setCell(3, 3, 8);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'testDijkstraShortestPathAlg')
+data.setCell(4, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
+data.setCell(4, 3, 2);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 45 ms</span>
+              <span class="suite-total-time">Total running time: 72 ms</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -242,21 +308,53 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">edu.asu.emit.qyan.test.ShortestPathAlgTest</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">setUp</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">uk.ac.warwick.thomas.test.SequentialDijkstraTest</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">27 ms</span>
+              </div> <!-- configuration-test before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">edu.asu.emit.qyan.test.ShortestPathAlgTest</div> <!-- chronological-class-name -->
+              <div class="configuration-test before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">29 ms</span>
+              </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">testShorstPathAlg</span>
-                <span class="method-start">141 ms</span>
+                <span class="method-start">168 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest</div> <!-- chronological-class-name -->
               <div class="test-method">
+                <span class="method-name">testDijkstraShortestPathAlg</span>
+                <span class="method-start">205 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
                 <span class="method-name">testYenShortestPathsAlg4MultipleGraphs</span>
-                <span class="method-start">169 ms</span>
+                <span class="method-start">208 ms</span>
+              </div> <!-- test-method -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">uk.ac.warwick.thomas.test.SequentialDijkstraTest</div> <!-- chronological-class-name -->
+              <div class="test-method">
+                <span class="method-name">seqDijkstraTest</span>
+                <span class="method-start">227 ms</span>
+              </div> <!-- test-method -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest</div> <!-- chronological-class-name -->
+              <div class="test-method">
+                <span class="method-name">dijkstraBasedReplacementTest</span>
+                <span class="method-start">237 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

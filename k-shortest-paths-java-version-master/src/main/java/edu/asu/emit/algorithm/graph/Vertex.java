@@ -59,15 +59,12 @@ public class Vertex implements BaseVertex {
 		weight = status;
 	}
 	
-	public int compareTo(BaseVertex rVertex) {
-		int diff = this.getWeight() - rVertex.getWeight();
-		if (diff > 0) {
+	public int compareTo(BaseVertex rVertex) {														// FIXED (there was comparator using Dijkstra times)
+		if (getId() > rVertex.getId()) 
 			return 1;
-		} else if (diff < 0) {
-			return -1;
-		} else { 
+		else if (getId() == rVertex.getId()) 
 			return 0;
-		}
+		return -1;
 	}
 	
 	public static void reset() {

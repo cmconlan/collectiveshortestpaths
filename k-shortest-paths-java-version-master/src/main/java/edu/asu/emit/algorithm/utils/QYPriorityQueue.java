@@ -44,7 +44,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseElementWithWeight;
 public class QYPriorityQueue<E extends BaseElementWithWeight> {
 	private List<E> elementWeightPairList = new LinkedList<E>();
 	private int limitSize = -1;
-	private boolean isIncremental = false; 
+	private boolean isIncremental = false; 															// means high2low, by default is low2high (i.e., poll extracts min)
 	
 	/**
 	 * Default constructor. 
@@ -148,6 +148,10 @@ public class QYPriorityQueue<E extends BaseElementWithWeight> {
 	 */
 	public boolean isEmpty() {
 		return elementWeightPairList.isEmpty();
+	}
+	
+	public void clear() {
+		elementWeightPairList.clear();
 	}
 	
 }

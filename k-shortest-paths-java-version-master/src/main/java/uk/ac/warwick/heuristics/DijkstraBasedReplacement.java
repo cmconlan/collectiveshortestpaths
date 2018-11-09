@@ -32,7 +32,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 																									// ignoring capacities
 		
 		Map<Path, Set<Integer>> path2queries = new HashMap<Path, Set<Integer>>();					// we need to be able to figure out which query solves our resulting path					
-		for (Pair<Integer, Path> pair : result) {													// [TODO] what if we have 2 identical paths [SOLVED by queriesSet]
+		for (Pair<Integer, Path> pair : result) {													// 2 identical paths issue solved by queriesSet
 			Set<Integer> queriesSet = path2queries.get(pair.second());
 			if (queriesSet == null) {
 				queriesSet = new HashSet<Integer>();
@@ -159,10 +159,12 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		List<Pair<Integer, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			paths.add(queriesWithSolutions.get(i).second());
-			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
-					" {" + queryHandler.getQuery(i).first() + ", " + queryHandler.getQuery(i).second() + "}" +
-					" Solution = " + queriesWithSolutions.get(i).second());
+			int queryId = queriesWithSolutions.get(i).first();
+			Path solution = queriesWithSolutions.get(i).second();
+			paths.add(solution);
+			System.out.println("QueryId = " + queryId +
+					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+					" Solution = " + solution);
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(dbr.evaluate(paths));

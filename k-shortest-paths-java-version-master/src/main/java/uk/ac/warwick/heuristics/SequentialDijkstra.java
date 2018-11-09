@@ -36,8 +36,8 @@ public class SequentialDijkstra {
 	public SequentialDijkstra(Graph graph) {														// TODO read load from file
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
-		listOfPaths = new HashMap<EdgeTime, Set<Path>>();											// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
-																									// that is used in Dijkstra (i.e., compares weights) not ids
+		listOfPaths = new TreeMap<EdgeTime, Set<Path>>();											// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
+																									// that is used in Dijkstra (i.e., compares weights) not ids -- fixed
 		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
@@ -165,10 +165,12 @@ public class SequentialDijkstra {
 		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), startTime, capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			paths.add(queriesWithSolutions.get(i).second());
-			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
-					" {" + queryHandler.getQuery(i).first() + ", " + queryHandler.getQuery(i).second() + "}" +
-					" Solution = " + queriesWithSolutions.get(i).second());
+			int queryId = queriesWithSolutions.get(i).first();
+			Path solution = queriesWithSolutions.get(i).second();
+			paths.add(solution);
+			System.out.println("QueryId = " + queryId +
+					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+					" Solution = " + solution);
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));

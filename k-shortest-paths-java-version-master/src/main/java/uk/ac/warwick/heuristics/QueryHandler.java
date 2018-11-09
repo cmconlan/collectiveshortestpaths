@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
@@ -27,7 +26,7 @@ public class QueryHandler {
 	private Map<Integer, Query> queries;
 	private BufferedReader buffRead;
 	
-	QueryHandler(final BaseGraph graph, String dataFileName) {
+	public QueryHandler(final BaseGraph graph, String dataFileName) {
 		File f = null;
 		FileReader input;
 		queries = new HashMap<Integer, Query>();
@@ -47,8 +46,8 @@ public class QueryHandler {
 				String[] items = line.trim().split("\\s+");
 				// 2.2. parse source, sink pairs
 				try {
-					int source = Integer.parseInt(items[0]);											// throws IndexOutOfBoundException
-					int sink = Integer.parseInt(items[1]);												// throws IndexOutOfBoundException
+					int source = Integer.parseInt(items[0]);										// throws IndexOutOfBoundException
+					int sink = Integer.parseInt(items[1]);											// throws IndexOutOfBoundException
 					int startTime = 0;
 					if (items.length > 2) {
 						startTime = Integer.parseInt(items[2]);

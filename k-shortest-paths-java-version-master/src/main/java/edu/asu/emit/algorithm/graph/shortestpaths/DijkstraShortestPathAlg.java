@@ -37,7 +37,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Vector;
 
@@ -46,6 +45,7 @@ import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Edge;
+import edu.asu.emit.algorithm.utils.QYPriorityQueue;
 
 
 /**
@@ -65,7 +65,7 @@ public class DijkstraShortestPathAlg
 
 	// Intermediate variables
 	private Set<BaseVertex> determinedVertexSet = new HashSet<BaseVertex>();
-	private PriorityQueue<BaseVertex> vertexCandidateQueue = new PriorityQueue<BaseVertex>();
+	private QYPriorityQueue<BaseVertex> vertexCandidateQueue = new QYPriorityQueue<BaseVertex>();
 	private Map<BaseVertex, Integer> startVertexDistanceIndex = new HashMap<BaseVertex, Integer>();
 	private Map<BaseVertex, BaseVertex> predecessorIndex = new HashMap<BaseVertex, BaseVertex>();
 

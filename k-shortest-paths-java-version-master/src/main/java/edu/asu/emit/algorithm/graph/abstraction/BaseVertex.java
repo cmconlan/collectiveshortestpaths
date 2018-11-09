@@ -37,7 +37,7 @@ package edu.asu.emit.algorithm.graph.abstraction;
  * @author yqi
  * @author Tomasz Janus
  */
-public interface BaseVertex extends Comparable<BaseVertex>{
+public interface BaseVertex extends Comparable<BaseVertex>, BaseElementWithWeight{
 	
 	int getId();
 	int getWeight();
