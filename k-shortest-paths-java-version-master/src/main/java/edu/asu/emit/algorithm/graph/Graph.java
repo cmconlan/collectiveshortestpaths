@@ -165,20 +165,19 @@ public class Graph implements BaseGraph {
 					//2.2.1 obtain the number of nodes in the graph 
 					isFirstLine = false;
 					vertexNum = Integer.parseInt(line.trim());
-					for (int i=0; i<vertexNum; ++i) {
+					for (int i = 0; i < vertexNum; ++i) {
 						BaseVertex vertex = new Vertex();
 						vertexList.add(vertex);
 						idVertexIndex.put(vertex.getId(), vertex);
 					}
 				} else {
 					//2.2.2 find a new edge and put it in the graph  
-					String[] strList = line.trim().split("\\s");
+					String[] strList = line.trim().split("\\s+");
 					
 					int startVertexId = Integer.parseInt(strList[0]);
 					int endVertexId = Integer.parseInt(strList[1]);
 					int weight = Integer.parseInt(strList[2]);
 					int capacity = strList.length > 3 ? Integer.parseInt(strList[3]) : 1;
-					if (capacity > 1) System.out.println("??: " + startVertexId + " " + endVertexId + " " + weight + " " + capacity);
 					addEdge(startVertexId, endVertexId, weight, capacity);
 				}
 				//

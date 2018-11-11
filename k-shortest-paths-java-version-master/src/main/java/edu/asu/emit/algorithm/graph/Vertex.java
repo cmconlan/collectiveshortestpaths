@@ -40,15 +40,15 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 public class Vertex implements BaseVertex {
 	
 	private static int currentVertexNum = 0; // Uniquely identify each vertex
-	private int id = currentVertexNum++;
+	private final int ID = currentVertexNum++;
 	private int weight = 0;
 	
 	public int getId() {
-		return id;
+		return ID;
 	}
 
 	public String toString() {
-		return "" + id;
+		return "" + ID;
 	}
 
 	public int getWeight() {
@@ -69,5 +69,7 @@ public class Vertex implements BaseVertex {
 	
 	public static void reset() {
 		currentVertexNum = 0;
-	}
+	}																								// we don't need to @override hashcode and equals methods, 
+																									// since vertices are only created by graph hence 
+																									// Object implementations work well here
 }

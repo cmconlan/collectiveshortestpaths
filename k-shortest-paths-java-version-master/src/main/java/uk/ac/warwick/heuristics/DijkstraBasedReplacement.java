@@ -9,12 +9,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import uk.ac.warwick.queries.Query;
+import uk.ac.warwick.queries.QueryHandler;
+
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
-import edu.asu.emit.algorithm.utils.Query;
 
 public class DijkstraBasedReplacement extends SequentialDijkstra {
 	
@@ -28,7 +30,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	
 	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, int startTime) {
 		boolean capacityAware = false;
-		List<Pair<Integer, Path>> result = super.process(queries, startTime, capacityAware);		// at first we want to calculate all the shortest paths
+		List<Pair<Integer, Path>> result = super.process(queries, capacityAware);					// at first we want to calculate all the shortest paths
 																									// ignoring capacities
 		
 		Map<Path, Set<Integer>> path2queries = new HashMap<Path, Set<Integer>>();					// we need to be able to figure out which query solves our resulting path					
@@ -44,7 +46,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		// we need to identify edgeTime violating our capacity constraints:
 		
 		
-		for (Edge edge : load.keySet()) {
+		for (Edge edge : load.keySet()) {															// iterate over all edges (that we used before)
 			for (int t = startTime; t < load.get(edge).length; ++t) {
 				if (load.get(edge)[t] > graph.getEdgeCapacity(edge.first(), edge.second())) {
 					EdgeTime edgeTime = new EdgeTime(edge, t);

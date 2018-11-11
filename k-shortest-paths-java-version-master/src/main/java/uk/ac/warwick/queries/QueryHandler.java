@@ -1,4 +1,4 @@
-package uk.ac.warwick.heuristics;
+package uk.ac.warwick.queries;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
-import edu.asu.emit.algorithm.utils.Query;
 
 /**
  * 
@@ -20,6 +19,9 @@ import edu.asu.emit.algorithm.utils.Query;
  * it assumes that queries are list of pair of integers 
  * i.e., each line in the query file is a pair of integers 
  * query.from query.to
+ * 
+ * This class does not sort queries with respect to startTime
+ * it only process them in the given (file) order
  */
 
 public class QueryHandler {																			
@@ -27,24 +29,24 @@ public class QueryHandler {
 	private BufferedReader buffRead;
 	
 	public QueryHandler(final BaseGraph graph, String dataFileName) {
-		File f = null;
+		File file = null;
 		FileReader input;
 		queries = new HashMap<Integer, Query>();
 		try {
-			f = new File(dataFileName);																// throws nullPointerException (if dataFileName is null)
-			input = new FileReader(f);																// throws FileNotFoundException
+			file = new File(dataFileName);															// throws nullPointerException (if dataFileName is null)
+			input = new FileReader(file);															// throws FileNotFoundException
 			buffRead = new BufferedReader(input);
 			String line = buffRead.readLine();														// throws IOException
 					
 			while (line != null) {
-				// 2.1 skip the empty line
+				// skip the empty line
 				if (line.trim().equals("")) {
 					line = buffRead.readLine();
 					continue;
 				}
 				
 				String[] items = line.trim().split("\\s+");
-				// 2.2. parse source, sink pairs
+				// parse source, sink (,startTime) pairs (triplets)
 				try {
 					int source = Integer.parseInt(items[0]);										// throws IndexOutOfBoundException
 					int sink = Integer.parseInt(items[1]);											// throws IndexOutOfBoundException
@@ -56,13 +58,14 @@ public class QueryHandler {
 				queries.put(query.getId(), query);
 				
 				} catch (IndexOutOfBoundsException e) {
-					System.err.println("WRONG "+ f.getName() + " FORMAT!");
+					System.err.println("WRONG "+ file.getName() + " FORMAT!");
+					System.out.println("Expected line format %d %d = source, sink or %d %d %d = source, sink, startTime.");
 				}
 				
 				line = buffRead.readLine();
 			}
 		}catch (FileNotFoundException e) {
-			System.err.println(f.getAbsolutePath() + " DOES NOT EXIST!");
+			System.err.println(file.getAbsolutePath() + " DOES NOT EXIST!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

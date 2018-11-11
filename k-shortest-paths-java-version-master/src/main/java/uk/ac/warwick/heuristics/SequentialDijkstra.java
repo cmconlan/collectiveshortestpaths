@@ -9,13 +9,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import uk.ac.warwick.queries.Query;
+import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
-import edu.asu.emit.algorithm.utils.Query;
 
 
 /**
@@ -33,12 +34,17 @@ public class SequentialDijkstra {
 	
 	protected Map<EdgeTime, Set<Path>> listOfPaths;													// necessary for DijkstraBasedReplacement
 	
-	public SequentialDijkstra(Graph graph) {														// TODO read load from file
+	public SequentialDijkstra(Graph graph) {														
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
 		listOfPaths = new TreeMap<EdgeTime, Set<Path>>();											// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
 																									// that is used in Dijkstra (i.e., compares weights) not ids -- fixed
 		dijkstra = new DijkstraShortestPathAlg(graph);
+	}
+	
+	public SequentialDijkstra(Graph graph, Map<Edge, int[]> load) {									
+		this(graph);																				// calling the other constructor
+		this.load = load;
 	}
 	
 	protected void updateListOfPaths(EdgeTime edgeTime, Path path, boolean isRemoved) {
@@ -52,12 +58,12 @@ public class SequentialDijkstra {
 		listOfPaths.put(edgeTime, paths);
 	}
 	
-	protected void updateLoad(Path p, int startTime, boolean isRemoved) {								// path can be either added or removed
+	protected void updateLoad(Path path, int startTime, boolean isRemoved) {							// path can be either added or removed
 		
 		int t = startTime;
-		for (int i = 0; i < p.size() - 1; ++i) {
-			Edge edge = new Edge(p.get(i), p.get(i + 1));
-			int edgeWeight = graph.getEdgeWeight(p.get(i), p.get(i + 1));
+		for (int i = 0; i < path.size() - 1; ++i) {
+			Edge edge = new Edge(path.get(i), path.get(i + 1));
+			int edgeWeight = graph.getEdgeWeight(path.get(i), path.get(i + 1));
 			int[] timeMap;
 			
 			if (load.containsKey(edge)) {
@@ -76,7 +82,7 @@ public class SequentialDijkstra {
 				else {
 					timeMap[t + j]++;
 					EdgeTime edgeTime= new EdgeTime(edge, t + j);
-					updateListOfPaths(edgeTime, p, false);
+					updateListOfPaths(edgeTime, path, false);
 				}
 			}
 			//update load map
@@ -87,12 +93,13 @@ public class SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, int startTime, boolean capacityAware) {
+	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, boolean capacityAware) {
 		
 		List<Pair<Integer, Path>> result = new ArrayList<Pair<Integer, Path>>();
 		
 		for (Integer queryId : queries.keySet()) {
 			Query query = queries.get(queryId);
+			int startTime = query.getStartTime();
 			Path path = processQuery(query, startTime, capacityAware);
 			if (path.size() > 0){
 				System.out.println("Algorithm found a path from "
@@ -159,10 +166,8 @@ public class SequentialDijkstra {
 		SequentialDijkstra seqDijkstra = new SequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
-		
-		int startTime = 0;
 		boolean capacityAware = true;
-		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), startTime, capacityAware);
+		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			int queryId = queriesWithSolutions.get(i).first();

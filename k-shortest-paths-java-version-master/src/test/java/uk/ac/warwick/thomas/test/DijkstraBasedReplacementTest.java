@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import uk.ac.warwick.heuristics.DijkstraBasedReplacement;
-import uk.ac.warwick.heuristics.QueryHandler;
+import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.utils.Pair;

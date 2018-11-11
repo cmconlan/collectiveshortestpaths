@@ -1,11 +1,12 @@
-package edu.asu.emit.algorithm.utils;
+package uk.ac.warwick.queries;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
+import edu.asu.emit.algorithm.utils.Pair;
 
 /**
  * 
  * @author Tomasz Janus
- * (another) wrapper class for pair<BaseVertex, BaseVertex>
+ *  a tuple (BaseVertex from, BaseVertex to, int startTime) 
  */
 
 public class Query implements Comparable<Query>{

@@ -6,8 +6,8 @@ import java.util.List;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import uk.ac.warwick.heuristics.QueryHandler;
 import uk.ac.warwick.heuristics.SequentialDijkstra;
+import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.utils.Pair;
@@ -42,9 +42,8 @@ public class SequentialDijkstraTest {
 		System.out.println("\n\n##Sequential Dijkstra Heuristic Test");
 		int expectedNumberOfFailures = 1;
 		int expectedTravelTimeOfTheRest = 4;
-		int startTime = 0;
 		boolean capacityAware = true;
-		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), startTime, capacityAware);
+		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			int queryId = queriesWithSolutions.get(i).first();
