@@ -107,7 +107,7 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 		return vertexList.get(i);
 	}
 
-//	public int compareTo(Path rhs) {
+//	public int compareTo(Path rhs) {																// <- Path.compareTo (w.r.t. absolute length)
 //		if (getWeight() < rhs.getWeight()) 
 //			return -1;
 //		else if (getWeight() == rhs.getWeight()) 
@@ -123,7 +123,7 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 		return delta;
 	}
 	
-	public int compareTo(Path rhs) {
+	public int compareTo(Path rhs) {																// <- I refer to this with Path.compareToDelta
 		if (getDelta() < rhs.getDelta()) 
 			return -1;
 		else if (getDelta() == rhs.getDelta()) 
