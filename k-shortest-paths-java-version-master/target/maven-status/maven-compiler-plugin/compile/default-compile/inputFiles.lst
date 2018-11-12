@@ -1,10 +1,11 @@
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/Query.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseGraph.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseElementWithWeight.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseVertex.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/DijkstraBasedReplacement.java
-/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/Query.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/shortestpaths/YenTopKShortestPathsAlg.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/EdgeTime.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/LoadHandler.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/Pair.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Path.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/QYPriorityQueue.java
@@ -14,4 +15,4 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Graph.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Vertex.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/shortestpaths/DijkstraShortestPathAlg.java
-/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/QueryHandler.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/QueryHandler.java

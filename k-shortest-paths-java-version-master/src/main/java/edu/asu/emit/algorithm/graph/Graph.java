@@ -200,10 +200,12 @@ public class Graph implements BaseGraph {
 	 * @param weight
 	 */
 	protected void addEdge(int startVertexId, int endVertexId, int weight, int capacity) {
-		// actually, we should make sure all vertices ids must be correct. 
+		
+		// we ignore self-loops
+		if (startVertexId == endVertexId) return;
+		
 		if (!idVertexIndex.containsKey(startVertexId) || 
-			!idVertexIndex.containsKey(endVertexId) || 
-			startVertexId == endVertexId) {
+			!idVertexIndex.containsKey(endVertexId)) {
 			throw new IllegalArgumentException("The edge from " + startVertexId +
 					" to " + endVertexId + " does not exist in the graph.");
 		}

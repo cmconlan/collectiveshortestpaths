@@ -11,6 +11,7 @@ import java.util.TreeSet;
 
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
+import uk.ac.warwick.thomas.test.Settings;
 
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
@@ -63,20 +64,36 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				Set<Path> heap = new TreeSet<Path>();
 				List<Path> pathsToReplace = new ArrayList<Path>();
 				Map<Path, Path> new2old = new HashMap<Path, Path>();
-				for (Path path : listOfPaths.get(edgeTime)) {
+				for (Path path : listOfPaths.get(edgeTime).keySet()) {
 					 pathsToReplace.add(path);
 				}
 				
-				
-				System.out.println("Paths to replace: " + pathsToReplace);
+				if (Settings.DEBUG_LEVEL >= 2)
+					System.out.println("Paths to replace: " + pathsToReplace);
 				for (Path oldPath : pathsToReplace) {
 					updateLoad(oldPath, startTime, true);
 					Set<Integer> queriesIds = path2queries.get(oldPath);
+					if (Settings.DEBUG_LEVEL >= 3) {
+						System.out.println("OldPath: " + oldPath.getFirst() + " " + oldPath.getLast());
+						System.out.println(queriesIds.isEmpty());
+						System.out.println(queriesIds);
+					}
 					Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
 					int queryId = queriesIdsIterator.next();	
 					Query query = queries.get(queryId);
 					
 					Path newPath = super.processQuery(query, startTime, true);
+					
+//					Another approach of choosing a path to replace
+//					(instead of the shortest, we choose the smallest difference 
+//					to the shortest path without traffic load
+//					to use second approach uncomment 3 lines below
+//					and change Path.compareTo function to Path.compareToDelta
+//
+					double delta = newPath.getWeight() - oldPath.getWeight();
+					delta /= oldPath.getWeight();
+					newPath.setDelta(delta);
+					
 					if (newPath.size() > 0) {
 						heap.add(newPath);
 						new2old.put(newPath, oldPath);
@@ -88,8 +105,9 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				//empty heap case
 				
 				if (heap.isEmpty()) {																// we haven't found any good candidate
-					System.out.println("Couldn't find a good replacement for " + 
-							edgeTime.first() + " at time " + edgeTime.second());
+					if (Settings.DEBUG_LEVEL >= 1)
+						System.out.println("Couldn't find any good replacement for " + 
+								edgeTime.first() + " at time " + edgeTime.second());
 					
 																									//lets just pick a random path and replace it with empty path					
 					Path oldPath = pathsToReplace.get(0);
@@ -99,10 +117,14 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					int queryId = switchPaths(oldPath, newPath, startTime, path2queries);
 					result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
 							new Pair<Integer, Path>(queryId, newPath));	
-					
-					System.out.println("Decided to replace queryId = " + queryId + 
-							" with an empty path.");
-					
+					if (Settings.DEBUG_LEVEL >= 5) {
+						System.out.println("\n\n\n\n\n\n");
+						
+						System.out.println("Decided to replace queryId = " + queryId + 
+								" with an empty path.");
+						
+						System.out.println("\n\n\n\n\n\n");
+					}
 					break; 
 				}															
 				
@@ -117,6 +139,16 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
 						new Pair<Integer, Path>(queryId, newPath));
 				
+				if (Settings.DEBUG_LEVEL >= 5) {
+					System.out.println("\n\n\n\n\n\n");
+					
+					System.out.println("QUERY_ID = " + queryId);
+					System.out.println(oldPath);
+					System.out.println("\n\n");
+					System.out.println(newPath);
+					
+					System.out.println("\n\n\n\n\n\n");
+				}
 			}
 		}
 		

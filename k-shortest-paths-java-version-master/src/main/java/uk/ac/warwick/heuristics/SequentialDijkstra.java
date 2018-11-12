@@ -3,14 +3,13 @@ package uk.ac.warwick.heuristics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
+import uk.ac.warwick.thomas.test.Settings;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
@@ -32,13 +31,14 @@ public class SequentialDijkstra {
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
 	protected DijkstraShortestPathAlg dijkstra;
 	
-	protected Map<EdgeTime, Set<Path>> listOfPaths;													// necessary for DijkstraBasedReplacement
+	protected Map<EdgeTime, Map<Path, Integer>> listOfPaths;										// necessary for DijkstraBasedReplacement
 	
 	public SequentialDijkstra(Graph graph) {														
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
-		listOfPaths = new TreeMap<EdgeTime, Set<Path>>();											// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
+		listOfPaths = new TreeMap<EdgeTime, Map<Path, Integer>>();									// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
 																									// that is used in Dijkstra (i.e., compares weights) not ids -- fixed
+																									// Map<Path, Integer> is a replacement for multiset data structure
 		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
@@ -48,17 +48,23 @@ public class SequentialDijkstra {
 	}
 	
 	protected void updateListOfPaths(EdgeTime edgeTime, Path path, boolean isRemoved) {
-		Set<Path> paths = listOfPaths.get(edgeTime);
+		Map<Path, Integer> paths = listOfPaths.get(edgeTime);										// [TODO] replace paths set with multiset (i.e., Map<Path, Integer>)
 		if (paths == null) 
-			paths = new HashSet<Path>();
+			paths = new HashMap<Path, Integer>();
 		
-		if (!isRemoved) paths.add(path);
-		else paths.remove(path);
+		if (!isRemoved) paths.put(path, 1);
+		else {
+			int cnt = paths.get(path);
+			if (cnt == 1) paths.remove(path);
+			else {
+				paths.put(path, --cnt);
+			}
+		}
 		
 		listOfPaths.put(edgeTime, paths);
 	}
 	
-	protected void updateLoad(Path path, int startTime, boolean isRemoved) {							// path can be either added or removed
+	protected void updateLoad(Path path, int startTime, boolean isRemoved) {						// path can be either added or removed
 		
 		int t = startTime;
 		for (int i = 0; i < path.size() - 1; ++i) {
@@ -77,13 +83,15 @@ public class SequentialDijkstra {
 			}
 			//increase traffic load where necessary
 			for (int j = 0; j < edgeWeight; ++j) {
-				if (isRemoved)
-					timeMap[t + j]--;
+				if (isRemoved) {
+					timeMap[t + j]--;																 
+																																		
+				}
 				else {
 					timeMap[t + j]++;
-					EdgeTime edgeTime= new EdgeTime(edge, t + j);
-					updateListOfPaths(edgeTime, path, false);
 				}
+				EdgeTime edgeTime= new EdgeTime(edge, t + j);
+				updateListOfPaths(edgeTime, path, isRemoved);
 			}
 			//update load map
 			load.put(edge, timeMap);
@@ -102,11 +110,13 @@ public class SequentialDijkstra {
 			int startTime = query.getStartTime();
 			Path path = processQuery(query, startTime, capacityAware);
 			if (path.size() > 0){
-				System.out.println("Algorithm found a path from "
-						+ query.first() + " to " + query.second());
+				if (Settings.DEBUG_LEVEL >= 1)
+					System.out.println("Algorithm found a path from "
+							+ query.first() + " to " + query.second());
 				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}
 			else {
+				if (Settings.DEBUG_LEVEL >= 1)
 				System.out.println("Algorithm failed to find a path from " 
 						+ query.first() + " to " + query.second());
 			}

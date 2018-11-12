@@ -45,6 +45,7 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	private List<BaseVertex> vertexList = new Vector<BaseVertex>();
 	private int weight = -1;
+	private double delta = 0d;
 	
 	public Path() { }
 	
@@ -106,10 +107,26 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 		return vertexList.get(i);
 	}
 
+//	public int compareTo(Path rhs) {
+//		if (getWeight() < rhs.getWeight()) 
+//			return -1;
+//		else if (getWeight() == rhs.getWeight()) 
+//			return 0;
+//		return 1;
+//	}
+	
+	public void setDelta(double newDelta) {
+		delta = newDelta;
+	}
+	
+	public double getDelta() {
+		return delta;
+	}
+	
 	public int compareTo(Path rhs) {
-		if (getWeight() < rhs.getWeight()) 
+		if (getDelta() < rhs.getDelta()) 
 			return -1;
-		else if (getWeight() == rhs.getWeight()) 
+		else if (getDelta() == rhs.getDelta()) 
 			return 0;
 		return 1;
 	}

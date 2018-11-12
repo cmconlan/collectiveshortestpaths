@@ -3,7 +3,6 @@ package uk.ac.warwick.thomas.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import uk.ac.warwick.heuristics.SequentialDijkstra;
@@ -26,8 +25,13 @@ public class SequentialDijkstraTest {
 	/**
 	 * @throws java.lang.Exception
 	 */
-	@BeforeTest
+	//@BeforeTest
 	public void setUp() throws Exception {
+		//Common preprocessing
+	}
+
+	@Test
+	public void seqDijkstraTest()	{
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
 		
@@ -35,10 +39,8 @@ public class SequentialDijkstraTest {
 		graph = new Graph(graphPath);
 		seqDijkstra = new SequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
-	}
-
-	@Test
-	public void seqDijkstraTest()	{
+		
+		
 		System.out.println("\n\n##Sequential Dijkstra Heuristic Test");
 		int expectedNumberOfFailures = 1;
 		int expectedTravelTimeOfTheRest = 4;
@@ -60,5 +62,39 @@ public class SequentialDijkstraTest {
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
 		seqDijkstra.showLoad();	
+	}
+	
+	@Test
+	public void ElifsData() {
+		System.out.println("\n\n##Sequential Dijkstra Heuristic Test -- Elif's data");
+		
+		String graphPath = "data/graphs/Elif.txt";
+		String queriesPath = "data/queries/Elif200.txt";
+		
+		graph = new Graph(graphPath);
+		seqDijkstra = new SequentialDijkstra(graph);
+		queryHandler = new QueryHandler(graph, queriesPath);
+		
+		int expectedNumberOfFailures = 5;
+		int expectedTravelTimeOfTheRest = 65858;
+		boolean capacityAware = true;
+		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Path> paths = new ArrayList<Path>();
+		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
+//			int queryId = queriesWithSolutions.get(i).first();
+			Path solution = queriesWithSolutions.get(i).second();
+			paths.add(solution);
+//			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
+//					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+//					" Solution = " + solution);
+		}
+//		
+		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;
+		assert seqDijkstra.evaluate(paths).second() == expectedTravelTimeOfTheRest;
+		
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(seqDijkstra.evaluate(paths));
+//		seqDijkstra.showLoad();	
+	
 	}
 }
