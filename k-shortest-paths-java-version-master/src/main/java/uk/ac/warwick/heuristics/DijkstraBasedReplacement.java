@@ -11,7 +11,7 @@ import java.util.TreeSet;
 
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
-import uk.ac.warwick.thomas.test.Settings;
+import uk.ac.warwick.settings.Settings;
 
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;

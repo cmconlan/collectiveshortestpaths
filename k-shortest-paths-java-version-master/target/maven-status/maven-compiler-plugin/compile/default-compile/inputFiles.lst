@@ -14,5 +14,6 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/SequentialDijkstra.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Graph.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Vertex.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/settings/Settings.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/shortestpaths/DijkstraShortestPathAlg.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/QueryHandler.java

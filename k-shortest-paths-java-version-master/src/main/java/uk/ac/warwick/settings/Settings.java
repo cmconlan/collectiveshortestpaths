@@ -1,4 +1,4 @@
-package uk.ac.warwick.thomas.test;
+package uk.ac.warwick.settings;
 
 public class Settings {
 	public static int DEBUG_LEVEL = 1; // 0 = NO DEBUG
