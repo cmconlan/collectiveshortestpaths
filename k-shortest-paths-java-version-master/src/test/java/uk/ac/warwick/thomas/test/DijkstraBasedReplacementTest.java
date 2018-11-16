@@ -58,7 +58,7 @@ public class DijkstraBasedReplacementTest {
 		dbr.showLoad();
 	}
 	
-	@Test
+	//@Test
 	public void ElifsData() {
 		System.out.println("\n\n##Dijkstra Based Replacement Heuristic Test -- Elif's data");
 		

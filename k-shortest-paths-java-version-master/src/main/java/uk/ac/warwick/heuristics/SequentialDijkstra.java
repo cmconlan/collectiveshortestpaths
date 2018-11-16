@@ -49,7 +49,7 @@ public class SequentialDijkstra {
 	}
 	
 	protected void updateListOfPaths(EdgeTime edgeTime, Path path, boolean isRemoved) {
-		Map<Path, Integer> paths = listOfPaths.get(edgeTime);										// [TODO] replace paths set with multiset (i.e., Map<Path, Integer>)
+		Map<Path, Integer> paths = listOfPaths.get(edgeTime);										// imitates multiset of Paths 
 		if (paths == null) 
 			paths = new HashMap<Path, Integer>();
 		
@@ -102,6 +102,36 @@ public class SequentialDijkstra {
 	}
 	
 	
+	public List<Pair<Query, Path>> processWithShift(Set<Query> queries, boolean capacityAware) {
+		Set<Query> unresolvedQueries = queries;														// if we want to keep queries alive, we should copy here
+		List<Pair<Query, Path>> result = new ArrayList<Pair<Query,Path>>();
+		
+		while (!unresolvedQueries.isEmpty()) {
+			List<Pair<Query, Path>> processResult = process(unresolvedQueries, capacityAware);
+			unresolvedQueries.clear();																// this clears also queries (function parameter) since it is only a reference
+			
+			for (Pair<Query, Path> pair : processResult) {
+				if (pair.second().getWeight() == Graph.DISCONNECTED) {
+					Query oldQuery = pair.first();
+					Query newQuery = new Query(oldQuery.first(), oldQuery.second(), oldQuery.getStartTime() + 1);
+					newQuery.setInitialStartTime(oldQuery.getInitialStartTime());					// we need to remember initial query startTime
+					unresolvedQueries.add(newQuery);
+				}
+				else {
+					Query query = pair.first();
+					Path path = pair.second();
+					int waitingTime = query.getStartTime()- query.getInitialStartTime();
+					path.setWeight(path.getWeight() + waitingTime);
+					result.add(pair);
+				}
+			}
+			
+		}
+		
+		
+		return result;
+	}
+	
 	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
 		
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
@@ -119,6 +149,7 @@ public class SequentialDijkstra {
 				if (Settings.DEBUG_LEVEL >= 1)
 				System.out.println("Algorithm failed to find a path from " 
 						+ query.first() + " to " + query.second());
+				
 			}
 			result.add(new Pair<Query, Path> (query, path));
 		}
@@ -129,8 +160,8 @@ public class SequentialDijkstra {
 		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
 		else dijkstra.setLoad(null);																// (both point to the same object)
 		
-		
-		//dijkstra.setStartTime(query.getStartTime())?
+		dijkstra.setStartTime(query.getStartTime());												// Dijkstra must know when query happened, to be able to access correct
+																									// load information		
 		Path path = dijkstra.getShortestPath(query.first(), query.second());		
 		
 		return path;
@@ -179,7 +210,7 @@ public class SequentialDijkstra {
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		boolean capacityAware = true;
-		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.processWithShift(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			Query query = queriesWithSolutions.get(i).first();

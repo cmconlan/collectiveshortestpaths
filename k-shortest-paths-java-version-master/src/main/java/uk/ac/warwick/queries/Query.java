@@ -17,10 +17,14 @@ public class Query implements Comparable<Query>{
 	private final int ID;																			// in case of multipleQueries with the same 
 																									// source, destination, and startTime
 	
+	private int initialStartTime;																	// Some queries are shifted in time
+																									// this variable keeps track of startTime of the first query of a given type
+	
 	
 	public Query(BaseVertex o1, BaseVertex o2, int startTime) {
 		pair = new Pair<BaseVertex, BaseVertex>(o1, o2);
 		this.startTime = startTime;
+		this.initialStartTime = startTime;
 		ID = queriesNum++;
 	}
 	
@@ -71,5 +75,13 @@ public class Query implements Comparable<Query>{
 				return 1;
 		} else 
 			return 1;
+	}
+
+	public int getInitialStartTime() {
+		return initialStartTime;
+	}
+
+	public void setInitialStartTime(int initialStartTime) {
+		this.initialStartTime = initialStartTime;
 	}
 }
