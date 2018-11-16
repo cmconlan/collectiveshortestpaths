@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 
@@ -25,13 +25,13 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
  */
 
 public class QueryHandler {																			
-	private Map<Integer, Query> queries;
+	private Set<Query> queries;
 	private BufferedReader buffRead;
 	
 	public QueryHandler(final BaseGraph graph, String dataFileName) {
 		File file = null;
 		FileReader input;
-		queries = new HashMap<Integer, Query>();
+		queries = new HashSet<Query>();
 		try {
 			file = new File(dataFileName);															// throws nullPointerException (if dataFileName is null)
 			input = new FileReader(file);															// throws FileNotFoundException
@@ -55,7 +55,7 @@ public class QueryHandler {
 						startTime = Integer.parseInt(items[2]);
 					}
 				Query query = new Query(graph.getVertex(source), graph.getVertex(sink), startTime);
-				queries.put(query.getId(), query);
+				queries.add(query);
 				
 				} catch (IndexOutOfBoundsException e) {
 					System.err.println("WRONG "+ file.getName() + " FORMAT!");
@@ -71,12 +71,8 @@ public class QueryHandler {
 		}
 	}
 	
-	public Map<Integer, Query> getQueries() {
+	public Set<Query> getQueries() {
 		return queries;
-	}
-	
-	public Query getQuery(int id) {
-		return queries.get(id);
 	}
 
 }

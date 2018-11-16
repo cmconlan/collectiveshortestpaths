@@ -6,6 +6,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import uk.ac.warwick.heuristics.SequentialDijkstra;
+import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
@@ -45,14 +46,14 @@ public class SequentialDijkstraTest {
 		int expectedNumberOfFailures = 1;
 		int expectedTravelTimeOfTheRest = 4;
 		boolean capacityAware = true;
-		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			int queryId = queriesWithSolutions.get(i).first();
+			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
-					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+			System.out.println("QueryId = " + query.getId() +
+					" {" + query.first() + ", " + query.second() + "}" +
 					" Solution = " + solution);
 		}
 //		
@@ -76,16 +77,18 @@ public class SequentialDijkstraTest {
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
 		int expectedNumberOfFailures = 5;
-		int expectedTravelTimeOfTheRest = 65858;
+//		int expectedTravelTimeOfTheRest = 65858;													//old result using map
+		int expectedTravelTimeOfTheRest = 66004;
+		
 		boolean capacityAware = true;
-		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-//			int queryId = queriesWithSolutions.get(i).first();
+//			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-//			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
-//					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+//			System.out.println("QueryId = " + query.getId() +
+//					" {" + query.first() + ", " + query.second() + "}" +
 //					" Solution = " + solution);
 		}
 //		

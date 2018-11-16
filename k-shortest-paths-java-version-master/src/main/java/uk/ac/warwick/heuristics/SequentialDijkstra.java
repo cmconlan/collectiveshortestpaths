@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import uk.ac.warwick.queries.Query;
@@ -101,14 +102,13 @@ public class SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, boolean capacityAware) {
+	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
 		
-		List<Pair<Integer, Path>> result = new ArrayList<Pair<Integer, Path>>();
+		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
-		for (Integer queryId : queries.keySet()) {
-			Query query = queries.get(queryId);
+		for (Query query : queries) {
 			int startTime = query.getStartTime();
-			Path path = processQuery(query, startTime, capacityAware);
+			Path path = processQuery(query, capacityAware);
 			if (path.size() > 0){
 				if (Settings.DEBUG_LEVEL >= 1)
 					System.out.println("Algorithm found a path from "
@@ -120,15 +120,17 @@ public class SequentialDijkstra {
 				System.out.println("Algorithm failed to find a path from " 
 						+ query.first() + " to " + query.second());
 			}
-			result.add(new Pair<Integer, Path> (queryId, path));
+			result.add(new Pair<Query, Path> (query, path));
 		}
 		return result;																				// our result variable contains failed queries
 	}
 	
-	public Path processQuery(Query query, int startTime, boolean capacityAware) {
+	public Path processQuery(Query query, boolean capacityAware) {
 		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
 		else dijkstra.setLoad(null);																// (both point to the same object)
 		
+		
+		//dijkstra.setStartTime(query.getStartTime())?
 		Path path = dijkstra.getShortestPath(query.first(), query.second());		
 		
 		return path;
@@ -177,14 +179,14 @@ public class SequentialDijkstra {
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		boolean capacityAware = true;
-		List<Pair<Integer, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			int queryId = queriesWithSolutions.get(i).first();
+			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + queryId +
-					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+			System.out.println("QueryId = " + query.getId() +
+					" {" + query.first() + ", " + query.second() + "}" +
 					" Solution = " + solution);
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");

@@ -47,7 +47,7 @@ public class Query implements Comparable<Query>{
 	
 	//necessary for hashMap
 	public int hashCode() {
-        return pair.hashCode();																		// [TODO] at least test this function
+        return pair.hashCode()/2 + startTime/2;														// [TODO] at least test this function
     }
 		
 		//necessary for hashMap

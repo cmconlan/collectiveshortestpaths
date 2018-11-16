@@ -29,16 +29,16 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Integer, Path>> process(Map<Integer, Query> queries, int startTime) {
+	public List<Pair<Query, Path>> process(Set<Query> queries, int startTime) {
 		boolean capacityAware = false;
-		List<Pair<Integer, Path>> result = super.process(queries, capacityAware);					// at first we want to calculate all the shortest paths
+		List<Pair<Query, Path>> result = super.process(queries, capacityAware);						// at first we want to calculate all the shortest paths
 																									// ignoring capacities
 		
-		Map<Path, Set<Integer>> path2queries = new HashMap<Path, Set<Integer>>();					// we need to be able to figure out which query solves our resulting path					
-		for (Pair<Integer, Path> pair : result) {													// 2 identical paths issue solved by queriesSet
-			Set<Integer> queriesSet = path2queries.get(pair.second());
+		Map<Path, Set<Query>> path2queries = new HashMap<Path, Set<Query>>();						// we need to be able to figure out which query solves our resulting path					
+		for (Pair<Query, Path> pair : result) {														// 2 identical paths issue solved by queriesSet
+			Set<Query> queriesSet = path2queries.get(pair.second());
 			if (queriesSet == null) {
-				queriesSet = new HashSet<Integer>();
+				queriesSet = new HashSet<Query>();
 			}
 			queriesSet.add(pair.first());
 			path2queries.put(pair.second(), queriesSet);
@@ -72,17 +72,16 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					System.out.println("Paths to replace: " + pathsToReplace);
 				for (Path oldPath : pathsToReplace) {
 					updateLoad(oldPath, startTime, true);
-					Set<Integer> queriesIds = path2queries.get(oldPath);
+					Set<Query> pathQueries = path2queries.get(oldPath);
 					if (Settings.DEBUG_LEVEL >= 3) {
 						System.out.println("OldPath: " + oldPath.getFirst() + " " + oldPath.getLast());
-						System.out.println(queriesIds.isEmpty());
-						System.out.println(queriesIds);
+						System.out.println(pathQueries.isEmpty());
+						System.out.println(pathQueries);
 					}
-					Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
-					int queryId = queriesIdsIterator.next();	
-					Query query = queries.get(queryId);
+					Iterator<Query> pathQueriesIterator = pathQueries.iterator();	
+					Query query = pathQueriesIterator.next();
 					
-					Path newPath = super.processQuery(query, startTime, true);
+					Path newPath = super.processQuery(query, true);
 					
 //					Another approach of choosing a path to replace
 //					(instead of the shortest, we choose the smallest difference 
@@ -114,13 +113,13 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					Path newPath = new Path();
 					newPath.setWeight(Graph.DISCONNECTED);
 					
-					int queryId = switchPaths(oldPath, newPath, startTime, path2queries);
-					result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
-							new Pair<Integer, Path>(queryId, newPath));	
+					Query query = switchPaths(oldPath, newPath, startTime, path2queries);
+					result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)), 
+							new Pair<Query, Path>(query, newPath));	
 					if (Settings.DEBUG_LEVEL >= 5) {
 						System.out.println("\n\n\n\n\n\n");
 						
-						System.out.println("Decided to replace queryId = " + queryId + 
+						System.out.println("Decided to replace queryId = " + query.getId() + 
 								" with an empty path.");
 						
 						System.out.println("\n\n\n\n\n\n");
@@ -135,14 +134,14 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				Path newPath = heapIterator.next();
 				Path oldPath = new2old.get(newPath);
 				
-				int queryId = switchPaths(oldPath, newPath, startTime, path2queries);
-				result.set(result.indexOf(new Pair<Integer, Path>(queryId, oldPath)), 
-						new Pair<Integer, Path>(queryId, newPath));
+				Query query = switchPaths(oldPath, newPath, startTime, path2queries);
+				result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)), 
+						new Pair<Query, Path>(query, newPath));
 				
 				if (Settings.DEBUG_LEVEL >= 5) {
 					System.out.println("\n\n\n\n\n\n");
 					
-					System.out.println("QUERY_ID = " + queryId);
+					System.out.println("QUERY_ID = " + query.getId());
 					System.out.println(oldPath);
 					System.out.println("\n\n");
 					System.out.println(newPath);
@@ -166,18 +165,18 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	 * @param path2queries
 	 * @return
 	 */
-	public int switchPaths(Path oldPath, Path newPath, int startTime, Map<Path, Set<Integer>> path2queries) {	// [TODO] think about better name for this function
+	public Query switchPaths(Path oldPath, Path newPath, int startTime, Map<Path, Set<Query>> path2queries) {	// [TODO] think about better name for this function
 		//update state of the world (i.e., replace those paths in our traffic load)
 		updateLoad(oldPath, startTime, true);
 		if (newPath.size() > 0)
 			updateLoad(newPath, startTime, false);
 		
-		Set<Integer> queriesIds = path2queries.get(oldPath);
-		Iterator<Integer> queriesIdsIterator = queriesIds.iterator();
-		int queryId = queriesIdsIterator.next();
+		Set<Query> queries = path2queries.get(oldPath);
+		Iterator<Query> queriesIterator = queries.iterator();
+		Query query = queriesIterator.next();
 		//remove our paths from path2queries set													//should work since we can't replace the same path twice
-		queriesIdsIterator.remove();
-		return queryId;
+		queriesIterator.remove();
+		return query;
 	}
 
 	public static void main(String[] args) {
@@ -190,14 +189,14 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		
 		int startTime = 0;
 		DijkstraBasedReplacement dbr = new DijkstraBasedReplacement(graph);
-		List<Pair<Integer, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
+		List<Pair<Query, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			int queryId = queriesWithSolutions.get(i).first();
+			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + queryId +
-					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+			System.out.println("QueryId = " + query.getId() +
+					" {" + query.first() + ", " + query.second() + "}" +
 					" Solution = " + solution);
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");

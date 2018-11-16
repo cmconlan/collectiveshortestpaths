@@ -6,6 +6,7 @@ import java.util.List;
 import org.testng.annotations.Test;
 
 import uk.ac.warwick.heuristics.DijkstraBasedReplacement;
+import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
@@ -38,14 +39,14 @@ public class DijkstraBasedReplacementTest {
 		int expectedNumberOfFailures = 1;
 		int expectedTravelTimeOfTheRest = 4;
 		int startTime = 0;
-		List<Pair<Integer, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
+		List<Pair<Query, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			int queryId = queriesWithSolutions.get(i).first();
+			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + queryId +
-					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+			System.out.println("QueryId = " + query.getId() +
+					" {" + query.first() + ", " + query.second() + "}" +
 					" Solution = " + solution);
 		}
 		
@@ -73,14 +74,14 @@ public class DijkstraBasedReplacementTest {
 		int expectedTravelTimeOfTheRest = 66004;													// heap picks relative shortest path w.r.t. the true shortest path
 		
 		int startTime = 0;
-		List<Pair<Integer, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
+		List<Pair<Query, Path>> queriesWithSolutions = dbr.process(queryHandler.getQueries(), startTime);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-//			int queryId = queriesWithSolutions.get(i).first();
+//			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-//			System.out.println("QueryId = " + queriesWithSolutions.get(i).first() +
-//					" {" + queryHandler.getQuery(queryId).first() + ", " + queryHandler.getQuery(queryId).second() + "}" +
+//			System.out.println("QueryId = " + query.getId() +
+//					" {" + query.first() + ", " + query.second() + "}" +
 //					" Solution = " + solution);
 		}
 //		
