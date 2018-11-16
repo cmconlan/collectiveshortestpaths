@@ -157,7 +157,7 @@ public class DijkstraShortestPathAlg
 	 * Update the distance from the source to the concerned vertex.
 	 * @param vertex
 	 */
-	private void updateVertex(BaseVertex vertex, boolean isSource2sink)	{							// TODO fix, since this function ignores path.startTime()
+	private void updateVertex(BaseVertex vertex, boolean isSource2sink)	{							
 		// 1. get the neighboring vertices 
 		Set<BaseVertex> neighborVertexList = isSource2sink ?
 			graph.getAdjacentVertices(vertex) : graph.getPrecedentVertices(vertex);
@@ -179,9 +179,9 @@ public class DijkstraShortestPathAlg
 					: new Edge(curAdjacentVertex, vertex);
 			int start = getStartTime() + vertex.getWeight();										// getStartTime() == queryTime, vertex.getWeight == relative dijkstraTime
 																									// (relative time starting from 0 when vertex == source)
-			int edgeWeight = isSource2sink ? graph.getEdgeWeight(vertex, curAdjacentVertex)		
-					: graph.getEdgeWeight(curAdjacentVertex, vertex);
-			int finish = start + edgeWeight;
+			int edgeWeight = isSource2sink ? graph.getEdgeWeight(vertex, curAdjacentVertex)			
+					: graph.getEdgeWeight(curAdjacentVertex, vertex);								// alternative option is to change vertexWeight, i.e., to start from source 
+			int finish = start + edgeWeight;														// with time queryTime instead of 0
 			
 			boolean cnt = false;
 			if (load != null && load.containsKey(edge)) {												// there was some traffic

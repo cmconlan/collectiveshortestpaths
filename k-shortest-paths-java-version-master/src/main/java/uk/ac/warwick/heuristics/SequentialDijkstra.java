@@ -3,6 +3,7 @@ package uk.ac.warwick.heuristics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -103,12 +104,12 @@ public class SequentialDijkstra {
 	
 	
 	public List<Pair<Query, Path>> processWithShift(Set<Query> queries, boolean capacityAware) {
-		Set<Query> unresolvedQueries = queries;														// if we want to keep queries alive, we should copy here
+		Set<Query> unresolvedQueries = new HashSet<Query>(queries);									// copy
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query,Path>>();
 		
 		while (!unresolvedQueries.isEmpty()) {
 			List<Pair<Query, Path>> processResult = process(unresolvedQueries, capacityAware);
-			unresolvedQueries.clear();																// this clears also queries (function parameter) since it is only a reference
+			unresolvedQueries.clear();																
 			
 			for (Pair<Query, Path> pair : processResult) {
 				if (pair.second().getWeight() == Graph.DISCONNECTED) {
