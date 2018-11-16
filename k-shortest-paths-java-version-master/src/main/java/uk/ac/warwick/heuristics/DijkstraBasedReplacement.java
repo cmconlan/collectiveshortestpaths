@@ -21,15 +21,13 @@ import edu.asu.emit.algorithm.utils.Pair;
 
 public class DijkstraBasedReplacement extends SequentialDijkstra {
 	
-	Set<EdgeTime> problematicEdges;
-	
 	public DijkstraBasedReplacement(Graph graph) {
 		super(graph);
-		problematicEdges = new TreeSet<EdgeTime>();
 	}
 	
 	
 	public List<Pair<Query, Path>> process(Set<Query> queries, int startTime) {
+		// [TODO] filter queries - consider only those with query.startTime == startTime
 		boolean capacityAware = false;
 		List<Pair<Query, Path>> result = super.process(queries, capacityAware);						// at first we want to calculate all the shortest paths
 																									// ignoring capacities
@@ -45,7 +43,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		}
 		
 		// we need to identify edgeTime violating our capacity constraints:
-		
+		Set<EdgeTime> problematicEdges = new TreeSet<EdgeTime>();
 		
 		for (Edge edge : load.keySet()) {															// iterate over all edges (that we used before)
 			for (int t = startTime; t < load.get(edge).length; ++t) {
@@ -81,7 +79,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					Iterator<Query> pathQueriesIterator = pathQueries.iterator();	
 					Query query = pathQueriesIterator.next();
 					
-					Path newPath = super.processQuery(query, true);
+					Path newPath = processQuery(query, true);										// == super.processQuery(query, true);
 					
 //					Another approach of choosing a path to replace
 //					(instead of the shortest, we choose the smallest difference 
@@ -108,14 +106,14 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 						System.out.println("Couldn't find any good replacement for " + 
 								edgeTime.first() + " at time " + edgeTime.second());
 					
-																									//lets just pick a random path and replace it with empty path					
-					Path oldPath = pathsToReplace.get(0);
-					Path newPath = new Path();
-					newPath.setWeight(Graph.DISCONNECTED);
+					int last = pathsToReplace.size() - 1;											// lets just pick a random path and replace it with empty path					
+					Path oldPath = pathsToReplace.get(last);										// this path is random as long as in SequentialDijkstra.updateListOfPaths
+					Path newPath = new Path();														// we use HashMap (if we use TreeMap) oldPath is the shortest(0)
+					newPath.setWeight(Graph.DISCONNECTED);											// or the longest(last) one
 					
 					Query query = switchPaths(oldPath, newPath, startTime, path2queries);
-					result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)), 
-							new Pair<Query, Path>(query, newPath));	
+					result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)),				// result.remove(result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)))?
+							new Pair<Query, Path>(query, newPath));									// + move query to the future?
 					if (Settings.DEBUG_LEVEL >= 5) {
 						System.out.println("\n\n\n\n\n\n");
 						

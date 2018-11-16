@@ -52,7 +52,7 @@ public class SequentialDijkstra {
 	protected void updateListOfPaths(EdgeTime edgeTime, Path path, boolean isRemoved) {
 		Map<Path, Integer> paths = listOfPaths.get(edgeTime);										// imitates multiset of Paths 
 		if (paths == null) 
-			paths = new HashMap<Path, Integer>();
+			paths = new TreeMap<Path, Integer>();
 		
 		if (!isRemoved) paths.put(path, 1);
 		else {

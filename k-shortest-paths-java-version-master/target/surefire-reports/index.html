@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">6 methods,   6 passed</span>
+                    <span class="method-stats">7 methods,   7 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,6 +99,11 @@
                       <a href="#" panel-name="suite-Surefire_suite" class="show-methods passed suite-Surefire_suite"> (show)</a> <!-- show-methods passed suite-Surefire_suite -->
                     </span>
                     <div class="method-list-content passed suite-Surefire_suite">
+                      <span>
+                        <img width="3%" src="passed.png"/>
+                        <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" hash-for-method="ElifsData">ElifsData</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img width="3%" src="passed.png"/>
                         <a href="#" class="method navigator-link" panel-name="suite-Surefire_suite" title="uk.ac.warwick.thomas.test.SequentialDijkstraTest" hash-for-method="ElifsData">ElifsData</a> <!-- method navigator-link -->
@@ -147,6 +152,13 @@
               <span class="class-name">uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="ElifsData">
+                  </a> <!-- ElifsData -->
+                  <span class="method-name">ElifsData</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
                   <a name="dijkstraBasedReplacementTest">
@@ -269,36 +281,40 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(6);
+data.addRows(7);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'ElifsData')
 data.setCell(0, 2, 'uk.ac.warwick.thomas.test.SequentialDijkstraTest')
-data.setCell(0, 3, 20654);
+data.setCell(0, 3, 20165);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'testShorstPathAlg')
-data.setCell(1, 2, 'edu.asu.emit.qyan.test.ShortestPathAlgTest')
-data.setCell(1, 3, 21);
+data.setCell(1, 1, 'ElifsData')
+data.setCell(1, 2, 'uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest')
+data.setCell(1, 3, 20034);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'testYenShortestPathsAlg4MultipleGraphs')
-data.setCell(2, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
-data.setCell(2, 3, 14);
+data.setCell(2, 1, 'testShorstPathAlg')
+data.setCell(2, 2, 'edu.asu.emit.qyan.test.ShortestPathAlgTest')
+data.setCell(2, 3, 35);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'dijkstraBasedReplacementTest')
-data.setCell(3, 2, 'uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest')
-data.setCell(3, 3, 9);
+data.setCell(3, 1, 'testYenShortestPathsAlg4MultipleGraphs')
+data.setCell(3, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
+data.setCell(3, 3, 13);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'seqDijkstraTest')
-data.setCell(4, 2, 'uk.ac.warwick.thomas.test.SequentialDijkstraTest')
-data.setCell(4, 3, 3);
+data.setCell(4, 1, 'dijkstraBasedReplacementTest')
+data.setCell(4, 2, 'uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest')
+data.setCell(4, 3, 4);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'testDijkstraShortestPathAlg')
-data.setCell(5, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
-data.setCell(5, 3, 1);
+data.setCell(5, 1, 'seqDijkstraTest')
+data.setCell(5, 2, 'uk.ac.warwick.thomas.test.SequentialDijkstraTest')
+data.setCell(5, 3, 3);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'testDijkstraShortestPathAlg')
+data.setCell(6, 2, 'edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest')
+data.setCell(6, 3, 1);
 window.suiteTableData['Surefire_suite']= { tableData: data, tableDiv: 'times-div-Surefire_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 20 seconds</span>
+              <span class="suite-total-time">Total running time: 40 seconds</span>
               <div id="times-div-Surefire_suite">
               </div> <!-- times-div-Surefire_suite -->
             </div> <!-- times-div -->
@@ -331,36 +347,40 @@ return data;
               </div> <!-- configuration-test before -->
               <div class="test-method">
                 <span class="method-name">testShorstPathAlg</span>
-                <span class="method-start">135 ms</span>
+                <span class="method-start">144 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">testDijkstraShortestPathAlg</span>
-                <span class="method-start">161 ms</span>
+                <span class="method-start">184 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">testYenShortestPathsAlg4MultipleGraphs</span>
-                <span class="method-start">164 ms</span>
+                <span class="method-start">186 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">uk.ac.warwick.thomas.test.SequentialDijkstraTest</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">ElifsData</span>
-                <span class="method-start">179 ms</span>
+                <span class="method-start">200 ms</span>
               </div> <!-- test-method -->
               <div class="test-method">
                 <span class="method-name">seqDijkstraTest</span>
-                <span class="method-start">20834 ms</span>
+                <span class="method-start">20366 ms</span>
               </div> <!-- test-method -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest</div> <!-- chronological-class-name -->
               <div class="test-method">
+                <span class="method-name">ElifsData</span>
+                <span class="method-start">20371 ms</span>
+              </div> <!-- test-method -->
+              <div class="test-method">
                 <span class="method-name">dijkstraBasedReplacementTest</span>
-                <span class="method-start">20838 ms</span>
+                <span class="method-start">40406 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
