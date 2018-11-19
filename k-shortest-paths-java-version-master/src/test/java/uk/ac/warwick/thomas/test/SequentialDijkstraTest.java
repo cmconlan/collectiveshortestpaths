@@ -83,7 +83,7 @@ public class SequentialDijkstraTest {
 																									// expected result withShift {0, 67567}
 		
 		boolean capacityAware = true;
-		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.processWithShift(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 //			Query query = queriesWithSolutions.get(i).first();

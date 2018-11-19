@@ -52,6 +52,7 @@ import edu.asu.emit.algorithm.utils.Pair;
  */
 public class YenTopKShortestPathsAlg
 {
+	// Custom comparator to PriorityQueue
 	Comparator<Path> weightComparator = new Comparator<Path>() {
         public int compare(Path p1, Path p2) {
             return p1.getWeight() - p2.getWeight();

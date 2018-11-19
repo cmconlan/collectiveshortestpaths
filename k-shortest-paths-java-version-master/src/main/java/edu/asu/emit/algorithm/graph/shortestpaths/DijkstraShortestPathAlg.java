@@ -59,6 +59,7 @@ import edu.asu.emit.algorithm.utils.Edge;
  */
 public class DijkstraShortestPathAlg
 {
+	// Custom comparator to PriorityQueue
 	Comparator<BaseVertex> weightComparator = new Comparator<BaseVertex>() {
         public int compare(BaseVertex v1, BaseVertex v2) {
             return v1.getWeight() - v2.getWeight();

@@ -3,7 +3,6 @@ package uk.ac.warwick.heuristics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +24,10 @@ import edu.asu.emit.algorithm.utils.Pair;
  * @author Tomasz Janus
  * @email t.janus@warwick.ac.uk
  *
- * this class is first heuristic to solve collective shortest path optimization problem
+ * This class is first heuristic to solve collective shortest path optimization problem.
+ * It simply assign a shortest path w.r.t to the given traffic load 
+ * (caused by previous queries solutions) if it is possible.
+ * If the algorithm does not find any feasible solution it assigns empty path of infinite weight.
  */
 public class SequentialDijkstra {
 	
@@ -100,37 +102,6 @@ public class SequentialDijkstra {
 			//update timeInstance
 			t += edgeWeight;
 		}
-	}
-	
-	
-	public List<Pair<Query, Path>> processWithShift(Set<Query> queries, boolean capacityAware) {
-		Set<Query> unresolvedQueries = new HashSet<Query>(queries);									// copy
-		List<Pair<Query, Path>> result = new ArrayList<Pair<Query,Path>>();
-		
-		while (!unresolvedQueries.isEmpty()) {
-			List<Pair<Query, Path>> processResult = process(unresolvedQueries, capacityAware);
-			unresolvedQueries.clear();																
-			
-			for (Pair<Query, Path> pair : processResult) {
-				if (pair.second().getWeight() == Graph.DISCONNECTED) {
-					Query oldQuery = pair.first();
-					Query newQuery = new Query(oldQuery.first(), oldQuery.second(), oldQuery.getStartTime() + 1);
-					newQuery.setInitialStartTime(oldQuery.getInitialStartTime());					// we need to remember initial query startTime
-					unresolvedQueries.add(newQuery);
-				}
-				else {
-					Query query = pair.first();
-					Path path = pair.second();
-					int waitingTime = query.getStartTime()- query.getInitialStartTime();
-					path.setWeight(path.getWeight() + waitingTime);
-					result.add(pair);
-				}
-			}
-			
-		}
-		
-		
-		return result;
 	}
 	
 	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
@@ -211,7 +182,7 @@ public class SequentialDijkstra {
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		boolean capacityAware = true;
-		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.processWithShift(queryHandler.getQueries(), capacityAware);
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
 			Query query = queriesWithSolutions.get(i).first();

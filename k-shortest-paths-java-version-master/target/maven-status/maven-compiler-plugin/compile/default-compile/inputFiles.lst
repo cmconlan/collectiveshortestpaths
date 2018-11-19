@@ -7,8 +7,8 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/EdgeTime.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/LoadHandler.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/Pair.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/GreedySequentialDijkstra.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/Path.java
-/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/QYPriorityQueue.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/VariableGraph.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/Edge.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/SequentialDijkstra.java
