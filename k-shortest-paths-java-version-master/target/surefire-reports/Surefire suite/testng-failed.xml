@@ -3,11 +3,11 @@
 <suite thread-count="1" verbose="0" name="Failed suite [Surefire suite]">
   <test name="Surefire test(failed)">
     <classes>
-      <class name="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest">
+      <class name="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest">
         <methods>
-          <include name="ElifsData"/>
+          <include name="testYenShortestPathsAlg4MultipleGraphs"/>
         </methods>
-      </class> <!-- uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest -->
+      </class> <!-- edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest -->
       <class name="edu.asu.emit.qyan.test.ShortestPathAlgTest">
         <methods>
           <include name="setUp"/>

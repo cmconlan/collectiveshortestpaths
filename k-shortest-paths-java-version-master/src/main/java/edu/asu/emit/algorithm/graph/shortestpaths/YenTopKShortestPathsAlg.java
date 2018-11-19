@@ -31,9 +31,11 @@
 
 package edu.asu.emit.algorithm.graph.shortestpaths;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Vector;
 
 import edu.asu.emit.algorithm.graph.Graph;
@@ -42,7 +44,6 @@ import edu.asu.emit.algorithm.graph.VariableGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Pair;
-import edu.asu.emit.algorithm.utils.QYPriorityQueue;
 
 /**
  * @author <a href='mailto:Yan.Qi@asu.edu'>Yan Qi</a>
@@ -51,12 +52,17 @@ import edu.asu.emit.algorithm.utils.QYPriorityQueue;
  */
 public class YenTopKShortestPathsAlg
 {
+	Comparator<Path> weightComparator = new Comparator<Path>() {
+        public int compare(Path p1, Path p2) {
+            return p1.getWeight() - p2.getWeight();
+        }
+    };
 	private VariableGraph graph = null;
 
 	// intermediate variables
 	private List<Path> resultList = new Vector<Path>();
 	private Map<Path, BaseVertex> pathDerivationVertexIndex = new HashMap<Path, BaseVertex>();
-	private QYPriorityQueue<Path> pathCandidates = new QYPriorityQueue<Path>();
+	private PriorityQueue<Path> pathCandidates = new PriorityQueue<Path>(weightComparator);
 	
 	// the ending vertices of the paths
 	private BaseVertex sourceVertex = null;
@@ -112,7 +118,7 @@ public class YenTopKShortestPathsAlg
 	 * Clear the variables of the class. 
 	 */
 	public void clear()	{
-		pathCandidates = new QYPriorityQueue<Path>();
+		pathCandidates = new PriorityQueue<Path>(weightComparator);
 		pathDerivationVertexIndex.clear();
 		resultList.clear();
 		generatedPathNum = 0;

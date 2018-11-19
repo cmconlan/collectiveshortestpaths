@@ -15,12 +15,12 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
  * @author Tomasz Janus
  * @email t.janus@warwick.ac.uk
  *
- * this class transform queries from integers to BaseVertices
+ * This class transform queries from integers to BaseVertices
  * it assumes that queries are list of pair of integers 
  * i.e., each line in the query file is a pair of integers 
  * query.from query.to
  * 
- * This class also sorts queries with respect to startTime
+ * This class also sorts queries with respect to startTime.
  */
 
 public class QueryHandler {																			

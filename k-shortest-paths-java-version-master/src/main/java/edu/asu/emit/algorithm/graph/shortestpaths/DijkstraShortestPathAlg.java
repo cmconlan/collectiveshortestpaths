@@ -32,11 +32,13 @@
 package edu.asu.emit.algorithm.graph.shortestpaths;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Vector;
 
@@ -45,7 +47,6 @@ import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Edge;
-import edu.asu.emit.algorithm.utils.QYPriorityQueue;
 
 
 /**
@@ -58,6 +59,12 @@ import edu.asu.emit.algorithm.utils.QYPriorityQueue;
  */
 public class DijkstraShortestPathAlg
 {
+	Comparator<BaseVertex> weightComparator = new Comparator<BaseVertex>() {
+        public int compare(BaseVertex v1, BaseVertex v2) {
+            return v1.getWeight() - v2.getWeight();
+        }
+    };
+	
 	// Input
 	private final BaseGraph graph;
 	private Map<Edge, int[]> load;
@@ -65,7 +72,7 @@ public class DijkstraShortestPathAlg
 
 	// Intermediate variables
 	private Set<BaseVertex> determinedVertexSet = new HashSet<BaseVertex>();
-	private QYPriorityQueue<BaseVertex> vertexCandidateQueue = new QYPriorityQueue<BaseVertex>();
+	private PriorityQueue<BaseVertex> vertexCandidateQueue = new PriorityQueue<BaseVertex>(weightComparator);
 	private Map<BaseVertex, Integer> startVertexDistanceIndex = new HashMap<BaseVertex, Integer>();
 	private Map<BaseVertex, BaseVertex> predecessorIndex = new HashMap<BaseVertex, BaseVertex>();
 
