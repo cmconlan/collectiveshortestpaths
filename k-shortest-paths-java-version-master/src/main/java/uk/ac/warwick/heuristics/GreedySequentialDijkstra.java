@@ -1,15 +1,14 @@
 package uk.ac.warwick.heuristics;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
-
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.utils.Edge;
@@ -36,7 +35,7 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 
 	
 	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
-		Set<Query> unresolvedQueries = new HashSet<Query>(queries);									// copy
+		Set<Query> unresolvedQueries = new TreeSet<Query>(queries);									// copy
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query,Path>>();
 		
 		while (!unresolvedQueries.isEmpty()) {

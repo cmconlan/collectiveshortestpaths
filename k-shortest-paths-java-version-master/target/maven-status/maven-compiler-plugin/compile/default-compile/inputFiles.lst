@@ -5,6 +5,7 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/DijkstraBasedReplacement.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/shortestpaths/YenTopKShortestPathsAlg.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/EdgeTime.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/SequentialDijkstraWithThreshold.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/LoadHandler.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/utils/Pair.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/heuristics/GreedySequentialDijkstra.java

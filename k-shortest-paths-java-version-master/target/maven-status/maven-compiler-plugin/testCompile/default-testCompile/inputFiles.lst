@@ -3,3 +3,4 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/test/java/uk/ac/warwick/thomas/test/DijkstraBasedReplacementTest.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/test/java/edu/asu/emit/qyan/test/YenTopKShortestPathsAlgTest.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/test/java/uk/ac/warwick/thomas/test/GreedySequentialDijkstraTest.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/test/java/uk/ac/warwick/thomas/test/SequentialDijkstraWithThresholdTest.java
