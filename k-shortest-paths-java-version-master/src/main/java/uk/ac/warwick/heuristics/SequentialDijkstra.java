@@ -171,6 +171,16 @@ public class SequentialDijkstra {
 		return new Pair<Integer,Integer>(nFailedPaths, totalTravelTime);
 	}
 	
+	public int getMaxWaitingTime(List<Path> paths) {
+		int maximumWaitingTime = 0;
+		
+		for (Path path : paths) {
+			if (maximumWaitingTime < path.getWaitingTime())
+				maximumWaitingTime = path.getWaitingTime();
+		}
+		return maximumWaitingTime;
+	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -194,6 +204,8 @@ public class SequentialDijkstra {
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
 		seqDijkstra.showLoad();
 		
 		System.out.println(seqDijkstra.listOfPaths);

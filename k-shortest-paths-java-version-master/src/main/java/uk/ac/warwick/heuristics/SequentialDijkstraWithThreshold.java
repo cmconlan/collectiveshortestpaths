@@ -58,6 +58,7 @@ public class SequentialDijkstraWithThreshold extends SequentialDijkstra{
 			Query query = pair.first();
 			int waitingTime = query.getStartTime()- query.getInitialStartTime();
 			path.setWeight(path.getWeight() + waitingTime);
+			path.setWaitingTime(waitingTime);
 		}
 		
 		return result;

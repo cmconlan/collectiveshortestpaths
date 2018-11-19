@@ -51,6 +51,8 @@ public class GreedySequentialDijkstraTest {
 		
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}

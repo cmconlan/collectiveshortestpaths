@@ -99,6 +99,8 @@ public class SequentialDijkstraTest {
 		
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}

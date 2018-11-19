@@ -56,6 +56,8 @@ public class SequentialDijkstraWithThresholdTest {
 			
 			System.out.print("{nFailed, totalTravelTime} = ");
 			System.out.println(SeqDijkstraWT.evaluate(paths));
+			System.out.print("maximumWaitingTime = ");
+			System.out.println(SeqDijkstraWT.getMaxWaitingTime(paths));
 	//		seqDijkstra.showLoad();	
 	
 		}

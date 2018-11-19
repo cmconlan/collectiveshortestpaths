@@ -47,6 +47,8 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 	private int weight;
 	private double delta = 0d;
 	
+	private int waitingTime = 0;
+	
 	public Path() { }
 	
 	public Path(List<BaseVertex> vertexList, int weight) {
@@ -121,6 +123,14 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	public double getDelta() {
 		return delta;
+	}
+
+	public int getWaitingTime() {
+		return waitingTime;
+	}
+
+	public void setWaitingTime(int waitingTime) {
+		this.waitingTime = waitingTime;
 	}
 	
 //	public int compareTo(Path rhs) {																// <- I refer to this with Path.compareToDelta

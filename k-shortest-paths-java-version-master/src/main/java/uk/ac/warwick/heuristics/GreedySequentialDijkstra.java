@@ -54,6 +54,7 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 					Path path = pair.second();
 					int waitingTime = query.getStartTime()- query.getInitialStartTime();
 					path.setWeight(path.getWeight() + waitingTime);
+					path.setWaitingTime(waitingTime);
 					if (Settings.DEBUG_LEVEL >= 1) {
 						System.out.println(query + " waiting time = " + waitingTime);
 					}
@@ -88,6 +89,8 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 		greedySeqDijkstra.showLoad();
 		
 		System.out.println(greedySeqDijkstra.listOfPaths);

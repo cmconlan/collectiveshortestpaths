@@ -90,6 +90,8 @@ public class DijkstraBasedReplacementTest {
 		
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(dbr.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(dbr.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}
