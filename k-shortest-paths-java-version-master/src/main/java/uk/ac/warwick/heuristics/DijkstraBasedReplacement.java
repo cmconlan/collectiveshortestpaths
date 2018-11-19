@@ -108,8 +108,8 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 					
 					int last = pathsToReplace.size() - 1;											// lets just pick a random path and replace it with empty path					
 					Path oldPath = pathsToReplace.get(last);										// this path is random as long as in SequentialDijkstra.updateListOfPaths
-					Path newPath = new Path();														// we use HashMap (if we use TreeMap) oldPath is the shortest(0)
-					newPath.setWeight(Graph.DISCONNECTED);											// or the longest(last) one
+					Path newPath = new Path();														// we use HashMap (if we use TreeMap oldPath is the shortest(0)
+					newPath.setWeight(Graph.DISCONNECTED);											// or the longest(last) one)
 					
 					Query query = switchPaths(oldPath, newPath, startTime, path2queries);
 					result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)),				// result.remove(result.set(result.indexOf(new Pair<Query, Path>(query, oldPath)))?

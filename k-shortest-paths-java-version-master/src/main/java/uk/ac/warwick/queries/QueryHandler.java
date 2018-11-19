@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 
@@ -20,8 +20,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
  * i.e., each line in the query file is a pair of integers 
  * query.from query.to
  * 
- * This class does not sort queries with respect to startTime
- * it only process them in the given (file) order
+ * This class also sorts queries with respect to startTime
  */
 
 public class QueryHandler {																			
@@ -29,12 +28,10 @@ public class QueryHandler {
 	private BufferedReader buffRead;
 	
 	public QueryHandler(final BaseGraph graph, String dataFileName) {
-		File file = null;
-		FileReader input;
-		queries = new HashSet<Query>();
-		try {
-			file = new File(dataFileName);															// throws nullPointerException (if dataFileName is null)
-			input = new FileReader(file);															// throws FileNotFoundException
+		File file  = new File(dataFileName);															
+		queries = new TreeSet<Query>();																// we want queries to be ordered w.r.t. queryTime
+		try {														
+			FileReader input = new FileReader(file);												// throws FileNotFoundException
 			buffRead = new BufferedReader(input);
 			String line = buffRead.readLine();														// throws IOException
 					
