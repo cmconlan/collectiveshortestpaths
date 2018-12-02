@@ -3,16 +3,17 @@
 <suite thread-count="1" verbose="0" name="Failed suite [Surefire suite]">
   <test name="Surefire test(failed)">
     <classes>
-      <class name="uk.ac.warwick.thomas.test.SequentialDijkstraTest">
-        <methods>
-          <include name="seqDijkstraTest"/>
-        </methods>
-      </class> <!-- uk.ac.warwick.thomas.test.SequentialDijkstraTest -->
       <class name="edu.asu.emit.qyan.test.ShortestPathAlgTest">
         <methods>
           <include name="setUp"/>
         </methods>
       </class> <!-- edu.asu.emit.qyan.test.ShortestPathAlgTest -->
+      <class name="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest">
+        <methods>
+          <include name="ElifsData"/>
+          <include name="dijkstraBasedReplacementTest"/>
+        </methods>
+      </class> <!-- uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest -->
     </classes>
   </test> <!-- Surefire test(failed) -->
 </suite> <!-- Failed suite [Surefire suite] -->

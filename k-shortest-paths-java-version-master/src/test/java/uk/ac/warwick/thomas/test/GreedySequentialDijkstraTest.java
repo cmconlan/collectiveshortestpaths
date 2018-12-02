@@ -10,10 +10,11 @@ import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class GreedySequentialDijkstraTest {
-	private Graph graph;
+	private BaseGraph graph;
 	private GreedySequentialDijkstra greedySeqDijkstra;
 	private QueryHandler queryHandler;
 	
