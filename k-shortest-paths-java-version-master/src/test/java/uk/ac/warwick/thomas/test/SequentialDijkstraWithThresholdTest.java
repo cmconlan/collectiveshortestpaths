@@ -10,10 +10,11 @@ import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class SequentialDijkstraWithThresholdTest {
-	private Graph graph;
+	private BaseGraph graph;
 	private SequentialDijkstraWithThreshold SeqDijkstraWT;
 	private QueryHandler queryHandler;
 	
@@ -28,9 +29,9 @@ public class SequentialDijkstraWithThresholdTest {
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
 		
-		double d = 0.0002;
+		double d = 0.0005;
 		
-		for (int k = 1; k <= 10; ++k) {
+		for (int k = 1; k <= 5; ++k) {
 			SeqDijkstraWT = new SequentialDijkstraWithThreshold(graph, d * k);
 			
 	//		int expectedNumberOfFailures = 5;														// 0.1 -> Pair{0, 67569}

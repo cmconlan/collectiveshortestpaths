@@ -40,6 +40,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
  * The class defines a path in graph.
  * 
  * @author yqi
+ * @author Tomasz Janus
  */
 public class Path implements BaseElementWithWeight, Comparable<Path> {
 	

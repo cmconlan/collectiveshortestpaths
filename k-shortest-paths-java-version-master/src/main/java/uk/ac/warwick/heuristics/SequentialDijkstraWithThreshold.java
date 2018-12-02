@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import uk.ac.warwick.queries.Query;
-import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
 
@@ -16,12 +16,12 @@ public class SequentialDijkstraWithThreshold extends SequentialDijkstra{
 
 	private double threshold;
 	
-	public SequentialDijkstraWithThreshold(Graph graph, double threshold) {
+	public SequentialDijkstraWithThreshold(BaseGraph graph, double threshold) {
 		super(graph);
 		this.setThreshold(threshold);
 	}
 	
-	public SequentialDijkstraWithThreshold(Graph graph, double threshold, Map<Edge, int[]> load) {
+	public SequentialDijkstraWithThreshold(BaseGraph graph, double threshold, Map<Edge, int[]> load) {
 		super(graph, load);
 		this.setThreshold(threshold);
 	}

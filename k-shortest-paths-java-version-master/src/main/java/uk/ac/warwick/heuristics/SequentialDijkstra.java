@@ -13,6 +13,7 @@ import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
@@ -31,13 +32,13 @@ import edu.asu.emit.algorithm.utils.Pair;
  */
 public class SequentialDijkstra {
 	
-	protected Graph graph;
+	protected BaseGraph graph;
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
 	protected DijkstraShortestPathAlg dijkstra;
 	
 	protected Map<EdgeTime, Map<Path, Integer>> listOfPaths;										// necessary for DijkstraBasedReplacement
 	
-	public SequentialDijkstra(Graph graph) {														
+	public SequentialDijkstra(BaseGraph graph) {														
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
 		listOfPaths = new TreeMap<EdgeTime, Map<Path, Integer>>();									// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
@@ -46,7 +47,7 @@ public class SequentialDijkstra {
 		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
-	public SequentialDijkstra(Graph graph, Map<Edge, int[]> load) {									
+	public SequentialDijkstra(BaseGraph graph, Map<Edge, int[]> load) {									
 		this(graph);																				// calling the other constructor
 		this.load = load;
 	}
@@ -187,7 +188,7 @@ public class SequentialDijkstra {
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
 		
-		Graph graph = new Graph(graphPath);
+		BaseGraph graph = new Graph(graphPath);
 		SequentialDijkstra seqDijkstra = new SequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		

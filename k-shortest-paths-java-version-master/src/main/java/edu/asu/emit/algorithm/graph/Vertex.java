@@ -36,6 +36,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
  * The class defines a vertex in the graph
  * 
  * @author yqi
+ * @author Tomasz Janus
  */
 public class Vertex implements BaseVertex {
 	

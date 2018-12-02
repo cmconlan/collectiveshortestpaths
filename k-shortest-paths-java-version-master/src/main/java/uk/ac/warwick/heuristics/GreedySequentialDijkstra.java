@@ -11,6 +11,7 @@ import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
 
@@ -25,11 +26,11 @@ import edu.asu.emit.algorithm.utils.Pair;
 
 public class GreedySequentialDijkstra extends SequentialDijkstra{
 
-	public GreedySequentialDijkstra(Graph graph) {
+	public GreedySequentialDijkstra(BaseGraph graph) {
 		super(graph);
 	}
 	
-	public GreedySequentialDijkstra(Graph graph, Map<Edge, int[]> load) {
+	public GreedySequentialDijkstra(BaseGraph graph, Map<Edge, int[]> load) {
 		super(graph, load);
 	}
 
@@ -72,7 +73,7 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
 		
-		Graph graph = new Graph(graphPath);
+		BaseGraph graph = new Graph(graphPath);
 		GreedySequentialDijkstra greedySeqDijkstra = new GreedySequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		

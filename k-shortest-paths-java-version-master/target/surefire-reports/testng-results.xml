@@ -2,58 +2,58 @@
 <testng-results skipped="0" failed="0" total="9" passed="9">
   <reporter-output>
   </reporter-output>
-  <suite name="Surefire suite" duration-ms="158904" started-at="2018-11-19T17:27:56Z" finished-at="2018-11-19T17:30:35Z">
+  <suite name="Surefire suite" duration-ms="95564" started-at="2018-12-02T19:09:12Z" finished-at="2018-12-02T19:10:48Z">
     <groups>
     </groups>
-    <test name="Surefire test" duration-ms="158904" started-at="2018-11-19T17:27:56Z" finished-at="2018-11-19T17:30:35Z">
+    <test name="Surefire test" duration-ms="95564" started-at="2018-12-02T19:09:12Z" finished-at="2018-12-02T19:10:48Z">
       <class name="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest">
-        <test-method status="PASS" signature="testDijkstraShortestPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@591f989e]" name="testDijkstraShortestPathAlg" duration-ms="2" started-at="2018-11-19T17:27:57Z" finished-at="2018-11-19T17:27:57Z">
+        <test-method status="PASS" signature="testDijkstraShortestPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@591f989e]" name="testDijkstraShortestPathAlg" duration-ms="1" started-at="2018-12-02T19:09:13Z" finished-at="2018-12-02T19:09:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testDijkstraShortestPathAlg -->
-        <test-method status="PASS" signature="testYenShortestPathsAlg4MultipleGraphs()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@591f989e]" name="testYenShortestPathsAlg4MultipleGraphs" duration-ms="16" started-at="2018-11-19T17:27:57Z" finished-at="2018-11-19T17:27:57Z">
+        <test-method status="PASS" signature="testYenShortestPathsAlg4MultipleGraphs()[pri:0, instance:edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest@591f989e]" name="testYenShortestPathsAlg4MultipleGraphs" duration-ms="18" started-at="2018-12-02T19:09:13Z" finished-at="2018-12-02T19:09:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testYenShortestPathsAlg4MultipleGraphs -->
       </class> <!-- edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest -->
       <class name="edu.asu.emit.qyan.test.ShortestPathAlgTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@445b84c0]" name="setUp" is-config="true" duration-ms="125" started-at="2018-11-19T17:27:56Z" finished-at="2018-11-19T17:27:57Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@445b84c0]" name="setUp" is-config="true" duration-ms="140" started-at="2018-12-02T19:09:12Z" finished-at="2018-12-02T19:09:12Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="testShorstPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@445b84c0]" name="testShorstPathAlg" duration-ms="24" started-at="2018-11-19T17:27:57Z" finished-at="2018-11-19T17:27:57Z">
+        <test-method status="PASS" signature="testShorstPathAlg()[pri:0, instance:edu.asu.emit.qyan.test.ShortestPathAlgTest@445b84c0]" name="testShorstPathAlg" duration-ms="36" started-at="2018-12-02T19:09:12Z" finished-at="2018-12-02T19:09:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testShorstPathAlg -->
       </class> <!-- edu.asu.emit.qyan.test.ShortestPathAlgTest -->
       <class name="uk.ac.warwick.thomas.test.SequentialDijkstraTest">
-        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@1c53fd30]" name="ElifsData" duration-ms="11189" started-at="2018-11-19T17:30:06Z" finished-at="2018-11-19T17:30:18Z">
+        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@1c53fd30]" name="ElifsData" duration-ms="9421" started-at="2018-12-02T19:10:20Z" finished-at="2018-12-02T19:10:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ElifsData -->
-        <test-method status="PASS" signature="seqDijkstraTest()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@1c53fd30]" name="seqDijkstraTest" duration-ms="3" started-at="2018-11-19T17:30:18Z" finished-at="2018-11-19T17:30:18Z">
+        <test-method status="PASS" signature="seqDijkstraTest()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraTest@1c53fd30]" name="seqDijkstraTest" duration-ms="4" started-at="2018-12-02T19:10:29Z" finished-at="2018-12-02T19:10:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- seqDijkstraTest -->
       </class> <!-- uk.ac.warwick.thomas.test.SequentialDijkstraTest -->
       <class name="uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest">
-        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest@2fc14f68]" name="ElifsData" duration-ms="129838" started-at="2018-11-19T17:27:57Z" finished-at="2018-11-19T17:30:06Z">
+        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest@2fc14f68]" name="ElifsData" duration-ms="67240" started-at="2018-12-02T19:09:13Z" finished-at="2018-12-02T19:10:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ElifsData -->
       </class> <!-- uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest -->
       <class name="uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest">
-        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest@4b6995df]" name="ElifsData" duration-ms="7596" started-at="2018-11-19T17:30:18Z" finished-at="2018-11-19T17:30:25Z">
+        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest@4b6995df]" name="ElifsData" duration-ms="7836" started-at="2018-12-02T19:10:29Z" finished-at="2018-12-02T19:10:37Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ElifsData -->
       </class> <!-- uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest -->
       <class name="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest">
-        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@34033bd0]" name="ElifsData" duration-ms="10079" started-at="2018-11-19T17:30:25Z" finished-at="2018-11-19T17:30:35Z">
+        <test-method status="PASS" signature="ElifsData()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@34033bd0]" name="ElifsData" duration-ms="10831" started-at="2018-12-02T19:10:37Z" finished-at="2018-12-02T19:10:48Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- ElifsData -->
-        <test-method status="PASS" signature="dijkstraBasedReplacementTest()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@34033bd0]" name="dijkstraBasedReplacementTest" duration-ms="3" started-at="2018-11-19T17:30:35Z" finished-at="2018-11-19T17:30:35Z">
+        <test-method status="PASS" signature="dijkstraBasedReplacementTest()[pri:0, instance:uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest@34033bd0]" name="dijkstraBasedReplacementTest" duration-ms="3" started-at="2018-12-02T19:10:48Z" finished-at="2018-12-02T19:10:48Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- dijkstraBasedReplacementTest -->
