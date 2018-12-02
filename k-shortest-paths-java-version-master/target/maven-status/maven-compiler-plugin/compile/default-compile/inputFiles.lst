@@ -1,4 +1,5 @@
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/uk/ac/warwick/queries/Query.java
+/home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseDijkstraShortestPathAlg.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseGraph.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseElementWithWeight.java
 /home/jano/github/collectiveshortestpaths/k-shortest-paths-java-version-master/src/main/java/edu/asu/emit/algorithm/graph/abstraction/BaseVertex.java

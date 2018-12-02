@@ -13,6 +13,7 @@ import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseDijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
@@ -34,7 +35,7 @@ public class SequentialDijkstra {
 	
 	protected BaseGraph graph;
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
-	protected DijkstraShortestPathAlg dijkstra;
+	protected BaseDijkstraShortestPathAlg dijkstra;
 	
 	protected Map<EdgeTime, Map<Path, Integer>> listOfPaths;										// necessary for DijkstraBasedReplacement
 	

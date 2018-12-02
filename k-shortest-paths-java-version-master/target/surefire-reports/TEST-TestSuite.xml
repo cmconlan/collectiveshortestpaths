@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TestSuite" time="95.393" tests="9" errors="0" skipped="0" failures="0">
+<testsuite name="TestSuite" time="99.104" tests="9" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64"/>
@@ -61,11 +61,11 @@
   </properties>
   <testcase name="testShorstPathAlg" classname="edu.asu.emit.qyan.test.ShortestPathAlgTest" time="0.037"/>
   <testcase name="testDijkstraShortestPathAlg" classname="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest" time="0.001"/>
-  <testcase name="testYenShortestPathsAlg4MultipleGraphs" classname="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest" time="0.019"/>
-  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest" time="67.239"/>
-  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.SequentialDijkstraTest" time="9.421"/>
-  <testcase name="seqDijkstraTest" classname="uk.ac.warwick.thomas.test.SequentialDijkstraTest" time="0.005"/>
-  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest" time="7.836"/>
-  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" time="10.831"/>
-  <testcase name="dijkstraBasedReplacementTest" classname="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" time="0.004"/>
+  <testcase name="testYenShortestPathsAlg4MultipleGraphs" classname="edu.asu.emit.qyan.test.YenTopKShortestPathsAlgTest" time="0.02"/>
+  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.SequentialDijkstraWithThresholdTest" time="70.259"/>
+  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.SequentialDijkstraTest" time="11.539"/>
+  <testcase name="seqDijkstraTest" classname="uk.ac.warwick.thomas.test.SequentialDijkstraTest" time="0.003"/>
+  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.GreedySequentialDijkstraTest" time="7.989"/>
+  <testcase name="ElifsData" classname="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" time="9.253"/>
+  <testcase name="dijkstraBasedReplacementTest" classname="uk.ac.warwick.thomas.test.DijkstraBasedReplacementTest" time="0.003"/>
 </testsuite>

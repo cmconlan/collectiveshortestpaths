@@ -44,6 +44,7 @@ import java.util.Vector;
 
 import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
+import edu.asu.emit.algorithm.graph.abstraction.BaseDijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Edge;
@@ -57,7 +58,7 @@ import edu.asu.emit.algorithm.utils.Edge;
  * @author Tomasz Janus
  * @email t.janus@warwick.ac.uk
  */
-public class DijkstraShortestPathAlg
+public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 {
 	// Custom comparator to PriorityQueue
 	Comparator<BaseVertex> weightComparator = new Comparator<BaseVertex>() {
