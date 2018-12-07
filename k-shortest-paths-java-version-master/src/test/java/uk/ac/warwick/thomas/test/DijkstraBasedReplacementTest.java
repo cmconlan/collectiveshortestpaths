@@ -26,7 +26,7 @@ public class DijkstraBasedReplacementTest {
 		//Common preprocessing
 	}
 
-	@Test
+	//@Test
 	public void dijkstraBasedReplacementTest()	{
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
@@ -59,7 +59,7 @@ public class DijkstraBasedReplacementTest {
 		dbr.showLoad();
 	}
 	
-	@Test
+	//@Test
 	public void ElifsData() {
 		System.out.println("\n\n##Dijkstra Based Replacement Heuristic Test -- Elif's data");
 		

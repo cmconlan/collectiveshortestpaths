@@ -32,6 +32,7 @@ import edu.asu.emit.algorithm.utils.Pair;
  * If the algorithm does not find any feasible solution it assigns empty path of infinite weight.
  */
 public class SequentialDijkstra {
+	static int debug = 0; 
 	
 	protected BaseGraph graph;
 	protected Map<Edge, int[]> load;																// for each (edge, time) we keep traffic load
@@ -116,13 +117,16 @@ public class SequentialDijkstra {
 			if (path.size() > 0){
 				if (Settings.DEBUG_LEVEL >= 1)
 					System.out.println("Algorithm found a path from "
-							+ query.first() + " to " + query.second());
+							+ query.first() + " to " + query.second() + " at time " + 
+							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
+				debug++;
 				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}
 			else {
 				if (Settings.DEBUG_LEVEL >= 1)
 				System.out.println("Algorithm failed to find a path from " 
-						+ query.first() + " to " + query.second());
+						+ query.first() + " to " + query.second() + " at time " + 
+						query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
 				
 			}
 			result.add(new Pair<Query, Path> (query, path));

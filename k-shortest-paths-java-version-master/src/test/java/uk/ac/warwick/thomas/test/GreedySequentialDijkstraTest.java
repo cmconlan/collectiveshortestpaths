@@ -18,7 +18,7 @@ public class GreedySequentialDijkstraTest {
 	private GreedySequentialDijkstra greedySeqDijkstra;
 	private QueryHandler queryHandler;
 	
-	@Test
+//	@Test
 	public void ElifsData() {
 		System.out.println("\n\n##Greedy Approach With Shifting Queries Test -- Elif's data");
 		
@@ -57,4 +57,47 @@ public class GreedySequentialDijkstraTest {
 //		seqDijkstra.showLoad();	
 	
 	}
+	
+//##############################################
+	
+	//@Test
+	public void ChrisData() {																		//only 1836 (time x + 29)
+		System.out.println("\n\n##Greedy Approach With Shifting Queries Test -- Chris's data");
+		
+		String graphPath = "data/graphs/Chris_graph.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
+		
+		graph = new Graph(graphPath);
+		greedySeqDijkstra = new GreedySequentialDijkstra(graph);
+		queryHandler = new QueryHandler(graph, queriesPath);
+		
+//		int expectedNumberOfFailures = 5;															
+//		int expectedTravelTimeOfTheRest = 65858;													// old result using map {5, 65858}
+//		int expectedTravelTimeOfTheRest = 66004;													
+																									// expected result using set (without shifting) {5, 66004}
+																									// expected result withShift {0, 67567}
+		
+		boolean capacityAware = true;
+		List<Pair<Query, Path>> queriesWithSolutions = greedySeqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Path> paths = new ArrayList<Path>();
+		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
+//			Query query = queriesWithSolutions.get(i).first();
+			Path solution = queriesWithSolutions.get(i).second();
+			paths.add(solution);
+//			System.out.println("QueryId = " + query.getId() +
+//					" {" + query.first() + ", " + query.second() + "}" +
+//					" Solution = " + solution);
+		}
+//		
+//		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;
+//		assert seqDijkstra.evaluate(paths).second() == expectedTravelTimeOfTheRest;
+		
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(greedySeqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
+//		seqDijkstra.showLoad();	
+	
+	}
+
 }

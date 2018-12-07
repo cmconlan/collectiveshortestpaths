@@ -32,7 +32,7 @@ public class SequentialDijkstraTest {
 		//Common preprocessing
 	}
 
-	@Test
+	//@Test
 	public void seqDijkstraTest()	{
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
@@ -66,7 +66,7 @@ public class SequentialDijkstraTest {
 		seqDijkstra.showLoad();	
 	}
 	
-	@Test
+//	@Test
 	public void ElifsData() {
 		System.out.println("\n\n##Sequential Dijkstra Heuristic Test -- Elif's data");
 		
@@ -105,4 +105,47 @@ public class SequentialDijkstraTest {
 //		seqDijkstra.showLoad();	
 	
 	}
+	
+// #######################################3
+	
+	@Test
+	public void ChrisData() {																		// result: {nFailed, totalTravelTime} = Pair{12970, 115282} [total 14648]
+		System.out.println("\n\n##Sequential Dijkstra Heuristic Test -- Chris's data");
+		
+		String graphPath = "data/graphs/Chris_graph.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
+		
+		graph = new Graph(graphPath);
+		seqDijkstra = new SequentialDijkstra(graph);
+		queryHandler = new QueryHandler(graph, queriesPath);
+		
+//		int expectedNumberOfFailures = 5;															
+//		int expectedTravelTimeOfTheRest = 65858;													// old result using map {5, 65858}
+//		int expectedTravelTimeOfTheRest = 66004;													
+																									// expected result using set (without shifting) {5, 66004}
+																									// expected result withShift {0, 67567}
+		
+		boolean capacityAware = true;
+		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
+		List<Path> paths = new ArrayList<Path>();
+		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
+//			Query query = queriesWithSolutions.get(i).first();
+			Path solution = queriesWithSolutions.get(i).second();
+			paths.add(solution);
+//			System.out.println("QueryId = " + query.getId() +
+//					" {" + query.first() + ", " + query.second() + "}" +
+//					" Solution = " + solution);
+		}
+//		
+//		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;
+//		assert seqDijkstra.evaluate(paths).second() == expectedTravelTimeOfTheRest;
+		
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(seqDijkstra.evaluate(paths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
+//		seqDijkstra.showLoad();	
+	
+	}
+
 }

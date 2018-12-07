@@ -56,7 +56,7 @@ public class SequentialDijkstraWithThreshold extends SequentialDijkstra{
 		for (Pair<Query, Path> pair : result) {														// but we want to add waiting time to evaluate our solution
 			Path path = pair.second();
 			Query query = pair.first();
-			int waitingTime = query.getStartTime()- query.getInitialStartTime();
+			int waitingTime = query.getStartTime() - query.getInitialStartTime();
 			path.setWeight(path.getWeight() + waitingTime);
 			path.setWaitingTime(waitingTime);
 		}

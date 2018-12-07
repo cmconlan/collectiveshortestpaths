@@ -19,6 +19,8 @@ import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg{
+	// This algorithm has a bug, sequential Dijkstra should not fail any path using it
+	// but it fails, hence TODO TO FIX
 	
 	// Custom comparator to PriorityQueue
 		Comparator<Pair<BaseVertex, Integer>> weightComparator = new Comparator<Pair<BaseVertex, Integer>>() {
