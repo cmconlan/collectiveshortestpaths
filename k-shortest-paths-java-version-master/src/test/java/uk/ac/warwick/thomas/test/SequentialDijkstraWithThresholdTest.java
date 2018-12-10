@@ -77,20 +77,20 @@ public class SequentialDijkstraWithThresholdTest {
 //	0.10 - > {nFailed, totalTravelTime} = Pair{0, 67569}
 
 
-	//@Test
+	@Test
 	public void ChrisData() {																		// Pair{12629, 189732}
 		System.out.println("\n\n##Approach With Threshold Test -- Chris's data");
 		
-		String graphPath = "data/graphs/Chris_graph.txt";
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
 		String queriesPath = "data/queries/Chris_queries.txt";
 		
 		graph = new Graph(graphPath);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
 		
-		double d = 0.0005;
+		double d = 0.05;
 		
-		for (int k = 1; k <= 5; ++k) {
+		for (int k = 10; k >= 1; --k) {
 			SeqDijkstraWT = new SequentialDijkstraWithThreshold(graph, d * k);
 			
 	//		int expectedNumberOfFailures = 5;														// 0.1 -> Pair{0, 67569}

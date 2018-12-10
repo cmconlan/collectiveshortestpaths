@@ -108,11 +108,11 @@ public class SequentialDijkstraTest {
 	
 // #######################################3
 	
-	@Test
+	//@Test
 	public void ChrisData() {																		// result: {nFailed, totalTravelTime} = Pair{12970, 115282} [total 14648]
 		System.out.println("\n\n##Sequential Dijkstra Heuristic Test -- Chris's data");
 		
-		String graphPath = "data/graphs/Chris_graph.txt";
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
 		String queriesPath = "data/queries/Chris_queries.txt";
 		
 		graph = new Graph(graphPath);

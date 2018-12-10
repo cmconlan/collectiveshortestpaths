@@ -29,7 +29,8 @@ public class SequentialDijkstraWithThreshold extends SequentialDijkstra{
 	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
 		Set<Query> unresolvedQueries = new TreeSet<Query>(queries);									// copy
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
-		while (!unresolvedQueries.isEmpty()) {														
+		while (!unresolvedQueries.isEmpty()) {
+			System.out.println("unresolvedQueries.size() = " + unresolvedQueries.size());
 			Set<Query> newUnresolvedQueries = new TreeSet<Query>();									
 			for (Query query : unresolvedQueries) {
 				int startTime = query.getStartTime();
