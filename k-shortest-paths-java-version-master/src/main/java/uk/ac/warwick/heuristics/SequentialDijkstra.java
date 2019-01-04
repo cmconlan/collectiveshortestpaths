@@ -2,10 +2,10 @@ package uk.ac.warwick.heuristics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import uk.ac.warwick.queries.Query;
@@ -15,7 +15,7 @@ import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseDijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
-import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
+import edu.asu.emit.algorithm.graph.shortestpaths.ModifiedDijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
@@ -46,7 +46,7 @@ public class SequentialDijkstra {
 		listOfPaths = new TreeMap<EdgeTime, Map<Path, Integer>>();									// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
 																									// that is used in Dijkstra (i.e., compares weights) not ids -- fixed
 																									// Map<Path, Integer> is a replacement for multiset data structure
-		dijkstra = new DijkstraShortestPathAlg(graph);
+		dijkstra = new ModifiedDijkstraShortestPathAlg(graph);
 	}
 	
 	public SequentialDijkstra(BaseGraph graph, Map<Edge, int[]> load) {									
@@ -107,7 +107,7 @@ public class SequentialDijkstra {
 		}
 	}
 	
-	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
+	public List<Pair<Query, Path>> process(Collection<Query> queries, boolean capacityAware) {
 		
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		

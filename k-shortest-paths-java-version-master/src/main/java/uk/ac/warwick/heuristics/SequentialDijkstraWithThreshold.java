@@ -1,6 +1,7 @@
 package uk.ac.warwick.heuristics;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class SequentialDijkstraWithThreshold extends SequentialDijkstra{
 		this.setThreshold(threshold);
 	}
 	
-	public List<Pair<Query, Path>> process(Set<Query> queries, boolean capacityAware) {
+	public List<Pair<Query, Path>> process(Collection<Query> queries, boolean capacityAware) {
 		Set<Query> unresolvedQueries = new TreeSet<Query>(queries);									// copy
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		while (!unresolvedQueries.isEmpty()) {

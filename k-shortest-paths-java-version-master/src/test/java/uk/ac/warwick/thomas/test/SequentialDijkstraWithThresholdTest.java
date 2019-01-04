@@ -77,7 +77,7 @@ public class SequentialDijkstraWithThresholdTest {
 //	0.10 - > {nFailed, totalTravelTime} = Pair{0, 67569}
 
 
-	@Test
+	//@Test
 	public void ChrisData() {																		// Pair{12629, 189732}
 		System.out.println("\n\n##Approach With Threshold Test -- Chris's data");
 		

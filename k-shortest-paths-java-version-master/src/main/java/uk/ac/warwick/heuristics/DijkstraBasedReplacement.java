@@ -1,6 +1,7 @@
 package uk.ac.warwick.heuristics;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,7 +27,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	}
 	
 	
-	public List<Pair<Query, Path>> process(Set<Query> queries, int startTime) {
+	public List<Pair<Query, Path>> process(Collection<Query> queries, int startTime) {
 		// [TODO] filter queries - consider only those with query.startTime == startTime
 		boolean capacityAware = false;
 		List<Pair<Query, Path>> result = super.process(queries, capacityAware);						// at first we want to calculate all the shortest paths

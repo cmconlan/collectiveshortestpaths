@@ -19,9 +19,6 @@ import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg{
-	// This algorithm has a bug, sequential Dijkstra should not fail any path using it
-	// but it fails, hence TODO TO FIX
-	
 	// Custom comparator to PriorityQueue
 		Comparator<Pair<BaseVertex, Integer>> weightComparator = new Comparator<Pair<BaseVertex, Integer>>() {
 	        public int compare(Pair<BaseVertex, Integer> v1, Pair<BaseVertex, Integer> v2) {
@@ -99,12 +96,12 @@ public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPath
         determineShortestPaths(null, root, false);
 	}
 	
-	protected boolean allAdjacentEdgesUsed(BaseVertex vertex, boolean isSource2sink) {				// TO FIX; must consider determined vertices separately to determined edges
+	protected boolean allAdjacentEdgesUsed(BaseVertex vertex, boolean isSource2sink) {
 		Set<BaseVertex> neighborVertexList = isSource2sink ?
 				graph.getAdjacentVertices(vertex) : graph.getPrecedentVertices(vertex);
 		Set<Edge> edgesToNeighbors = new HashSet<Edge>();
 		for (BaseVertex neighbor : neighborVertexList) {
-			if (determinedVertexSet.contains(neighbor)) continue;
+			if (determinedVertexSet.contains(neighbor)) continue;									// consider determined vertices separately to determined edges
 			Edge edge = isSource2sink ? new Edge(vertex, neighbor) : new Edge(neighbor, vertex);
 			edgesToNeighbors.add(edge);
 		}

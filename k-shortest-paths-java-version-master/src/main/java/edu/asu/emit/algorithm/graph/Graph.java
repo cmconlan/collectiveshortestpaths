@@ -74,6 +74,7 @@ public class Graph implements BaseGraph {
 	protected Map<Pair<Integer, Integer>, Integer> vertexPairWeightIndex = 
 		new HashMap<Pair<Integer, Integer>, Integer>();
 	
+	// index for edge capacities in the graph
 	protected Map<Pair<Integer, Integer>, Integer> vertexPairCapacityIndex = 
 			new HashMap<Pair<Integer, Integer>, Integer>();
 	
