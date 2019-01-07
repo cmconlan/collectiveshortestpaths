@@ -16,6 +16,10 @@ public class MyVariableGraph extends Graph {
 	private Set<Edge> availableEdgeSet = new HashSet<Edge>();
 	private boolean useWholeGraph = true;
 	
+	public MyVariableGraph(final String dataFileName) {
+		super(dataFileName);
+	}
+	
 	public MyVariableGraph(Graph graph) {
 		super(graph);
 	}
@@ -60,52 +64,52 @@ public class MyVariableGraph extends Graph {
 		useWholeGraph = value;
 	}
 	
-//	public static void main(String[] args) {
-//		System.out.println("\n\n##MyVariableGraphTest -- Chris's data");
-//		
-//		String graphPath = "data/graphs/Chris_graph_fixed.txt";
-//		String queriesPath = "data/queries/Chris_queries.txt";
-//		
-//		Graph graph = new Graph(graphPath);
-//		MyVariableGraph myVariableGraph = new MyVariableGraph(graph);
-//		SequentialDijkstra seqDijkstra = new SequentialDijkstra(myVariableGraph);
-//		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
-//		
-//		Set<Query> smallQueries = new TreeSet<Query>();
-//		
-//		int k = 0;
-//		for (Query query : queryHandler.getQueries()) {
-//			smallQueries.add(query);
-//			k++;
-//			if (k == 10) break;
-//		}
-//		
-//		boolean capacityAware = false;
-//		List<Pair<Query, Path>> results = seqDijkstra.process(smallQueries, capacityAware);
-//		
-//		boolean isFirst = true;
-//		
-//		for (Pair<Query, Path> item : results) {
-//			System.out.println(item.first() + " " + item.second());
-//			if (isFirst) {
-//				isFirst = false;
-//				List<BaseVertex> myPath = item.second().getVertexList();
-//				for (int i = 0; i < myPath.size() - 1; ++i) {
-//					Edge edge = new Edge(myPath.get(i), myPath.get(i + 1));
-//					myVariableGraph.addAvailableEdge(edge);
-//				}
-//			}
-//		}
-//		
-//		System.out.println("------------");
-//		
-//		myVariableGraph.useWholeGraph(false);
-//		
-//		results = seqDijkstra.process(smallQueries, capacityAware);
-//		
-//		for (Pair<Query, Path> item : results) {
-//			System.out.println(item.first() + " " + item.second());
-//		}
-//	
-//	}
+	public static void main(String[] args) {
+		System.out.println("\n\n##MyVariableGraphTest -- Chris's data");
+		
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
+		
+		Graph graph = new Graph(graphPath);
+		MyVariableGraph myVariableGraph = new MyVariableGraph(graph);
+		SequentialDijkstra seqDijkstra = new SequentialDijkstra(myVariableGraph);
+		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
+		
+		Set<Query> smallQueries = new TreeSet<Query>();
+		
+		int k = 0;
+		for (Query query : queryHandler.getQueries()) {
+			smallQueries.add(query);
+			k++;
+			if (k == 10) break;
+		}
+		
+		boolean capacityAware = false;
+		List<Pair<Query, Path>> results = seqDijkstra.process(smallQueries, capacityAware);
+		
+		boolean isFirst = true;
+		
+		for (Pair<Query, Path> item : results) {
+			System.out.println(item.first() + " " + item.second());
+			if (isFirst) {
+				isFirst = false;
+				List<BaseVertex> myPath = item.second().getVertexList();
+				for (int i = 0; i < myPath.size() - 1; ++i) {
+					Edge edge = new Edge(myPath.get(i), myPath.get(i + 1));
+					myVariableGraph.addAvailableEdge(edge);
+				}
+			}
+		}
+		
+		System.out.println("------------");
+		
+		myVariableGraph.useWholeGraph(false);
+		
+		results = seqDijkstra.process(smallQueries, capacityAware);
+		
+		for (Pair<Query, Path> item : results) {
+			System.out.println(item.first() + " " + item.second());
+		}
+	
+	}
 }

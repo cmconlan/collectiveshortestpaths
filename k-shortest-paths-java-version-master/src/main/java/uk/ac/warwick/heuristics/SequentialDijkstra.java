@@ -97,7 +97,7 @@ public class SequentialDijkstra {
 				else {
 					timeMap[t + j]++;
 				}
-				EdgeTime edgeTime= new EdgeTime(edge, t + j);
+				EdgeTime edgeTime = new EdgeTime(edge, t + j);
 				updateListOfPaths(edgeTime, path, isRemoved);
 			}
 			//update load map

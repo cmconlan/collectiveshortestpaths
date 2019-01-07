@@ -5,16 +5,18 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import uk.ac.warwick.heuristics.DijkstraBenchmark;
 import uk.ac.warwick.heuristics.GreedySequentialDijkstra;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.Graph;
+import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class GreedySequentialDijkstraTest {
-	private BaseGraph graph;
+	private MyVariableGraph graph;
 	private GreedySequentialDijkstra greedySeqDijkstra;
 	private QueryHandler queryHandler;
 	
@@ -25,7 +27,7 @@ public class GreedySequentialDijkstraTest {
 		String graphPath = "data/graphs/Elif.txt";
 		String queriesPath = "data/queries/Elif200.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		greedySeqDijkstra = new GreedySequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
@@ -67,7 +69,7 @@ public class GreedySequentialDijkstraTest {
 		String graphPath = "data/graphs/Chris_graph_fixed.txt";
 		String queriesPath = "data/queries/Chris_queries.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		greedySeqDijkstra = new GreedySequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
@@ -92,12 +94,27 @@ public class GreedySequentialDijkstraTest {
 //		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;
 //		assert seqDijkstra.evaluate(paths).second() == expectedTravelTimeOfTheRest;
 		
+		System.out.println("##Greedy::");
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
 		System.out.print("maximumWaitingTime = ");
 		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
-	
+		
+		DijkstraBenchmark db = new DijkstraBenchmark(graph);
+		List<Pair<Query, Path>> benchmarkQueriesWithSolutions = db.process(queryHandler.getQueries());
+		
+		List<Path> benchmarkPaths = new ArrayList<Path>();
+		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {
+			Path solution = benchmarkQueriesWithSolutions.get(i).second();
+			benchmarkPaths.add(solution);
+		}
+		
+		System.out.println("##Benchmark::");
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(greedySeqDijkstra.evaluate(benchmarkPaths));
+		System.out.print("maximumWaitingTime = ");
+		System.out.println(greedySeqDijkstra.getMaxWaitingTime(benchmarkPaths));
 	}
 
 }
