@@ -50,7 +50,7 @@ import edu.asu.emit.algorithm.graph.shortestpaths.YenTopKShortestPathsAlg;
 public class YenTopKShortestPathsAlgTest {
 	// The graph should be initiated only once to guarantee the correspondence 
 	// between vertex id and node id in input text file. 
-	private static Graph graph = new VariableGraph("data/test_6_2");
+	private static VariableGraph graph = new VariableGraph("data/test_6_2");
 	
 	@Test
 	public void testDijkstraShortestPathAlg()

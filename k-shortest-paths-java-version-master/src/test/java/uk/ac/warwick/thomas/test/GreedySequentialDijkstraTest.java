@@ -62,7 +62,7 @@ public class GreedySequentialDijkstraTest {
 	
 //##############################################
 	
-	@Test
+	//@Test
 	public void ChrisData() {																		//only 1836 (time x + 29)
 		System.out.println("\n\n##Greedy Approach With Shifting Queries Test -- Chris's data");
 		

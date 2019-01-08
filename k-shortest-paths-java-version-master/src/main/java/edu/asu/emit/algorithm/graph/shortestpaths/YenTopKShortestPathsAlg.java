@@ -38,10 +38,8 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
-import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.VariableGraph;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Pair;
 
@@ -58,7 +56,8 @@ public class YenTopKShortestPathsAlg
             return p1.getWeight() - p2.getWeight();
         }
     };
-	private VariableGraph graph = null;
+    
+	private VariableGraph graph;
 
 	// intermediate variables
 	private List<Path> resultList = new Vector<Path>();
@@ -78,7 +77,7 @@ public class YenTopKShortestPathsAlg
 	 * @param graph
 	 * @param k
 	 */
-	public YenTopKShortestPathsAlg(BaseGraph graph)	{
+	public YenTopKShortestPathsAlg(VariableGraph graph)	{
         this(graph, null, null);
 	}
 	
@@ -89,12 +88,12 @@ public class YenTopKShortestPathsAlg
 	 * @param sourceVertex
 	 * @param targetVertex
 	 */
-	public YenTopKShortestPathsAlg(BaseGraph graph, 
+	public YenTopKShortestPathsAlg(VariableGraph graph, 
 			BaseVertex sourceVertex, BaseVertex targetVertex)	{
 		if (graph == null) {
 			throw new IllegalArgumentException("A NULL graph object occurs!");
 		}
-		this.graph = new VariableGraph((Graph)graph);
+		this.graph = graph;
 		this.sourceVertex = sourceVertex;
 		this.targetVertex = targetVertex;
 		init();
