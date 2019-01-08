@@ -14,15 +14,15 @@ import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
 import edu.asu.emit.algorithm.graph.Graph;
+import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class DijkstraBasedReplacement extends SequentialDijkstra {
 	
-	public DijkstraBasedReplacement(BaseGraph graph) {
+	public DijkstraBasedReplacement(MyVariableGraph graph) {
 		super(graph);
 	}
 	
@@ -182,7 +182,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 		String graphPath = "data/graphs/graph1.txt";
 		String queriesPath = "data/queries/queries1.txt";
 		
-		BaseGraph graph = new Graph(graphPath);
+		MyVariableGraph graph = new MyVariableGraph(graphPath);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		

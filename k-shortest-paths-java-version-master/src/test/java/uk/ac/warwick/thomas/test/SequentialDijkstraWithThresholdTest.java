@@ -3,18 +3,15 @@ package uk.ac.warwick.thomas.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
 import uk.ac.warwick.heuristics.SequentialDijkstraWithThreshold;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
-import edu.asu.emit.algorithm.graph.Graph;
+import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class SequentialDijkstraWithThresholdTest {
-	private BaseGraph graph;
+	private MyVariableGraph graph;
 	private SequentialDijkstraWithThreshold SeqDijkstraWT;
 	private QueryHandler queryHandler;
 	
@@ -25,7 +22,7 @@ public class SequentialDijkstraWithThresholdTest {
 		String graphPath = "data/graphs/Elif.txt";
 		String queriesPath = "data/queries/Elif200.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
 		
@@ -84,7 +81,7 @@ public class SequentialDijkstraWithThresholdTest {
 		String graphPath = "data/graphs/Chris_graph_fixed.txt";
 		String queriesPath = "data/queries/Chris_queries.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
 		

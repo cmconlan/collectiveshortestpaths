@@ -8,9 +8,8 @@ import org.testng.annotations.Test;
 import uk.ac.warwick.heuristics.SequentialDijkstra;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
-import edu.asu.emit.algorithm.graph.Graph;
+import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 /**
@@ -20,7 +19,7 @@ import edu.asu.emit.algorithm.utils.Pair;
  */
 
 public class SequentialDijkstraTest {
-	private BaseGraph graph;
+	private MyVariableGraph graph;
 	private SequentialDijkstra seqDijkstra;
 	private QueryHandler queryHandler;
 	
@@ -38,7 +37,7 @@ public class SequentialDijkstraTest {
 		String queriesPath = "data/queries/queries1.txt";
 		
 		// Import the graph from a file
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		seqDijkstra = new SequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
@@ -73,7 +72,7 @@ public class SequentialDijkstraTest {
 		String graphPath = "data/graphs/Elif.txt";
 		String queriesPath = "data/queries/Elif200.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		seqDijkstra = new SequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
@@ -115,7 +114,7 @@ public class SequentialDijkstraTest {
 		String graphPath = "data/graphs/Chris_graph_fixed.txt";
 		String queriesPath = "data/queries/Chris_queries.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		seqDijkstra = new SequentialDijkstra(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		

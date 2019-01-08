@@ -3,18 +3,15 @@ package uk.ac.warwick.thomas.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.testng.annotations.Test;
-
 import uk.ac.warwick.heuristics.DijkstraBasedReplacement;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
-import edu.asu.emit.algorithm.graph.Graph;
+import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class DijkstraBasedReplacementTest {
-	private BaseGraph graph;
+	private MyVariableGraph graph;
 	private DijkstraBasedReplacement dbr;
 	private QueryHandler queryHandler;
 	
@@ -32,7 +29,7 @@ public class DijkstraBasedReplacementTest {
 		String queriesPath = "data/queries/queries1.txt";
 		
 		// Import the graph from a file
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		dbr = new DijkstraBasedReplacement(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		
@@ -66,7 +63,7 @@ public class DijkstraBasedReplacementTest {
 		String graphPath = "data/graphs/Elif.txt";
 		String queriesPath = "data/queries/Elif200.txt";
 		
-		graph = new Graph(graphPath);
+		graph = new MyVariableGraph(graphPath);
 		dbr = new DijkstraBasedReplacement(graph);
 		queryHandler = new QueryHandler(graph, queriesPath);
 		

@@ -9,10 +9,8 @@ import uk.ac.warwick.heuristics.DijkstraBenchmark;
 import uk.ac.warwick.heuristics.GreedySequentialDijkstra;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
-import edu.asu.emit.algorithm.graph.Graph;
 import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.abstraction.BaseGraph;
 import edu.asu.emit.algorithm.utils.Pair;
 
 public class GreedySequentialDijkstraTest {
@@ -62,7 +60,7 @@ public class GreedySequentialDijkstraTest {
 	
 //##############################################
 	
-	//@Test
+	@Test
 	public void ChrisData() {																		//only 1836 (time x + 29)
 		System.out.println("\n\n##Greedy Approach With Shifting Queries Test -- Chris's data");
 		
