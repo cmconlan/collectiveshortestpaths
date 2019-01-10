@@ -57,7 +57,7 @@ public class SequentialDijkstra extends AbstractSolution{
 					System.out.println("Algorithm found a path from "
 							+ query.first() + " to " + query.second() + " at time " + 
 							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
-				if (debug < 2) showLoad();
+//				if (debug < 2) showLoad();
 				debug++;
 				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}
@@ -91,7 +91,7 @@ public class SequentialDijkstra extends AbstractSolution{
 		String queriesPath = "data/queries/queries1.txt";
 		
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
-		SequentialDijkstra seqDijkstra = new SequentialDijkstra(graph); 							
+		BaseSolution seqDijkstra = new SequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		boolean capacityAware = true;
@@ -108,10 +108,10 @@ public class SequentialDijkstra extends AbstractSolution{
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
 		System.out.print("maximumWaitingTime = ");
-		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
+//		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
 		seqDijkstra.showLoad();
 		
-		System.out.println(seqDijkstra.listOfPaths);
+//		System.out.println(seqDijkstra.listOfPaths);
 
 		
 	}

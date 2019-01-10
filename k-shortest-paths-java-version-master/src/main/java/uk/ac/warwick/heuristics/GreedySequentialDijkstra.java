@@ -75,7 +75,7 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 		String queriesPath = "data/queries/queries1.txt";
 		
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
-		GreedySequentialDijkstra greedySeqDijkstra = new GreedySequentialDijkstra(graph); 							
+		BaseSolution greedySeqDijkstra = new GreedySequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
 		boolean capacityAware = true;
@@ -92,10 +92,10 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
 		System.out.print("maximumWaitingTime = ");
-		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
+//		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 		greedySeqDijkstra.showLoad();
 		
-		System.out.println(greedySeqDijkstra.listOfPaths);
+//		System.out.println(greedySeqDijkstra.listOfPaths);
 
 		
 	}

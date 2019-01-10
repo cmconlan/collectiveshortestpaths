@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import uk.ac.warwick.heuristics.BaseSolution;
 import uk.ac.warwick.heuristics.SequentialDijkstra;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
@@ -20,7 +21,7 @@ import edu.asu.emit.algorithm.utils.Pair;
 
 public class SequentialDijkstraTest {
 	private MyVariableGraph graph;
-	private SequentialDijkstra seqDijkstra;
+	private BaseSolution seqDijkstra;
 	private QueryHandler queryHandler;
 	
 	/**
@@ -100,7 +101,7 @@ public class SequentialDijkstraTest {
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
 		System.out.print("maximumWaitingTime = ");
-		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
+//		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}
@@ -144,7 +145,7 @@ public class SequentialDijkstraTest {
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
 		System.out.print("maximumWaitingTime = ");
-		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
+//		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}

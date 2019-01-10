@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import uk.ac.warwick.heuristics.BaseSolution;
 import uk.ac.warwick.heuristics.DijkstraBenchmark;
 import uk.ac.warwick.heuristics.GreedySequentialDijkstra;
 import uk.ac.warwick.queries.Query;
@@ -15,7 +16,7 @@ import edu.asu.emit.algorithm.utils.Pair;
 
 public class GreedySequentialDijkstraTest {
 	private MyVariableGraph graph;
-	private GreedySequentialDijkstra greedySeqDijkstra;
+	private BaseSolution greedySeqDijkstra;
 	private QueryHandler queryHandler;
 	
 //	@Test
@@ -52,15 +53,15 @@ public class GreedySequentialDijkstraTest {
 		
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
-		System.out.print("maximumWaitingTime = ");
-		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
+//		System.out.print("maximumWaitingTime = ");
+//		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 	
 	}
 	
 //##############################################
 	
-	@Test
+	//@Test
 	public void ChrisData() {																		//only 1836 (time x + 29)
 		System.out.println("\n\n##Greedy Approach With Shifting Queries Test -- Chris's data");
 		
@@ -97,8 +98,8 @@ public class GreedySequentialDijkstraTest {
 		System.out.println("##Greedy::");
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
-		System.out.print("maximumWaitingTime = ");
-		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
+//		System.out.print("maximumWaitingTime = ");
+//		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
 //		seqDijkstra.showLoad();	
 		
 		DijkstraBenchmark db = new DijkstraBenchmark(graph);
@@ -118,8 +119,8 @@ public class GreedySequentialDijkstraTest {
 		System.out.println("##Benchmark::");
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(benchmarkPaths));
-		System.out.print("maximumWaitingTime = ");
-		System.out.println(greedySeqDijkstra.getMaxWaitingTime(benchmarkPaths));
+//		System.out.print("maximumWaitingTime = ");
+//		System.out.println(greedySeqDijkstra.getMaxWaitingTime(benchmarkPaths));
 	}
 
 }
