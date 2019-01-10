@@ -54,7 +54,7 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 				else {
 					Query query = pair.first();
 					Path path = pair.second();
-					int waitingTime = query.getStartTime()- query.getInitialStartTime();
+					int waitingTime = query.getStartTime() - query.getInitialStartTime();
 					path.setWeight(path.getWeight() + waitingTime);
 					path.setWaitingTime(waitingTime);
 					if (Settings.DEBUG_LEVEL >= 1) {

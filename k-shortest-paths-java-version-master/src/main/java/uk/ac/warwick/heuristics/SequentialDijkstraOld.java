@@ -12,7 +12,7 @@ import uk.ac.warwick.queries.QueryHandler;
 import uk.ac.warwick.settings.Settings;
 import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
-import edu.asu.emit.algorithm.graph.shortestpaths.ModifiedDijkstraShortestPathAlg;
+import edu.asu.emit.algorithm.graph.shortestpaths.DijkstraShortestPathAlg;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.EdgeTime;
 import edu.asu.emit.algorithm.utils.Pair;
@@ -27,20 +27,22 @@ import edu.asu.emit.algorithm.utils.Pair;
  * It simply assign a shortest path w.r.t to the given traffic load 
  * (caused by previous queries solutions) if it is possible.
  * If the algorithm does not find any feasible solution it assigns empty path of infinite weight.
+ * 
+ * This one allows only waiting in the first (starting) node.
  */
-public class SequentialDijkstra extends AbstractSolution{
-	int debug = 0; 
-	
-	public SequentialDijkstra(MyVariableGraph graph) {														
+public class SequentialDijkstraOld extends AbstractSolution{
+	static int debug = 0; 																			
+
+	public SequentialDijkstraOld(MyVariableGraph graph) {														
 		this.graph = graph;
 		load = new HashMap<Edge, int[]>();
 		listOfPaths = new TreeMap<EdgeTime, Map<Path, Integer>>();									// I'd prefer TreeMap but it doesn't work because of vertex.compareTo
 																									// that is used in Dijkstra (i.e., compares weights) not ids -- fixed
 																									// Map<Path, Integer> is a replacement for multiset data structure
-		dijkstra = new ModifiedDijkstraShortestPathAlg(graph);
+		dijkstra = new DijkstraShortestPathAlg(graph);
 	}
 	
-	public SequentialDijkstra(MyVariableGraph graph, Map<Edge, int[]> load) {									
+	public SequentialDijkstraOld(MyVariableGraph graph, Map<Edge, int[]> load) {									
 		this(graph);																				// calling the other constructor
 		this.load = load;
 	}
@@ -57,7 +59,6 @@ public class SequentialDijkstra extends AbstractSolution{
 					System.out.println("Algorithm found a path from "
 							+ query.first() + " to " + query.second() + " at time " + 
 							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
-				if (debug < 2) showLoad();
 				debug++;
 				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}

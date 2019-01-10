@@ -3,6 +3,8 @@ package uk.ac.warwick.thomas.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.Test;
+
 import uk.ac.warwick.heuristics.SequentialDijkstraWithThreshold;
 import uk.ac.warwick.queries.Query;
 import uk.ac.warwick.queries.QueryHandler;
@@ -87,7 +89,7 @@ public class SequentialDijkstraWithThresholdTest {
 		
 		double d = 0.05;
 		
-		for (int k = 10; k >= 1; --k) {
+		for (int k = 10; k >= 10; --k) {
 			SeqDijkstraWT = new SequentialDijkstraWithThreshold(graph, d * k);
 			
 	//		int expectedNumberOfFailures = 5;														// 0.1 -> Pair{0, 67569}

@@ -107,7 +107,7 @@ public class SequentialDijkstraTest {
 	
 // #######################################3
 	
-	//@Test
+	@Test
 	public void ChrisData() {																		// result: {nFailed, totalTravelTime} = Pair{12970, 115282} [total 14648]
 		System.out.println("\n\n##Sequential Dijkstra Heuristic Test -- Chris's data");
 		
@@ -131,9 +131,11 @@ public class SequentialDijkstraTest {
 //			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-//			System.out.println("QueryId = " + query.getId() +
-//					" {" + query.first() + ", " + query.second() + "}" +
-//					" Solution = " + solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + queriesWithSolutions.get(i).first().getId() +
+						" {" + queriesWithSolutions.get(i).first().first() + ", " + queriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
 		}
 //		
 //		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;

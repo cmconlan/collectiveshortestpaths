@@ -84,9 +84,11 @@ public class GreedySequentialDijkstraTest {
 //			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-//			System.out.println("QueryId = " + query.getId() +
-//					" {" + query.first() + ", " + query.second() + "}" +
-//					" Solution = " + solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + queriesWithSolutions.get(i).first().getId() +
+						" {" + queriesWithSolutions.get(i).first().first() + ", " + queriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
 		}
 //		
 //		assert seqDijkstra.evaluate(paths).first() == expectedNumberOfFailures;
@@ -106,6 +108,11 @@ public class GreedySequentialDijkstraTest {
 		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {
 			Path solution = benchmarkQueriesWithSolutions.get(i).second();
 			benchmarkPaths.add(solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + benchmarkQueriesWithSolutions.get(i).first().getId() +
+						" {" + benchmarkQueriesWithSolutions.get(i).first().first() + ", " + benchmarkQueriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
 		}
 		
 		System.out.println("##Benchmark::");
