@@ -87,8 +87,8 @@ public class SequentialDijkstra extends AbstractSolution{
 	
 	public static void main(String[] args) {
 		
-		String graphPath = "data/graphs/graph1.txt";
-		String queriesPath = "data/queries/queries1.txt";
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
 		
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
 		BaseSolution seqDijkstra = new SequentialDijkstra(graph); 							
@@ -98,18 +98,20 @@ public class SequentialDijkstra extends AbstractSolution{
 		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			Query query = queriesWithSolutions.get(i).first();
+//			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + query.getId() +
-					" {" + query.first() + ", " + query.second() + "}" +
-					" Solution = " + solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + queriesWithSolutions.get(i).first().getId() +
+						" {" + queriesWithSolutions.get(i).first().first() + ", " + queriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(seqDijkstra.evaluate(paths));
-		System.out.print("maximumWaitingTime = ");
+//		System.out.print("maximumWaitingTime = ");
 //		System.out.println(seqDijkstra.getMaxWaitingTime(paths));
-		seqDijkstra.showLoad();
+//		seqDijkstra.showLoad();
 		
 //		System.out.println(seqDijkstra.listOfPaths);
 

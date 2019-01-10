@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import uk.ac.warwick.queries.Query;
+import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.MyVariableGraph;
 import edu.asu.emit.algorithm.graph.Path;
 import edu.asu.emit.algorithm.graph.shortestpaths.ModifiedDijkstraShortestPathAlg;
@@ -68,5 +69,37 @@ public class DijkstraBenchmark extends AbstractSolution {
 	public List<Pair<Query, Path>> process(Collection<Query> queries,
 			boolean capacityAware) {
 		return process(queries); 
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
+		
+		MyVariableGraph graph = new MyVariableGraph(graphPath);
+		DijkstraBenchmark db = new DijkstraBenchmark(graph);
+		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
+		List<Pair<Query, Path>> benchmarkQueriesWithSolutions = db.process(queryHandler.getQueries());
+		
+		List<Path> benchmarkPaths = new ArrayList<Path>();
+		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {
+			Path solution = benchmarkQueriesWithSolutions.get(i).second();
+			benchmarkPaths.add(solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + benchmarkQueriesWithSolutions.get(i).first().getId() +
+						" {" + benchmarkQueriesWithSolutions.get(i).first().first() + ", " + benchmarkQueriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
+		}
+		
+		System.out.println("##Benchmark::");
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(db.evaluate(benchmarkPaths));
+//		System.out.print("maximumWaitingTime = ");
+//		System.out.println(greedySeqDijkstra.getMaxWaitingTime(benchmarkPaths));
+
+
+		
 	}
 }

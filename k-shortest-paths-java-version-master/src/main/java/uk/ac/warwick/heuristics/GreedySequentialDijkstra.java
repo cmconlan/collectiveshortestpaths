@@ -71,8 +71,8 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 	
 	public static void main(String[] args) {
 		
-		String graphPath = "data/graphs/graph1.txt";
-		String queriesPath = "data/queries/queries1.txt";
+		String graphPath = "data/graphs/Chris_graph_fixed.txt";
+		String queriesPath = "data/queries/Chris_queries.txt";
 		
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
 		BaseSolution greedySeqDijkstra = new GreedySequentialDijkstra(graph); 							
@@ -82,18 +82,20 @@ public class GreedySequentialDijkstra extends SequentialDijkstra{
 		List<Pair<Query, Path>> queriesWithSolutions = greedySeqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();
 		for (int i = 0; i < queriesWithSolutions.size(); ++i) {
-			Query query = queriesWithSolutions.get(i).first();
+//			Query query = queriesWithSolutions.get(i).first();
 			Path solution = queriesWithSolutions.get(i).second();
 			paths.add(solution);
-			System.out.println("QueryId = " + query.getId() +
-					" {" + query.first() + ", " + query.second() + "}" +
-					" Solution = " + solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + queriesWithSolutions.get(i).first().getId() +
+						" {" + queriesWithSolutions.get(i).first().first() + ", " + queriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");
 		System.out.println(greedySeqDijkstra.evaluate(paths));
-		System.out.print("maximumWaitingTime = ");
+//		System.out.print("maximumWaitingTime = ");
 //		System.out.println(greedySeqDijkstra.getMaxWaitingTime(paths));
-		greedySeqDijkstra.showLoad();
+//		greedySeqDijkstra.showLoad();
 		
 //		System.out.println(greedySeqDijkstra.listOfPaths);
 
