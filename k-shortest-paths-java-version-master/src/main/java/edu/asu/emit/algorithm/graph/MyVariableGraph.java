@@ -11,7 +11,14 @@ import uk.ac.warwick.queries.QueryHandler;
 import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 import edu.asu.emit.algorithm.utils.Edge;
 import edu.asu.emit.algorithm.utils.Pair;
-
+/**
+ * 
+ * @author Tomasz Janus
+ *  
+ * Idea of revealing some parts of the graph.
+ * 
+ */
+ 
 public class MyVariableGraph extends Graph {
 	private Set<Edge> availableEdgeSet = new HashSet<Edge>();
 	private boolean useWholeGraph = true;

@@ -45,6 +45,9 @@ import edu.asu.emit.algorithm.utils.Pair;
  * The class defines a graph which can be changed constantly.
  *  
  * @author yqi
+ * 
+ * Idea of hiding some parts of the graph.
+ * 
  */
 public class VariableGraph extends Graph {
 	private Set<Integer> remVertexIdSet = new HashSet<Integer>();
