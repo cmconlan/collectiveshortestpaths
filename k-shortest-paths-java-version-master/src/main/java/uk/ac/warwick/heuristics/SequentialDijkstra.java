@@ -59,7 +59,7 @@ public class SequentialDijkstra extends AbstractSolution{
 							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
 //				if (debug < 2) showLoad();
 				debug++;
-				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
+				if (capacityAware) updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
 			}
 			else {
 				if (Settings.DEBUG_LEVEL >= 1)

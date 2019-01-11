@@ -20,6 +20,9 @@ public class Query implements Comparable<Query>{
 	private int initialStartTime;																	// Some queries are shifted in time
 																									// this variable keeps track of startTime of the first query of a given type
 	
+	private int expectedTravelTime;																	// need for collectiveness
+	private int expectedNumerOfNodesOnTheWay;														// need for collectiveness
+	
 	
 	public Query(BaseVertex o1, BaseVertex o2, int startTime) {
 		pair = new Pair<BaseVertex, BaseVertex>(o1, o2);
@@ -83,5 +86,23 @@ public class Query implements Comparable<Query>{
 
 	public void setInitialStartTime(int initialStartTime) {
 		this.initialStartTime = initialStartTime;
+	}
+
+	// need for collectiveness
+	
+	public int getExpectedTravelTime() {
+		return expectedTravelTime;
+	}
+
+	public void setExpectedTravelTime(int expectedTravelTime) {
+		this.expectedTravelTime = expectedTravelTime;
+	}
+
+	public int getExpectedNumerOfNodesOnTheWay() {
+		return expectedNumerOfNodesOnTheWay;
+	}
+
+	public void setExpectedNumerOfNodesOnTheWay(int expectedNumerOfNodesOnTheWay) {
+		this.expectedNumerOfNodesOnTheWay = expectedNumerOfNodesOnTheWay;
 	}
 }

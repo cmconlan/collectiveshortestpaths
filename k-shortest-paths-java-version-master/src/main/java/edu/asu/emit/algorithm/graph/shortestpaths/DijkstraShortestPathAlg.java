@@ -267,6 +267,10 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 		// 3. update the distance from the root to the input vertex if necessary
 		for (BaseVertex curVertex : adjVertexSet) {
 			// 3.1 get the distance from the root to one successor of the input vertex
+//			System.out.println(startVertexDistanceIndex == null);
+//			System.out.println(startVertexDistanceIndex.keySet());
+//			System.out.println(curVertex);
+//			System.out.println(startVertexDistanceIndex.containsKey(curVertex));
 			int distance = startVertexDistanceIndex.get(curVertex);
 					
 			// 3.2 calculate the distance from the root to the input vertex

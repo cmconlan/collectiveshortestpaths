@@ -288,7 +288,11 @@ public class YenTopKShortestPathsAlg
 		init();
 		int count = 0;
 		while (hasNext() && count < k) {
+			System.out.println("before " + count);
+			System.out.println(pathCandidates.size());
 			next();
+			System.out.println("after " + count);
+			System.out.println(pathCandidates.size());
 			++count;
 		}
 		
