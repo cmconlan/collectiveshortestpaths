@@ -245,17 +245,20 @@ public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPath
 		determineShortestPaths(sourceVertex, sinkVertex, true);
 		//
 		List<BaseVertex> vertexList = new Vector<BaseVertex>();
+		List<Integer> arrivalTimes = new Vector<Integer>();
 		int weight = startVertexDistanceIndex.containsKey(sinkVertex) ?								// OK -- covers situation where sink is unreachable 
 			startVertexDistanceIndex.get(sinkVertex) : Graph.DISCONNECTED;
 		if (weight != Graph.DISCONNECTED) {
 			BaseVertex curVertex = sinkVertex;
 			while(curVertex != null) {																// fixed -- while instead of do .. while
 				vertexList.add(curVertex);
+				arrivalTimes.add(getStartTime() + curVertex.getWeight());							// we keep absolute time (i.e., starting from queryTime)
 				curVertex = predecessorIndex.get(curVertex);
 			} 
 			Collections.reverse(vertexList);
+			Collections.reverse(arrivalTimes);
 		}
-		return new Path(vertexList, weight);
+		return new Path(vertexList, arrivalTimes);
 	}
 	
 	//only for debugging purposes

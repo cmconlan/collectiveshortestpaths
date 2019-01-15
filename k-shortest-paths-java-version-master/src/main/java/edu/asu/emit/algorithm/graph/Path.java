@@ -45,6 +45,7 @@ import edu.asu.emit.algorithm.graph.abstraction.BaseVertex;
 public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	private List<BaseVertex> vertexList = new Vector<BaseVertex>();
+	private List<Integer> arrivalTimes = new Vector<Integer>();
 	private int weight;
 	private double delta = 0d;
 	
@@ -52,9 +53,10 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	public Path() { }
 	
-	public Path(List<BaseVertex> vertexList, int weight) {
+	public Path(List<BaseVertex> vertexList, List<Integer> arrivalTimes) {							// assume nonEmpty lists
 		this.vertexList = vertexList;
-		this.weight = weight;
+		this.weight = arrivalTimes.get(arrivalTimes.size() - 1) - arrivalTimes.get(0);
+		this.arrivalTimes = arrivalTimes;
 	}
 
 	public int getWeight() {
@@ -63,6 +65,10 @@ public class Path implements BaseElementWithWeight, Comparable<Path> {
 	
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+	
+	public List<Integer> getArrivalTimes() {
+		return arrivalTimes;
 	}
 	
 	public List<BaseVertex> getVertexList() {

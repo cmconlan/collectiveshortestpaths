@@ -70,7 +70,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 				if (Settings.DEBUG_LEVEL >= 2)
 					System.out.println("Paths to replace: " + pathsToReplace);
 				for (Path oldPath : pathsToReplace) {
-					updateLoad(oldPath, startTime, true);
+					updateLoad(oldPath, true);
 					Set<Query> pathQueries = path2queries.get(oldPath);
 					if (Settings.DEBUG_LEVEL >= 3) {
 						System.out.println("OldPath: " + oldPath.getFirst() + " " + oldPath.getLast());
@@ -97,7 +97,7 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 						new2old.put(newPath, oldPath);
 					}
 					
-					updateLoad(oldPath, startTime, false);											// restoring former state of the world
+					updateLoad(oldPath, false);											// restoring former state of the world
 				}
 				
 				//empty heap case
@@ -166,9 +166,9 @@ public class DijkstraBasedReplacement extends SequentialDijkstra {
 	 */
 	public Query switchPaths(Path oldPath, Path newPath, int startTime, Map<Path, Set<Query>> path2queries) {	// [TODO] think about better name for this function
 		//update state of the world (i.e., replace those paths in our traffic load)
-		updateLoad(oldPath, startTime, true);
+		updateLoad(oldPath, true);
 		if (newPath.size() > 0)
-			updateLoad(newPath, startTime, false);
+			updateLoad(newPath, false);
 		
 		Set<Query> queries = path2queries.get(oldPath);
 		Iterator<Query> queriesIterator = queries.iterator();

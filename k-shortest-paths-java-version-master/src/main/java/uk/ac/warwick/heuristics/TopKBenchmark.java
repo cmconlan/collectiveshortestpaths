@@ -52,8 +52,6 @@ public class TopKBenchmark extends AbstractSolution {
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
 		for (Query query: queries) {
-			int startTime = query.getStartTime();
-			
 			List<Path> shortestPaths = processQueryTopK(query);
 //			System.out.println("SP::");
 //			System.out.println(shortestPath);
@@ -71,7 +69,7 @@ public class TopKBenchmark extends AbstractSolution {
 //			System.out.println(benchmarkPath);
 			
 			if (benchmarkPath.size() > 0) {
-				updateLoad(benchmarkPath, startTime, false);
+				updateLoad(benchmarkPath, false);
 			}
 			result.add(new Pair<Query, Path> (query, benchmarkPath));
 		}
@@ -82,9 +80,9 @@ public class TopKBenchmark extends AbstractSolution {
 	static int debug = 0;
 	
 	public List<Path> processQueryTopK(Query query) {
-	System.out.println(query.first() + " " + query.second());
-	System.out.println("Query.id == " + query.getId());
-	System.out.println("Query.nr == " + debug++);
+//	System.out.println(query.first() + " " + query.second());
+//	System.out.println("Query.id == " + query.getId());
+//	System.out.println("Query.nr == " + debug++);
 		return topK.getShortestPaths(query.first(), query.second(), k);
 	}
 	
@@ -104,24 +102,28 @@ public class TopKBenchmark extends AbstractSolution {
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
 		TopKBenchmark topKbenchmark = new TopKBenchmark(graph);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
-		System.out.println(topKbenchmark.topK.getShortestPaths(graph.getVertex(460), graph.getVertex(296), 1));
 		
-//		List<Pair<Query, Path>> benchmarkQueriesWithSolutions = topKbenchmark.process(queryHandler.getQueries());
-//		
-//		List<Path> benchmarkPaths = new ArrayList<Path>();
-//		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {
-//			Path solution = benchmarkQueriesWithSolutions.get(i).second();
-//			benchmarkPaths.add(solution);
-//			if (i < 10) {
-//				System.out.println("QueryId = " + benchmarkQueriesWithSolutions.get(i).first().getId() +
-//						" {" + benchmarkQueriesWithSolutions.get(i).first().first() + ", " + benchmarkQueriesWithSolutions.get(i).first().second() + "}" +
-//						" Solution = " + solution);
-//			}
-//		}
-//		
-//		System.out.println("##Benchmark::");
-//		System.out.print("{nFailed, totalTravelTime} = ");
-//		System.out.println(topKbenchmark.evaluate(benchmarkPaths));
+//		System.out.println("--");
+//		System.out.println(graph.getAdjacentVertices(graph.getVertex(63)));
+//		System.out.println("--");
+//		System.out.println(topKbenchmark.topK.getShortestPaths(graph.getVertex(460), graph.getVertex(296), 10));
+		
+		List<Pair<Query, Path>> benchmarkQueriesWithSolutions = topKbenchmark.process(queryHandler.getQueries());
+		
+		List<Path> benchmarkPaths = new ArrayList<Path>();
+		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {
+			Path solution = benchmarkQueriesWithSolutions.get(i).second();
+			benchmarkPaths.add(solution);
+			if (i < 10) {
+				System.out.println("QueryId = " + benchmarkQueriesWithSolutions.get(i).first().getId() +
+						" {" + benchmarkQueriesWithSolutions.get(i).first().first() + ", " + benchmarkQueriesWithSolutions.get(i).first().second() + "}" +
+						" Solution = " + solution);
+			}
+		}
+		
+		System.out.println("##Benchmark::");
+		System.out.print("{nFailed, totalTravelTime} = ");
+		System.out.println(topKbenchmark.evaluate(benchmarkPaths));
 //		System.out.print("maximumWaitingTime = ");
 //		System.out.println(greedySeqDijkstra.getMaxWaitingTime(benchmarkPaths));
 

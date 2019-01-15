@@ -39,8 +39,6 @@ public class DijkstraBenchmark extends AbstractSolution {
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
 		for (Query query: queries) {
-			int startTime = query.getStartTime();
-			
 			graph.useWholeGraph(true);
 			Path shortestPath = processQuery(query, false);
 //			System.out.println("SP::");
@@ -57,7 +55,7 @@ public class DijkstraBenchmark extends AbstractSolution {
 //			System.out.println(benchmarkPath);
 			
 			if (benchmarkPath.size() > 0) {
-				updateLoad(benchmarkPath, startTime, false);
+				updateLoad(benchmarkPath, false);
 			}
 			result.add(new Pair<Query, Path> (query, benchmarkPath));
 		}
@@ -90,6 +88,7 @@ public class DijkstraBenchmark extends AbstractSolution {
 				System.out.println("QueryId = " + benchmarkQueriesWithSolutions.get(i).first().getId() +
 						" {" + benchmarkQueriesWithSolutions.get(i).first().first() + ", " + benchmarkQueriesWithSolutions.get(i).first().second() + "}" +
 						" Solution = " + solution);
+				System.out.println(solution.getArrivalTimes());
 			}
 		}
 		

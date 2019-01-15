@@ -52,7 +52,7 @@ public class SequentialDijkstraWithThresholdOld extends SequentialDijkstraOld{
 				
 				if (candidatePath.getDelta() < threshold) {											// we do not consider waiting time here
 					result.add(new Pair<Query, Path> (query, candidatePath));
-					updateLoad(candidatePath, startTime, false);
+					updateLoad(candidatePath, false);
 				}
 				else {
 					Query newQuery = new Query(query.first(), query.second(), startTime + 1);

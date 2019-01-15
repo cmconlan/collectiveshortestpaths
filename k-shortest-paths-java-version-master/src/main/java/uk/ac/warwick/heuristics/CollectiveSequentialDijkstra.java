@@ -19,6 +19,7 @@ import edu.asu.emit.algorithm.utils.Pair;
 /**
  * 
  * @author Tomasz Janus
+ * @email t.janus@warwick.ac.uk
  * 
  * First approach to adding a collectiveness.
  *

@@ -52,7 +52,6 @@ public class SequentialDijkstraOld extends AbstractSolution{
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
 		for (Query query : queries) {
-			int startTime = query.getStartTime();
 			Path path = processQuery(query, capacityAware);
 			if (path.size() > 0){
 				if (Settings.DEBUG_LEVEL >= 1)
@@ -60,7 +59,7 @@ public class SequentialDijkstraOld extends AbstractSolution{
 							+ query.first() + " to " + query.second() + " at time " + 
 							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
 				debug++;
-				updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
+				updateLoad(path, false);													// it automatically updates dijkstra.load
 			}
 			else {
 				if (Settings.DEBUG_LEVEL >= 1)

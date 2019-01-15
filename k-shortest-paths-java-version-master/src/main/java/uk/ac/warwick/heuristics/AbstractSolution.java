@@ -39,14 +39,14 @@ public abstract class AbstractSolution implements BaseSolution{
 		listOfPaths.put(edgeTime, paths);
 	}
 	
-	protected void updateLoad(Path path, int startTime, boolean isRemoved) {						// path can be either added or removed
+	protected void updateLoad(Path path, boolean isRemoved) {										// path can be either added or removed
 		
-		int t = startTime;
 		for (int i = 0; i < path.size() - 1; ++i) {
 			Edge edge = new Edge(path.get(i), path.get(i + 1));
 			int edgeWeight = graph.getEdgeWeight(path.get(i), path.get(i + 1));
-			int[] timeMap;
-			
+			int t = path.getArrivalTimes().get(i + 1) - edgeWeight;									// we need to startFromArrivalTime 
+			int[] timeMap;																			// because we don't know much time a car
+																									// spent waiting in the node
 			if (load.containsKey(edge)) {
 				timeMap = load.get(edge);
 				
@@ -70,8 +70,6 @@ public abstract class AbstractSolution implements BaseSolution{
 			}
 			//update load map
 			load.put(edge, timeMap);
-			//update timeInstance
-			t += edgeWeight;
 		}
 	}
 	

@@ -50,7 +50,6 @@ public class SequentialDijkstra extends AbstractSolution{
 		List<Pair<Query, Path>> result = new ArrayList<Pair<Query, Path>>();
 		
 		for (Query query : queries) {
-			int startTime = query.getStartTime();
 			Path path = processQuery(query, capacityAware);
 			if (path.size() > 0){
 				if (Settings.DEBUG_LEVEL >= 1)
@@ -59,7 +58,7 @@ public class SequentialDijkstra extends AbstractSolution{
 							query.getStartTime() + " (" + query.getInitialStartTime() + ") " + debug);
 //				if (debug < 2) showLoad();
 				debug++;
-				if (capacityAware) updateLoad(path, startTime, false);													// it automatically updates dijkstra.load
+				if (capacityAware) updateLoad(path, false);													// it automatically updates dijkstra.load
 			}
 			else {
 				if (Settings.DEBUG_LEVEL >= 1)
@@ -105,6 +104,7 @@ public class SequentialDijkstra extends AbstractSolution{
 				System.out.println("QueryId = " + queriesWithSolutions.get(i).first().getId() +
 						" {" + queriesWithSolutions.get(i).first().first() + ", " + queriesWithSolutions.get(i).first().second() + "}" +
 						" Solution = " + solution);
+				System.out.println(solution.getArrivalTimes());
 			}
 		}
 		System.out.print("{nFailed, totalTravelTime} = ");

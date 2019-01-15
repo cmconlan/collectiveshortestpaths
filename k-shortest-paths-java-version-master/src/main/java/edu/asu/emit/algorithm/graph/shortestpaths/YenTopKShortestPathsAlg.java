@@ -163,9 +163,9 @@ public class YenTopKShortestPathsAlg
 		int count = resultList.size();
 		
 		//3.2 remove the vertices and arcs in the graph
-		for (int i = 0; i < count-1; ++i) {
-			Path curResultPath = resultList.get(i);
-							
+		for (int i = 0; i < count - 1; ++i) {														// this loop removes edges (mid, mid + 1)
+			Path curResultPath = resultList.get(i);													// just to be sure not to find the same paths 
+																									// over and over again
 			int curDevVertexId =
 				curResultPath.getVertexList().indexOf(curDerivation);
 			
@@ -187,9 +187,9 @@ public class YenTopKShortestPathsAlg
                     curDerivation.getId(), curSuccVertex.getId()));
 		}
 		
-		int pathLength = curPath.getVertexList().size();
+		int pathLength = curPath.size();
 		List<BaseVertex> curPathVertexList = curPath.getVertexList();
-		for (int i = 0; i < pathLength-1; ++i) {
+		for (int i = 0; i < pathLength - 1; ++i) {													// this one deletes the whole path from the graph ?!
 			graph.deleteVertex(curPathVertexList.get(i).getId());
 			graph.deleteEdge(new Pair<Integer, Integer>(
                     curPathVertexList.get(i).getId(),
@@ -198,11 +198,18 @@ public class YenTopKShortestPathsAlg
 		
 		//3.3 calculate the shortest tree rooted at target vertex in the graph
 		DijkstraShortestPathAlg reverseTree = new DijkstraShortestPathAlg(graph);
-		reverseTree.getShortestPathFlower(targetVertex);
+		reverseTree.getShortestPathFlower(targetVertex);											// Dijkstra on the graph with reversed edges starting from targetVertex
+		
+//		System.out.println("ShortestPathFlower: " + targetVertex);
+//		System.out.println("CurPath: " + curPath);
+//		System.out.println("CurDerivation: " + curDerivation);
+//		System.out.println("65: " + graph.getVertex(65));
+//		System.out.println("66: " + graph.getVertex(66));
+//		System.out.println("67: " + graph.getVertex(67));
 		
 		//3.4 recover the deleted vertices and update the cost and identify the new candidate results
 		boolean isDone = false;
-		for (int i=pathLength-2; i>=0 && !isDone; --i)	{
+		for (int i = pathLength - 2; i >= 0 && !isDone; --i)	{
 			//3.4.1 get the vertex to be recovered
 			BaseVertex curRecoverVertex = curPathVertexList.get(i);
 			graph.recoverDeletedVertex(curRecoverVertex.getId());
@@ -213,7 +220,7 @@ public class YenTopKShortestPathsAlg
 			}
 			
 			//3.4.3 calculate cost using forward star form
-			Path subPath = reverseTree.updateCostForward(curRecoverVertex);
+			Path subPath = reverseTree.updateCostForward(curRecoverVertex);							//tutaj się wysypało
 			
 			//3.4.4 get one candidate result if possible
 			if (subPath != null) {
@@ -288,11 +295,11 @@ public class YenTopKShortestPathsAlg
 		init();
 		int count = 0;
 		while (hasNext() && count < k) {
-			System.out.println("before " + count);
-			System.out.println(pathCandidates.size());
+//			System.out.println("before " + count);
+//			System.out.println(pathCandidates.size());
 			next();
-			System.out.println("after " + count);
-			System.out.println(pathCandidates.size());
+//			System.out.println("after " + count);
+//			System.out.println(pathCandidates.size());
 			++count;
 		}
 		

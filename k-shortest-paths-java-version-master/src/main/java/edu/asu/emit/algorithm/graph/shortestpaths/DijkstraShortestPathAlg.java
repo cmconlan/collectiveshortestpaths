@@ -233,17 +233,20 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 		determineShortestPaths(sourceVertex, sinkVertex, true);
 		//
 		List<BaseVertex> vertexList = new Vector<BaseVertex>();
+		List<Integer> arrivalTimes = new Vector<Integer>();
 		int weight = startVertexDistanceIndex.containsKey(sinkVertex) ?								// OK -- covers situation where sink is unreachable 
 			startVertexDistanceIndex.get(sinkVertex) : Graph.DISCONNECTED;
 		if (weight != Graph.DISCONNECTED) {
 			BaseVertex curVertex = sinkVertex;
 			while(curVertex != null) {																// fixed -- while instead of do .. while
 				vertexList.add(curVertex);
+				arrivalTimes.add(getStartTime() + curVertex.getWeight());
 				curVertex = predecessorIndex.get(curVertex);
 			} 
 			Collections.reverse(vertexList);
+			Collections.reverse(arrivalTimes);
 		}
-		return new Path(vertexList, weight);
+		return new Path(vertexList, arrivalTimes);
 	}
 
 	/**
@@ -259,6 +262,9 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 		// 1. get the set of successors of the input vertex
 		Set<BaseVertex> adjVertexSet = graph.getAdjacentVertices(vertex);
 		
+//		System.out.println("V " + vertex + ":");
+//		System.out.println(adjVertexSet);
+		
 		// 2. make sure the input vertex exists in the index
 		if (!startVertexDistanceIndex.containsKey(vertex)) {
 			startVertexDistanceIndex.put(vertex, Graph.DISCONNECTED);
@@ -269,10 +275,16 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 			// 3.1 get the distance from the root to one successor of the input vertex
 //			System.out.println(startVertexDistanceIndex == null);
 //			System.out.println(startVertexDistanceIndex.keySet());
-//			System.out.println(curVertex);
+//			System.out.println("info: " + vertex + " " + curVertex);
 //			System.out.println(startVertexDistanceIndex.containsKey(curVertex));
-			int distance = startVertexDistanceIndex.get(curVertex);
-					
+			
+			int distance = Graph.DISCONNECTED;
+			if (startVertexDistanceIndex.containsKey(curVertex)) {
+				distance = startVertexDistanceIndex.get(curVertex);									//tutaj się wysypało
+			}
+			else {
+				System.out.println("Probably something went wrong, call:" + vertex + " missing:" + curVertex);
+			}
 			// 3.2 calculate the distance from the root to the input vertex
 			if (distance != Graph.DISCONNECTED)
 				distance += graph.getEdgeWeight(vertex, curVertex);
