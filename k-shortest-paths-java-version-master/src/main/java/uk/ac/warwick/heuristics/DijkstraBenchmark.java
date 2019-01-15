@@ -78,7 +78,31 @@ public class DijkstraBenchmark extends AbstractSolution {
 		MyVariableGraph graph = new MyVariableGraph(graphPath);
 		DijkstraBenchmark db = new DijkstraBenchmark(graph);
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
+		
+		System.out.println("tutaj");
+		//[179, 180, 150, 120, 90, 11, 15, 17, 13, 18, 21, 486, 466, 446, 447, 448, 449]
+		int s = 0;
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(179), graph.getVertex(180)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(180), graph.getVertex(150)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(150), graph.getVertex(120)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(120), graph.getVertex(90)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(90),  graph.getVertex(11)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(11),  graph.getVertex(15)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(15),  graph.getVertex(17)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(17),  graph.getVertex(13)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(13),  graph.getVertex(18)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(18),  graph.getVertex(21)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(21),  graph.getVertex(486)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(486), graph.getVertex(466)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(466), graph.getVertex(446)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(446), graph.getVertex(447)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(447), graph.getVertex(448)));
+		System.out.println(s += graph.getEdgeWeight(graph.getVertex(448), graph.getVertex(449)));
+		System.out.println("koniec");
+		
 		List<Pair<Query, Path>> benchmarkQueriesWithSolutions = db.process(queryHandler.getQueries());
+		
+
 		
 		List<Path> benchmarkPaths = new ArrayList<Path>();
 		for (int i = 0; i < benchmarkQueriesWithSolutions.size(); ++i) {

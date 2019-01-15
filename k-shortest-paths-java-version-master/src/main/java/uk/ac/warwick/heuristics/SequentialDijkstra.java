@@ -93,6 +93,10 @@ public class SequentialDijkstra extends AbstractSolution{
 		BaseSolution seqDijkstra = new SequentialDijkstra(graph); 							
 		QueryHandler queryHandler = new QueryHandler(graph, queriesPath);
 		
+		System.out.println("tutaj");
+		System.out.println(graph.getEdgeWeight(graph.getVertex(448), graph.getVertex(449)));
+		System.out.println("koniec");
+		
 		boolean capacityAware = true;
 		List<Pair<Query, Path>> queriesWithSolutions = seqDijkstra.process(queryHandler.getQueries(), capacityAware);
 		List<Path> paths = new ArrayList<Path>();

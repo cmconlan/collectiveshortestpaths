@@ -72,6 +72,7 @@ public abstract class AbstractSolution implements BaseSolution{
 			load.put(edge, timeMap);
 		}
 	}
+	int debug = 0;
 	
 	public Path processQuery(Query query, boolean capacityAware) {
 		if (capacityAware) dijkstra.setLoad(load);													// dijkstra.load is a reference to SequentialDijkstra.load 
@@ -80,6 +81,8 @@ public abstract class AbstractSolution implements BaseSolution{
 		dijkstra.setStartTime(query.getStartTime());												// Dijkstra must know when query happened, to be able to access correct
 																									// load information		
 		Path path = dijkstra.getShortestPath(query.first(), query.second());		
+		
+		if (debug++ % 14648 < 20) System.out.println(path);
 		
 		return path;
 	}
