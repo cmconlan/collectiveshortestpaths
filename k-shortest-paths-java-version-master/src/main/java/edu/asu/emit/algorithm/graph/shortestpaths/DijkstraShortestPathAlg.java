@@ -63,7 +63,9 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 	// Custom comparator to PriorityQueue
 	Comparator<BaseVertex> weightComparator = new Comparator<BaseVertex>() {
         public int compare(BaseVertex v1, BaseVertex v2) {
-            return v1.getWeight() - v2.getWeight();
+        	int result = v1.getWeight() - v2.getWeight();
+        	if (result != 0) return result;
+        	else return v1.getId() - v2.getId();													//tie breaking rule
         }
     };
 	

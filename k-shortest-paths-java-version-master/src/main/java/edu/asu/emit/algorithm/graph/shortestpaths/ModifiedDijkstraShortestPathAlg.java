@@ -22,7 +22,15 @@ public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPath
 	// Custom comparator to PriorityQueue
 		Comparator<Pair<BaseVertex, Integer>> weightComparator = new Comparator<Pair<BaseVertex, Integer>>() {
 	        public int compare(Pair<BaseVertex, Integer> v1, Pair<BaseVertex, Integer> v2) {
-	            return v1.first().getWeight() - v2.first().getWeight();
+	            int result = v1.first().getWeight() - v2.first().getWeight();
+	            if (result != 0) return result;
+	            else {
+	            	int timings = v1.second() - v2.second();										//tie breaking rule1
+	            	if (timings != 0) return timings;
+	            	else {
+	            		return v1.first().getId() - v2.first().getId();								//tie breaking rule2
+	            	}
+	            }
 	        }
 	    };
 	
