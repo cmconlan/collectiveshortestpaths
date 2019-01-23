@@ -22,15 +22,15 @@ public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPath
 	// Custom comparator to PriorityQueue
 		Comparator<Pair<BaseVertex, Integer>> weightComparator = new Comparator<Pair<BaseVertex, Integer>>() {
 	        public int compare(Pair<BaseVertex, Integer> v1, Pair<BaseVertex, Integer> v2) {
-	            int result = v1.first().getWeight() - v2.first().getWeight();
-	            if (result != 0) return result;
-	            else {
+//	            int result = v1.first().getWeight() - v2.first().getWeight();
+//	            if (result != 0) return result;
+//	            else {
 	            	int timings = v1.second() - v2.second();										//tie breaking rule1
 	            	if (timings != 0) return timings;
 	            	else {
 	            		return v1.first().getId() - v2.first().getId();								//tie breaking rule2
 	            	}
-	            }
+//	            }
 	        }
 	    };
 	
@@ -208,8 +208,9 @@ public class ModifiedDijkstraShortestPathAlg implements BaseDijkstraShortestPath
 			// 2.2 calculate the new distance
 			int distance = pair.second();															// fixed -- Graph.DISCONNECTED should never happen
 			
-			distance += isSource2sink ? graph.getEdgeWeight(pair.first(), curAdjacentVertex)		// this is OK, since we know that the edge is in the graph
-					: graph.getEdgeWeight(curAdjacentVertex, pair.first());
+			distance += edgeWeight;
+//					isSource2sink ? graph.getEdgeWeight(pair.first(), curAdjacentVertex)			// this is OK, since we know that the edge is in the graph
+//					: graph.getEdgeWeight(curAdjacentVertex, pair.first());
 			
 //			System.out.println("update");
 //			if (startVertexDistanceIndex.containsKey(curAdjacentVertex))
