@@ -258,7 +258,11 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 	 * 
 	 * @param vertex
 	 */
-	public Path updateCostForward(BaseVertex vertex) {												// called only in Yen's algorithm
+	public Path updateCostForward(BaseVertex vertex) {												// called only in Yen's algorithm, 
+																									// returns path vertex -> targetVertex or null if targetVertex is unreachable
+		
+																									// flat, i.e., updated uses only vertex and his adjacency list 
+																									// (BFS of dph = 1)
 		int cost = Graph.DISCONNECTED;
 		
 		// 1. get the set of successors of the input vertex
@@ -269,7 +273,7 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 		
 		// 2. make sure the input vertex exists in the index
 		if (!startVertexDistanceIndex.containsKey(vertex)) {
-			startVertexDistanceIndex.put(vertex, Graph.DISCONNECTED);
+			startVertexDistanceIndex.put(vertex, cost);
 		}
 		
 		// 3. update the distance from the root to the input vertex if necessary
@@ -280,24 +284,22 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 //			System.out.println("info: " + vertex + " " + curVertex);
 //			System.out.println(startVertexDistanceIndex.containsKey(curVertex));
 			
-			int distance = Graph.DISCONNECTED;
 			if (startVertexDistanceIndex.containsKey(curVertex)) {
-				distance = startVertexDistanceIndex.get(curVertex);									//tutaj się wysypało
+				cost = startVertexDistanceIndex.get(curVertex);										//tutaj się wysypało
 			}
 			else {
 				System.out.println("Probably something went wrong, call:" + vertex + " missing:" + curVertex);
 			}
 			// 3.2 calculate the distance from the root to the input vertex
-			if (distance != Graph.DISCONNECTED)
-				distance += graph.getEdgeWeight(vertex, curVertex);
+			if (cost != Graph.DISCONNECTED)
+				cost += graph.getEdgeWeight(vertex, curVertex);
 			//distance += ((VariableGraph)graph).get_edge_weight_of_graph(vertex, curVertex);
 			
 			// 3.3 update the distance if necessary 
 			int costOfVertex = startVertexDistanceIndex.get(vertex);
-			if(costOfVertex > distance)	{
-				startVertexDistanceIndex.put(vertex, distance);
+			if(costOfVertex > cost)	{
+				startVertexDistanceIndex.put(vertex, cost);
 				predecessorIndex.put(vertex, curVertex);
-				cost = distance;
 			}
 		}
 		
@@ -326,7 +328,7 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 	 * @param vertex
 	 */
 	public void correctCostBackward(BaseVertex vertex) {											// called only in Yen's algorithm
-		// 1. initialize the list of vertex to be updated
+		// 1. initialize the list of vertex to be updated											// deep - uses queue
 		List<BaseVertex> vertexList = new LinkedList<BaseVertex>();
 		vertexList.add(vertex);
 		
@@ -334,7 +336,8 @@ public class DijkstraShortestPathAlg implements BaseDijkstraShortestPathAlg
 		while (!vertexList.isEmpty()) {
 			BaseVertex curVertex = vertexList.remove(0);
 			int costOfCurVertex = startVertexDistanceIndex.get(curVertex);							// if we ever gonna use it, make sure it is not Graph.DISCONNECTED
-			
+																									// the only call is in YenTopKShortestPaths and it is valid, i.e., 
+																									// costOfCurVertex != Graph.DISCONNECTED
 			Set<BaseVertex> preVertexSet = graph.getPrecedentVertices(curVertex);
 			for (BaseVertex preVertex : preVertexSet) {
 				int costOfPreVertex = startVertexDistanceIndex.containsKey(preVertex) ?

@@ -53,7 +53,8 @@ public class YenTopKShortestPathsAlg
 	// Custom comparator to PriorityQueue
 	Comparator<Path> weightComparator = new Comparator<Path>() {
         public int compare(Path p1, Path p2) {
-            return p1.getWeight() - p2.getWeight();
+            return p1.getWeight() - p2.getWeight();													// any tie-breaking rule? 
+            																						// p1.hashCode() - p2.hashCode?
         }
     };
     
@@ -107,9 +108,10 @@ public class YenTopKShortestPathsAlg
 		// get the shortest path by default if both source and target exist
 		if (sourceVertex != null && targetVertex != null) {
 			Path shortestPath = getShortestPath(sourceVertex, targetVertex);
-			if (!shortestPath.getVertexList().isEmpty()) {
-				pathCandidates.add(shortestPath);
-				pathDerivationVertexIndex.put(shortestPath, sourceVertex);
+			if (!shortestPath.getVertexList().isEmpty()) {											// !shortestPath.size() == 0
+				pathCandidates.add(shortestPath);													// enqueque the shortest path
+				pathDerivationVertexIndex.put(shortestPath, sourceVertex);							// save first vertex that is different (\eps -> SP) 
+																									// it is sourceVertex
 			}
 		}
 	}
@@ -147,16 +149,16 @@ public class YenTopKShortestPathsAlg
 	}
 	
 	/**
-	 * Get the shortest path among all that connecting source with targe. 
+	 * Get the shortest path among all that connecting source with target. 
 	 * 
 	 * @return
 	 */
 	public Path next() {
 		//3.1 prepare for removing vertices and arcs
-		Path curPath = pathCandidates.poll();
-		resultList.add(curPath);
+		Path curPath = pathCandidates.poll();														// dequeue from candidates
+		resultList.add(curPath);																	// put in resultList
 
-		BaseVertex curDerivation = pathDerivationVertexIndex.get(curPath);
+		BaseVertex curDerivation = pathDerivationVertexIndex.get(curPath);							// place where we started detour
 		int curPathHash =
 			curPath.getVertexList().subList(0, curPath.getVertexList().indexOf(curDerivation)).hashCode();
 		
@@ -181,8 +183,8 @@ public class YenTopKShortestPathsAlg
             }
 			
 			BaseVertex curSuccVertex =
-				curResultPath.getVertexList().get(curDevVertexId + 1);
-			
+				curResultPath.getVertexList().get(curDevVertexId + 1);								// this should be okay, since target vertex cannot be 
+																									// a place of deviation (detour start)
 			graph.deleteEdge(new Pair<Integer, Integer>(
                     curDerivation.getId(), curSuccVertex.getId()));
 		}
@@ -190,7 +192,7 @@ public class YenTopKShortestPathsAlg
 		int pathLength = curPath.size();
 		List<BaseVertex> curPathVertexList = curPath.getVertexList();
 		for (int i = 0; i < pathLength - 1; ++i) {													// this one deletes the whole path from the graph ?!
-			graph.deleteVertex(curPathVertexList.get(i).getId());
+			graph.deleteVertex(curPathVertexList.get(i).getId());									// curPath.get(i).getId() works as well
 			graph.deleteEdge(new Pair<Integer, Integer>(
                     curPathVertexList.get(i).getId(),
                     curPathVertexList.get(i + 1).getId()));
@@ -217,10 +219,11 @@ public class YenTopKShortestPathsAlg
 			//3.4.2 check if we should stop continuing in the next iteration
 			if (curRecoverVertex.getId() == curDerivation.getId()) {
 				isDone = true;
-			}
+			}																						// we are processing only till we reach
+																									// detour starting point
 			
 			//3.4.3 calculate cost using forward star form
-			Path subPath = reverseTree.updateCostForward(curRecoverVertex);							//tutaj się wysypało
+			Path subPath = reverseTree.updateCostForward(curRecoverVertex);							// tutaj sie wysypalo
 			
 			//3.4.4 get one candidate result if possible
 			if (subPath != null) {
@@ -252,6 +255,8 @@ public class YenTopKShortestPathsAlg
 				if (!pathDerivationVertexIndex.containsKey(subPath)) {
 					pathCandidates.add(subPath);
 					pathDerivationVertexIndex.put(subPath, curRecoverVertex);
+				} else {																			// at least it hasn't entered this control sequence
+					System.out.println("I failed");
 				}
 			}
 			
